@@ -1,0 +1,247 @@
+.container_style
+{
+
+		background-image:url("/assets/img/map.jpg")!important;
+        overflow-x: hidden;
+        padding-left: 0px;
+        padding: 0px;
+    /*background-repeat: no-repeat;*/
+}
+.head_style
+{
+
+		/*background-image:url("bgf.jpg");
+    /*background-repeat: no-repeat;*/
+}
+
+.ola_style
+{
+		/*background-image:url("bac.jpg");
+    background-repeat: no-repeat;*/
+}
+@font-face {
+    font-family: Brizzush Rough Regular;
+    src: url(/assets/Brizzush-Rough.otf);
+}
+@font-face {
+    font-family: DIN-Bold;
+    src: url(/assets/DIN-Bold.otf);
+}
+@font-face {
+    font-family: DIN-Regular;
+    src: url(/assets/DIN-Regular.otf);
+}
+
+.green_strip{
+	color: #000;
+    background: #319b3e;
+    color: #000;
+    font-family: Brizzush Rough Regular;
+    font-size: 386%;
+    padding: 3%;
+    opacity: 0.9;
+}
+.campanha_catadores{
+/*padding: 4% 17% 8% 17%;*/
+font-family: Brizzush Rough Regular;
+text-transform: uppercase;
+color: #4CAF50;
+font-size: 586%;
+}
+
+.img_p{
+	font-size: 21px;
+    color: #A0A09E;
+}
+
+.padding_brazil
+{
+   padding: 0% 17% 8% 17%;
+}
+.ola_brazil
+{
+   font-family: Brizzush Rough Regular; 
+   text-transform: uppercase;
+   color: #3cb54d;
+   font-size: 50px;
+}
+.ola_brazil_text{
+   font-family: DIN-Regular;
+}
+
+.lan_todo
+{
+   padding: 4% 17% 4% 17%;
+}
+.first_box{
+	border-radius:7px;
+	margin-bottom: 15px;
+	padding-top:17px;
+	border: 3px solid #A0A09E;
+	border-style: dotted;
+}
+.last_box{
+border-radius:7px;
+padding-top:17px;
+border: 3px solid #A0A09E;
+border-style: dotted;
+width: 93%;
+}
+.regras_style{
+	font-family: Brizzush Rough Regular; 
+	text-transform: uppercase;
+	font-size: 50px;
+}
+.style_email{
+	font-family: DIN-Bold;
+	color: #4CAF50;
+	margin-top:0px!important;
+}
+.pontos_style{
+	font-family: Brizzush Rough Regular;
+	 text-transform: uppercase;
+	 color: #4CAF50;
+	 font-size: 50px;
+}
+.pontos_head{
+	color: #4CAF50;
+	text-transform: uppercase;
+	font-family: DIN-Bold;
+}
+.pontos_info{
+	font-family: DIN-Regular;
+	font-size: 24px
+}
+.hr_style{
+	border-top: 4px solid #A0A09E;
+	border-style: dotted;
+}
+.pimp_style{
+	color: #000;
+	font-family: DIN-Bold;
+}
+.e_vam{
+	color: #3cb54d;
+	text-transform: uppercase;
+	font-family: DIN-Bold;
+}
+
+.cadastrar_style{
+box-shadow: -5px 5px 5px #888888;
+height:42px;
+background: #3cb54d;
+border:none;
+}
+.header_back{
+  background-image: url('/assets/img/peti.png');
+  background-size: 100%;
+}
+@media only screen and (max-width: 768px){
+  .no_padding{
+        padding-left: 0px!important;
+        margin-left: -10px!important;
+      }
+  .align_left{
+        text-align: left!important;
+      }
+      .search_box{
+        width: 149%!important;
+      }
+
+      .search_box1{
+        margin-left: -20px!important;
+      }
+      .search_button1{
+        margin-left: -50px!important;
+      }
+}
+
+@media only screen and (max-width: 320px){
+      .email_style{
+        font-size:20px!important;
+      }      
+}
+
+@media only screen and (max-width: 435px){
+      .text_style{
+        font-size:15px!important;
+      } 
+      .is_equl{
+        padding-top: 285%!important;
+      } 
+      .three_img{
+        max-width: none!important;
+        width: 89px!important;
+      }      
+}
+@media only screen and (max-width: 992px){
+      .div_width{
+        width:101%!important;
+      } 
+
+      .div_margin{
+        margin-left: 0px!important;
+        width:101%!important;
+      }
+      
+
+}
+@media only screen and (max-width: 992px) and (min-width: 517px){
+         .spray_sty
+      {
+        margin-left: 70px!important;
+      }
+
+}
+@media only screen and (max-width: 435px){
+         .spray_sty
+      {
+        width: 25px!important;
+    padding-top: 5px!important;
+    margin-left: 33px!important;
+      }
+@media only screen and (max-width: 435px) and (min-width: 332px){
+         .iss_equal{
+            padding-top: 20%!important;
+         }
+}
+@media only screen and (max-width: 1311px) and (min-width: 992px){
+         .text_st{
+            font-size:14px!important;
+         }
+         .img_st{
+            width:30px!important;
+         }
+         
+}
+@media only screen and (max-width: 1080px) and (min-width: 992px){
+         
+         .img_st1{
+            width:82px!important;
+         }
+}
+@media only screen and (max-width: 1165px) and (min-width: 1081px){
+         
+         .img_st1{
+            width:90px!important;
+         }
+}
+@media only screen and (max-width: 1311px) and (min-width: 1166px){
+         
+         .img_st1{
+            width:100px!important;
+         }
+}
+@media only screen and (min-width: 1150px){
+         
+         .tx_style{
+            float: left!important;
+         }
+}
+@media only screen and (max-width: 1318px) and (min-width: 1150px){
+         
+         .tx_style_tx{
+            font-size: 12px!important;
+        
+         }
+}
