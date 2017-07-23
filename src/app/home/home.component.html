@@ -230,33 +230,26 @@
             </div>
         </div>
     </div>
+
     <!--end PONTOS DE RETIRADA-->
     <!--footer-->
     <div class="row" style="padding: 3% 23% 5% 23%;">
-        <div class="col-lg-12 no_padding">
-            <h3 class="ola_brazil_text text-left">Taí! Para cadastrar um catador, escreva a senha (muito secreta) 
-                <span class="pimp_style">“pimp”</span> no campo abaixo<span class="e_vam"> E VAMQUEVAM!</span>
+        <div class="col-lg-12 no_padding">            
+            <h3 class="ola_brazil_text text-left">
+                Para cadastrar um catador click no botão a seguir:                
             </h3>
         </div>
     </div>
+    
     <div class="row" style="padding: 0% 0% 9% 22%;">
-        <form class="form-inline" action="http://cataki.org/php/autenticar.php" method="post">
-            <div class="form-group">
-                <div class="col-lg-10 col-xs-8">
-                    <div class="text-center">     
-                        <input type="password" style="width:508px;border: 2px solid #000;box-shadow: -5px 5px 5px #888888;height: 42px;" class="search_box1 form-control search_box" name="senha" id="pwd">
-                    </div>
+        <div class="form-group">
+            <div class="col-lg-2 col-xs-12">
+                <div class="text-center"> 
+                    <button type="button" (click)="openCatadorPage()" class="search_button1 btn btn-primary cadastrar_style">CADASTRAR</button> 
+                    <!-- <a [routerLink]="['/cadastro']" class="search_button1 btn btn-primary cadastrar_style">CADASTRAR</a> -->
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-lg-2 col-xs-12">
-                    <div class="text-center"> 
-                        <button type="submit" class="search_button1 btn btn-primary cadastrar_style">CADASTRAR</button>
-                    </div>
-                </div>
-            </div>
-            <input type="hidden" name="submitted" value="TRUE">
-        </form>
+        </div>
     </div>
     <!--end footer-->
 </div>

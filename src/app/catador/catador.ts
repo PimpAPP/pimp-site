@@ -17,6 +17,7 @@ export class Catador {
     public phones: Array<Phone> = new Array<Phone>();
     public address_base: string = '';
     public region: string = '';
+    public city: string = '';
     public kg_week: number;
     public how_many_days_work_week: number;
     public how_many_years_work: number;
@@ -29,5 +30,10 @@ export class Catador {
     public has_smartphone_with_internet: boolean = false;
     public image: string = '';
     public user: string = '';
+
+    constructor() {
+        this.phones[0] = new Phone();
+        this.phones[1] = new Phone();
+    }
 
 }

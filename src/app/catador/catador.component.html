@@ -1,3 +1,324 @@
-<p>
-  catador works!
-</p>
+<div class="container-fluid container_style">
+
+    <div class="container">
+        <h1>Cadastro de Catadores</h1>
+        <hr>
+
+        <form>
+            <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text" 
+                        class="form-control" 
+                        id="name" 
+                        name="name"
+                        [(ngModel)]="catador.name"
+                        required>
+            </div>
+
+            <div class="form-group">
+                <label for="nickname">Apelido</label>
+                <input type="text" 
+                        class="form-control" 
+                        id="nickname" 
+                        name="nickname"
+                        [(ngModel)]="catador.nickname"
+                        required>
+            </div>
+
+            <div class="form-group">
+                <label>Prefere usar: </label><br>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" name="optradio" [value]="true" [(ngModel)]="catador.prefererUseName">
+                        Nome
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" name="optradio" [value]="false" [(ngModel)]="catador.prefererUseName">
+                        Apelido
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <hr>
+                <div class="form-group col-md-6">
+                    <label for="phones0">Telefone</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="phones0" 
+                            name="phones0"
+                            [(ngModel)]="catador.phones[0].phone"
+                            required>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="whatsapp0">Esta linha tem WhatsApp?</label>
+                    <select class="form-control" 
+                            id="whatsapp0"
+                            name="whatsapp0"
+                            [(ngModel)]="catador.phones[0].whatsapp">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label>Operadora: </label><br>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno0" [value]="'vivo'" [(ngModel)]="catador.phones[0].mno">
+                            Vivo
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno0" [value]="'tim'" [(ngModel)]="catador.phones[0].mno">
+                            Tim
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno0" [value]="'claro'" [(ngModel)]="catador.phones[0].mno">
+                            Claro
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno0" [value]="'oi'" [(ngModel)]="catador.phones[0].mno">
+                            Oi
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno0" [value]="'nextel'" [(ngModel)]="catador.phones[0].mno">
+                            Nextel
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno0" [value]="'outro'" [(ngModel)]="catador.phones[0].mno">
+                            Ouro
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <hr>
+                <div class="form-group col-md-6">
+                    <label for="phones1">Telefone 2</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="phones1" 
+                            name="phones1"
+                            [(ngModel)]="catador.phones[1].phone"
+                            required>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="whatsapp1">Esta linha tem WhatsApp?</label>
+                    <select class="form-control" 
+                            id="whatsapp1"
+                            name="whatsapp1"
+                            [(ngModel)]="catador.phones[1].whatsapp">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label>Operadora: </label><br>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno1" [value]="'vivo'" [(ngModel)]="catador.phones[1].mno">
+                            Vivo
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno1" [value]="'tim'" [(ngModel)]="catador.phones[1].mno">
+                            Tim
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno1" [value]="'claro'" [(ngModel)]="catador.phones[1].mno">
+                            Claro
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno1" [value]="'oi'" [(ngModel)]="catador.phones[1].mno">
+                            Oi
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno1" [value]="'nextel'" [(ngModel)]="catador.phones[1].mno">
+                            Nextel
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="mno1" [value]="'outro'" [(ngModel)]="catador.phones[1].mno">
+                            Ouro
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            
+            <div class="form-group">
+                <label for="address_base">Endereço referência - rua e número</label>
+                <input type="text" 
+                        class="form-control" 
+                        id="address_base" 
+                        name="address_base"
+                        [(ngModel)]="catador.address_base"
+                        required>
+            </div>
+
+            <div class="form-group">
+                <label for="city">Endereço referência - cidade</label>
+                <input type="text" 
+                        class="form-control" 
+                        id="city" 
+                        name="city"
+                        [(ngModel)]="catador.city"
+                        required>
+            </div>
+
+            <div class="form-group">
+                <label for="region">Região e bairros que coleta</label>
+                <textarea class="form-control" 
+                            id="region" 
+                            rows="5"
+                            name="region"
+                            [(ngModel)]="catador.region"></textarea>
+            </div>
+
+            <div class="row">
+
+               <hr>
+
+                <div class="form-group col-md-4">
+                    <label for="kg_week">Quantos kg/semana, em média, coleta?</label>
+                    <input type="number" 
+                            class="form-control" 
+                            id="kg_week" 
+                            name="kg_week"
+                            [(ngModel)]="catador.kg_week"
+                            required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="how_many_days_work_week">Quantos dias/semana coleta?</label>
+                    <input type="number" 
+                            class="form-control" 
+                            id="how_many_days_work_week" 
+                            name="how_many_days_work_week"
+                            [(ngModel)]="catador.how_many_days_work_week"
+                            required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="how_many_years_work">Coleta desde que ano?</label>
+                    <input type="number" 
+                            class="form-control" 
+                            id="how_many_years_work" 
+                            name="how_many_years_work"
+                            [(ngModel)]="catador.how_many_years_work"
+                            required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="how_many_years_work">Coleta desde que ano?</label>
+                    <input type="number" 
+                            class="form-control" 
+                            id="how_many_years_work" 
+                            name="how_many_years_work"
+                            [(ngModel)]="catador.how_many_years_work"
+                            required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="has_motor_vehicle">A Carroça possui motor?</label>
+                    <select class="form-control" 
+                            id="has_motor_vehicle"
+                            name="has_motor_vehicle"
+                            [(ngModel)]="catador.has_motor_vehicle">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="has_smartphone_with_internet">Você tem smartphone com internet móvel?</label>
+                    <select class="form-control" 
+                            id="has_smartphone_with_internet"
+                            name="has_smartphone_with_internet"
+                            [(ngModel)]="catador.has_smartphone_with_internet">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="iron_work">Trabalha com qual ferro velho?</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="iron_work" 
+                            name="iron_work"
+                            [(ngModel)]="catador.iron_work"
+                            required>
+                </div>
+
+            
+                <div class="form-group col-md-6">
+                    <label for="safety_kit">A Carroça equipada com itens de segurança?</label>
+                    <select class="form-control" 
+                            id="safety_kit"
+                            name="safety_kit"
+                            [(ngModel)]="catador.safety_kit">
+                        <option value="true">Sim</option>
+                        <option value="false">Não</option>
+                    </select>
+                </div>
+                
+            </div>
+
+            <div class="row">
+                <hr>
+            </div>
+
+
+            <div class="form-group">
+                <label for="presentation_phrase">Frase marcante</label>
+                <input type="text" 
+                        class="form-control" 
+                        id="presentation_phrase" 
+                        name="presentation_phrase"
+                        [(ngModel)]="catador.presentation_phrase"
+                        required>
+            </div>
+
+            <div class="form-group">
+                <label for="minibio">História de vida</label>
+                <textarea class="form-control" 
+                        id="minibio" 
+                        rows="5"
+                        name="minibio"
+                        [(ngModel)]="catador.minibio"></textarea>
+            </div>
+
+
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+
+        </form>
+
+    </div>    
+
+</div>
