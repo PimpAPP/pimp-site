@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { CatadorComponent } from '../catador/catador.component';
-import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
     }
 
     openCatadorPage() {
-         this.router.navigateByUrl('/cadastro');
+        this.router.navigateByUrl('/cadastro');
     }
 
 }
