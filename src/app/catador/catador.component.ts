@@ -43,14 +43,18 @@ export class CatadorComponent implements OnInit {
     }
 
     save() {
-        console.log(this.catador);
-
         if (!this.catador.valid()) {
             alert('Por favor preencha todos os campos obrigatórios.');
             return;
         }
 
-        this.user.username = this.user.email;
+        let username = (this.catador.name) ? 
+                this.catador.name.replace(/[^A-Z0-9]/ig, "_") :
+                this.catador.nickname.replace(/[^A-Z0-9]/ig, "_");
+
+        this.user.username = username;
+        this.user.password = 'pimp';
+        this.user.email = '';
 
         this.catador.phones = [];
         this.catador.phones.push(this.phone1);

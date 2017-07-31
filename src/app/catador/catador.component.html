@@ -5,26 +5,31 @@
         <hr>
 
         <form (ngSubmit)="save()" #catadorForm="ngForm">
-            <div class="form-group col-md-6">
-                <label for="name">Nome</label>
-                <input type="text" 
-                        class="form-control" 
-                        id="name" 
-                        name="name"
-                        [(ngModel)]="catador.name"
-                        required>
-            </div>
+            
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="name">Nome</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="name" 
+                            name="name"
+                            placeholder="Nome completo"
+                            [(ngModel)]="catador.name"
+                            required>
+                </div>
 
-            <div class="form-group col-md-6">
-                <label for="nickname">Apelido</label>
-                <input type="text" 
-                        class="form-control" 
-                        id="nickname" 
-                        name="nickname"
-                        [(ngModel)]="catador.nickname"
-                        required>
-            </div>
+                <div class="form-group col-md-6">
+                    <label for="nickname">Apelido</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="nickname" 
+                            name="nickname"
+                            [(ngModel)]="catador.nickname"
+                            required>
+                </div>
+            </div>        
 
+            <!--
             <div class="form-group col-md-6">
                 <label for="email">E-mail</label>
                 <input type="text" 
@@ -43,7 +48,7 @@
                         name="password"
                         [(ngModel)]="user.password"
                         required>
-            </div>
+            </div>-->
 
             <div class="form-group">
                 <label>Prefere usar: </label><br>
