@@ -49,6 +49,16 @@ export class CatadorDataService {
         });
     }
 
+    updateLocation(location, catadorId) {
+        let url = this.url + catadorId + '/georef/';
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers);
+        
+        return this.http.post(url, location, {
+            headers: headers
+        });
+    }
+
 
 
 }

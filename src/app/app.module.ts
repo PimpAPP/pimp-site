@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CatadorDataService } from './catador/catador-data.service';
 import { ApiProvider } from './providers/ApiProvider';
 import { TextMaskModule } from 'angular2-text-mask';
+import { AgmCoreModule, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
 
 
 @NgModule({
@@ -23,11 +24,17 @@ import { TextMaskModule } from 'angular2-text-mask';
         FormsModule,
         HttpModule,
         routing,
-        TextMaskModule
+        TextMaskModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyDS7AxBMmoeRanMxs4-VJJ87I9hMKp-d1E',
+            libraries: ["places"]
+        })
     ],
     providers: [
         CatadorDataService,
-        ApiProvider
+        ApiProvider,
+        MarkerManager,
+        GoogleMapsAPIWrapper
     ],
     bootstrap: [AppComponent]
 })

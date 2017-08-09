@@ -196,36 +196,90 @@
             </div>
 
             <hr>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Encontre o seu endereço no mapa:</h3>
+                </div>     
+                <div class="col-md-12">
+                    <agm-map [latitude]="mapLatitude" 
+                            [longitude]="mapLongitude"
+                            [zoom]="zoom"
+                            (mapClick)="onClickMap($event)">
+                        
+                        <agm-marker [latitude]="markLat" 
+                                [longitude]="markLng" 
+                                [markerDraggable]="true"
+                                (dragEnd)="onMoveMark($event)"></agm-marker>
+
+                    </agm-map>
+                </div>
+            </div>
             
-            <div class="form-group">
-                <label for="address_base">Endereço referência - rua e número</label>
-                <input type="text" 
-                        class="form-control" 
-                        id="address_base" 
-                        name="address_base"
-                        [(ngModel)]="catador.address_base"
-                        required>
-            </div>
+            <br>
 
-            <div class="form-group">
-                <label for="city">Endereço referência - cidade</label>
-                <input type="text" 
-                        class="form-control" 
-                        id="city" 
-                        name="city"
-                        [(ngModel)]="catador.city"
-                        required>
-            </div>
+            <div class="row">
+                <div class="form-group col-md-8">
+                    <label for="address_base">Rua</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="address_base" 
+                            name="address_base"
+                            [(ngModel)]="catador.address_base"
+                            required>
+                </div>
 
-            <div class="form-group">
-                <label for="region">Região e bairros que coleta</label>
-                <textarea class="form-control" 
-                            id="region" 
-                            rows="5"
-                            name="region"
+                <div class="form-group col-md-4">
+                    <label for="number">Número</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="number" 
+                            name="number"
+                            [(ngModel)]="catador.number"
+                            required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="city">Cidade</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="city" 
+                            name="city"
+                            [(ngModel)]="catador.city"
+                            required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="state">Estado</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="state" 
+                            name="state"
+                            [(ngModel)]="catador.state"
+                            required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="country">País</label>
+                    <input type="text"
+                            class="form-control" 
+                            id="country" 
+                            name="country"
                             required
-                            [(ngModel)]="catador.region"></textarea>
-            </div>
+                            [(ngModel)]="catador.country">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="region">Região e bairros que coleta</label>
+                    <textarea class="form-control" 
+                                id="region" 
+                                rows="3"
+                                name="region"
+                                required
+                                [(ngModel)]="catador.region"></textarea>
+                </div>
+
+            </div>                
 
             <div class="row">
 

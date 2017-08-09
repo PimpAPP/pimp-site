@@ -15,8 +15,11 @@ export class Catador {
     //public birthDay: Date = new Date();
     public phones: Array<Phone> = new Array<Phone>();
     public address_base: string = '';
+    public number: string = '';
     public region: string = '';
     public city: string = '';
+    public state: string = '';
+    public country: string = '';
     public kg_week: number;
     public how_many_days_work_week: number;
     public how_many_years_work: number;
