@@ -12,7 +12,6 @@ import { ApiProvider } from './providers/ApiProvider';
 import { TextMaskModule } from 'angular2-text-mask';
 import { AgmCoreModule, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
 
-
 @NgModule({
     declarations: [
         AppComponent,

@@ -6,3 +6,7 @@
 agm-map {
   height: 500px;
 }
+
+#preview {
+    height: 200px;
+}

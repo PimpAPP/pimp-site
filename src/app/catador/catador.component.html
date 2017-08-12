@@ -7,63 +7,78 @@
         <form (ngSubmit)="save()" #catadorForm="ngForm">
             
             <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="name">Nome</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="name" 
-                            name="name"
-                            placeholder="Nome completo"
-                            [(ngModel)]="catador.name"
-                            required>
+                <div class="col-md-6">
+                    <div class="form-group col-md-12">
+                        <label for="name">Nome</label>
+                        <input type="text" 
+                                class="form-control" 
+                                id="name" 
+                                name="name"
+                                placeholder="Nome completo"
+                                [(ngModel)]="catador.name"
+                                required>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="nickname">Apelido</label>
+                        <input type="text" 
+                                class="form-control" 
+                                id="nickname" 
+                                name="nickname"
+                                [(ngModel)]="catador.nickname"
+                                required>
+                    </div>    
+
+                    <!--
+                    <div class="form-group col-md-6">
+                        <label for="email">E-mail</label>
+                        <input type="text" 
+                                class="form-control" 
+                                id="email" 
+                                name="email"
+                                [(ngModel)]="user.email"
+                                required>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="nickname">Senha</label>
+                        <input type="password" 
+                                class="form-control" 
+                                id="password" 
+                                name="password"
+                                [(ngModel)]="user.password"
+                                required>
+                    </div>-->
+
+                    <div class="form-group col-md-12">
+                        <label>Prefere usar: </label><br>
+                        <div class="radio-inline">
+                            <label>
+                                <input type="radio" name="optradio" [value]="true" [(ngModel)]="catador.prefererUseName">
+                                Nome
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label>
+                                <input type="radio" name="optradio" [value]="false" [(ngModel)]="catador.prefererUseName">
+                                Apelido
+                            </label>
+                        </div>
+                    </div>
+                </div>    
+
+
+                <div class="col-md-6 text-center">
+                    <div class="col-md-12">
+                        <img src="" id="preview"/>
+                    </div>    
+
+                    <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
+                        <input type='file' class="filestyle col-md-12" data-input="false" (change)="readURL($event);" />
+                    </div>    
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="nickname">Apelido</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="nickname" 
-                            name="nickname"
-                            [(ngModel)]="catador.nickname"
-                            required>
-                </div>
-            </div>        
 
-            <!--
-            <div class="form-group col-md-6">
-                <label for="email">E-mail</label>
-                <input type="text" 
-                        class="form-control" 
-                        id="email" 
-                        name="email"
-                        [(ngModel)]="user.email"
-                        required>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="nickname">Senha</label>
-                <input type="password" 
-                        class="form-control" 
-                        id="password" 
-                        name="password"
-                        [(ngModel)]="user.password"
-                        required>
-            </div>-->
-
-            <div class="form-group">
-                <label>Prefere usar: </label><br>
-                <div class="radio-inline">
-                    <label>
-                        <input type="radio" name="optradio" [value]="true" [(ngModel)]="catador.prefererUseName">
-                        Nome
-                    </label>
-                </div>
-                <div class="radio-inline">
-                    <label>
-                        <input type="radio" name="optradio" [value]="false" [(ngModel)]="catador.prefererUseName">
-                        Apelido
-                    </label>
-                </div>
             </div>
 
             <div class="row">

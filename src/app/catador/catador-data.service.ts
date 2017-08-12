@@ -43,7 +43,7 @@ export class CatadorDataService {
         let url = this.url + catadorId + '/phones/';
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
-        
+
         return this.http.post(url, phones, {
             headers: headers
         });
@@ -53,10 +53,20 @@ export class CatadorDataService {
         let url = this.url + catadorId + '/georef/';
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
-        
+
         return this.http.post(url, location, {
             headers: headers
         });
+    }
+
+    addAvatar(data, userId) {        
+        let url = this.urlUser + userId + '/photos/';
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers);
+        return this.http.post(url, data, {
+            headers: headers
+        })
+        //.map(res => res.json());
     }
 
 
