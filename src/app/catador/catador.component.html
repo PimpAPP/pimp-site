@@ -283,17 +283,6 @@
                             required
                             [(ngModel)]="catador.country">
                 </div>
-
-                <div class="form-group col-md-12">
-                    <label for="region">Região e bairros que coleta</label>
-                    <textarea class="form-control" 
-                                id="region" 
-                                rows="3"
-                                name="region"
-                                required
-                                [(ngModel)]="catador.region"></textarea>
-                </div>
-
             </div>                
 
             <div class="row">
@@ -382,6 +371,17 @@
                         <option value="false">Não</option>
                     </select>
                 </div>
+
+                <div class="form-group col-md-12">
+                    <label for="region">Região e bairros que coleta</label>
+                    <textarea class="form-control" 
+                                id="region" 
+                                rows="3"
+                                name="region"
+                                required
+                                [(ngModel)]="catador.region"></textarea>
+                </div>
+                
                 
             </div>
 
