@@ -8,7 +8,7 @@
             
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         <label for="name">Nome</label>
                         <input type="text" 
                                 class="form-control" 
@@ -19,7 +19,7 @@
                                 required>
                     </div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group">
                         <label for="nickname">Apelido</label>
                         <input type="text" 
                                 class="form-control" 
@@ -28,6 +28,16 @@
                                 [(ngModel)]="catador.nickname"
                                 required>
                     </div>    
+                    
+                    <div class="form-group">
+                        <label for="presentation_phrase">Frase marcante</label>
+                        <input type="text" 
+                                class="form-control" 
+                                id="presentation_phrase" 
+                                name="presentation_phrase"
+                                required
+                                [(ngModel)]="catador.presentation_phrase">
+                    </div>  
 
                     <!--
                     <div class="form-group col-md-6">
@@ -49,24 +59,7 @@
                                 [(ngModel)]="user.password"
                                 required>
                     </div>-->
-
-                    <div class="form-group col-md-12">
-                        <label>Prefere usar: </label><br>
-                        <div class="radio-inline">
-                            <label>
-                                <input type="radio" name="optradio" [value]="true" [(ngModel)]="catador.prefererUseName">
-                                Nome
-                            </label>
-                        </div>
-                        <div class="radio-inline">
-                            <label>
-                                <input type="radio" name="optradio" [value]="false" [(ngModel)]="catador.prefererUseName">
-                                Apelido
-                            </label>
-                        </div>
-                    </div>
-                </div>    
-
+                </div>
 
                 <div class="col-md-6 text-center">
                     <div class="col-md-12">
@@ -77,8 +70,34 @@
                         <input type='file' class="filestyle col-md-12" data-input="false" (change)="readURL($event);" />
                     </div>    
                 </div>
+            </div>
 
-
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="minibio">História de vida</label>
+                    <textarea class="form-control" 
+                            id="minibio" 
+                            rows="5"
+                            name="minibio"
+                            required
+                            [(ngModel)]="catador.minibio"></textarea>
+                </div>
+                        
+                <div class="form-group col-md-12">
+                    <label>Prefere usar: </label><br>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="optradio" [value]="true" [(ngModel)]="catador.prefererUseName">
+                            Nome
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="optradio" [value]="false" [(ngModel)]="catador.prefererUseName">
+                            Apelido
+                        </label>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
@@ -234,13 +253,14 @@
             <br>
 
             <div class="row">
-                <div class="form-group col-md-8">
+                <div class="form-group col-md-4">
                     <label for="address_base">Rua</label>
                     <input type="text" 
                             class="form-control" 
                             id="address_base" 
                             name="address_base"
                             [(ngModel)]="catador.address_base"
+                            (focusout)="addressFocusOut()"
                             required>
                 </div>
 
@@ -255,12 +275,24 @@
                 </div>
 
                 <div class="form-group col-md-4">
+                    <label for="address_base">Bairro</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="address_region" 
+                            name="address_region"
+                            [(ngModel)]="catador.address_region"
+                            (focusout)="addressFocusOut()"
+                            required>
+                </div>
+
+                <div class="form-group col-md-4">
                     <label for="city">Cidade</label>
                     <input type="text" 
                             class="form-control" 
                             id="city" 
                             name="city"
                             [(ngModel)]="catador.city"
+                            (focusout)="addressFocusOut()"
                             required>
                 </div>
 
@@ -271,6 +303,7 @@
                             id="state" 
                             name="state"
                             [(ngModel)]="catador.state"
+                            (focusout)="addressFocusOut()"
                             required>
                 </div>
 
@@ -280,22 +313,41 @@
                             class="form-control" 
                             id="country" 
                             name="country"
-                            required
-                            [(ngModel)]="catador.country">
+                            (focusout)="addressFocusOut()"
+                            [(ngModel)]="catador.country"
+                            required>
                 </div>
             </div>                
 
             <div class="row">
+                <hr>
 
-               <hr>
+                <div class="form-group col-md-6">
+                    <label for="cooperative_name">Participa de cooperativa? Qual?</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="cooperative_name" 
+                            name="cooperative_name"
+                            [(ngModel)]="catador.cooperative_name"
+                            required>
+                </div>
 
+                <div class="form-group col-md-6">
+                    <label for="iron_work">Trabalha com qual ferro velho?</label>
+                    <input type="text" 
+                            class="form-control" 
+                            id="iron_work" 
+                            name="iron_work"
+                            [(ngModel)]="catador.iron_work">
+                </div>
+                        
                 <div class="form-group col-md-4">
-                    <label for="kg_week">Quantos kg/semana, em média, coleta?</label>
+                    <label for="kg_day">Quantos kg/dia, em média, coleta?</label>
                     <input type="number" 
                             class="form-control" 
-                            id="kg_week" 
-                            name="kg_week"
-                            [(ngModel)]="catador.kg_week"
+                            id="kg_day" 
+                            name="kg_day"
+                            [(ngModel)]="catador.kg_day"
                             required>
                 </div>
 
@@ -319,17 +371,7 @@
                             required>
                 </div>
 
-                <div class="form-group col-md-4">
-                    <label for="cooperative_name">Participa de cooperativa? Qual?</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="cooperative_name" 
-                            name="cooperative_name"
-                            [(ngModel)]="catador.cooperative_name"
-                            required>
-                </div>
-
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="has_motor_vehicle">A Carroça possui motor?</label>
                     <select class="form-control" 
                             id="has_motor_vehicle"
@@ -340,7 +382,7 @@
                     </select>
                 </div>
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="has_smartphone_with_internet">Você tem smartphone com internet móvel?</label>
                     <select class="form-control" 
                             id="has_smartphone_with_internet"
@@ -351,17 +393,7 @@
                     </select>
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="iron_work">Trabalha com qual ferro velho?</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="iron_work" 
-                            name="iron_work"
-                            [(ngModel)]="catador.iron_work">
-                </div>
-
-            
-                <div class="form-group col-md-6">
+                <!-- <div class="form-group col-md-6">
                     <label for="safety_kit">A Carroça equipada com itens de segurança?</label>
                     <select class="form-control" 
                             id="safety_kit"
@@ -370,9 +402,9 @@
                         <option value="true">Sim</option>
                         <option value="false">Não</option>
                     </select>
-                </div>
+                </div> -->
 
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                     <label for="region">Região e bairros que coleta</label>
                     <textarea class="form-control" 
                                 id="region" 
@@ -380,6 +412,35 @@
                                 name="region"
                                 required
                                 [(ngModel)]="catador.region"></textarea>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="safety_kit">A Carroça equipada com itens de segurança?</label>
+                    <div class="checkbox">
+                        <label>
+                            <input [(ngModel)]="catador.safety_kit_boot" name="safety_kit_boot" type="checkbox" value="true">Bota
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input [(ngModel)]="catador.safety_kit_gloves" name="safety_kit_gloves" type="checkbox" value="true">Luva
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input [(ngModel)]="catador.safety_kit_brakes" name="safety_kit_brakes" type="checkbox" value="true">Freios
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input [(ngModel)]="catador.safety_kit_reflective_tapes" name="safety_kit_reflective_tapes" type="checkbox" value="true">Fitas refletivas
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input [(ngModel)]="catador.safety_kit_rearview" name="safety_kit_rearview" type="checkbox" value="true">Retrovisor
+                        </label>
+                    </div>
                 </div>
                 
                 
@@ -389,25 +450,50 @@
                 <hr>
             </div>
 
-
-            <div class="form-group">
-                <label for="presentation_phrase">Frase marcante</label>
-                <input type="text" 
-                        class="form-control" 
-                        id="presentation_phrase" 
-                        name="presentation_phrase"
-                        required
-                        [(ngModel)]="catador.presentation_phrase">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="registered_by_another_user">Quem está cadastrando?</label>
+                    <select class="form-control" 
+                            id="registered_by_another_user"
+                            name="registered_by_another_user"
+                            [(ngModel)]="catador.registered_by_another_user">
+                        <option value="false" selected>Eu mesmo, catador/catadora</option>
+                        <option value="true">Outra pessoa</option>
+                    </select>
+                </div>
+                <div class="col-md-8" [hidden]="!catador.registered_by_another_user">
+                    <div class="form-group col-md-12">
+                        <label for="another_user_name">Qual seu nome?</label>
+                        <input type="text" 
+                                class="form-control" 
+                                id="another_user_name" 
+                                name="another_user_name"
+                                [(ngModel)]="catador.another_user_name">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="another_user_email">Qual seu e-mail?</label>
+                        <input type="text" 
+                                class="form-control" 
+                                placeholder="só precisa preencher no primeiro cadastro"
+                                id="another_user_email" 
+                                name="another_user_email"
+                                [(ngModel)]="catador.another_user_email">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="another_user_whatsapp">E o whatsApp?</label>
+                        <input type="text" 
+                                class="form-control" 
+                                placeholder="só precisa preencher no primeiro cadastro"
+                                id="another_user_whatsapp" 
+                                name="another_user_whatsapp"
+                                [textMask]="{mask: masks.number}"
+                                [(ngModel)]="catador.another_user_whatsapp">
+                    </div>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="minibio">História de vida</label>
-                <textarea class="form-control" 
-                        id="minibio" 
-                        rows="5"
-                        name="minibio"
-                        required
-                        [(ngModel)]="catador.minibio"></textarea>
+            <div class="row">
+                <hr>
             </div>
 
             <!-- MATERIAIS -->

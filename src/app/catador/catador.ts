@@ -16,11 +16,12 @@ export class Catador {
     public phones: Array<Phone> = new Array<Phone>();
     public address_base: string = '';
     public number: string = '';
+    public address_region: string = '';
     public region: string = '';
     public city: string = '';
     public state: string = '';
     public country: string = '';
-    public kg_week: number;
+    public kg_day: number;
     public how_many_days_work_week: number;
     public how_many_years_work: number;
     public belongsCooperative: boolean = false;
@@ -30,6 +31,15 @@ export class Catador {
     public safety_kit: boolean = false;
     public has_motor_vehicle: boolean = false;
     public has_smartphone_with_internet: boolean = false;
+    public safety_kit_boot: boolean = false;
+    public safety_kit_gloves: boolean = false;
+    public safety_kit_brakes: boolean = false;
+    public safety_kit_reflective_tapes: boolean = false;
+    public safety_kit_rearview: boolean = false;
+    public registered_by_another_user: boolean = false;
+    public another_user_name: string = '';
+    public another_user_email: string = '';
+    public another_user_whatsapp: string = '';
     public image: string = '';
     public user: string = '';
 
@@ -47,7 +57,7 @@ export class Catador {
             (this.phones.length > 0) &&
             (this.address_base.length > 0) &&
             (this.region.length > 0) &&
-            (this.kg_week > 0) &&
+            (this.kg_day > 0) &&
             (this.how_many_days_work_week > 0) &&
             (this.how_many_years_work > 0)
         );

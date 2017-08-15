@@ -8,6 +8,7 @@ import { Phone } from './phone';
 import { CatadorDataService } from './catador-data.service';
 import { MaterialRecover } from './MaterialRecover';
 import { MapsAPILoader } from '@agm/core';
+import { GoogleMapsAPIWrapper } from '@agm/core';
 
 
 
@@ -33,27 +34,32 @@ export class CatadorComponent implements OnInit {
 
     public markLat: number;
     public markLng: number;
-
     public avatar: String;
+
+    public checkboxValue;
+
+    //private geocoder: google.maps.Geocoder;
 
 
     constructor(private router: Router,
         public catadorDataService: CatadorDataService,
-        public http: Http) {
+        public http: Http, public gMaps: GoogleMapsAPIWrapper) {
 
         this.catador = new Catador();
         this.user = new User();
         this.masks = {
             number: ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
         };
+
+        //this.geocoder = new google.maps.Geocoder();
     }
 
     ngOnInit() {
         this.setCurrentPosition();
         $(":file")['filestyle']({
-            input: false, 
-            buttonText: 'Selecionar Imagem', 
-            buttonName: 'col-md-12 btn btn-primary'
+            input: false,
+            buttonText: 'Selecionar Imagem',
+            buttonName: 'btn btn-primary'
         });
     }
 
@@ -111,11 +117,11 @@ export class CatadorComponent implements OnInit {
                 promises.push(this.cadastrarPhones(this.catador.phones));
                 promises.push(this.cadastrarLocation(this.catador.id));
                 promises.push(this.cadastrarAvatar(this.catador.user));
-                Promise.all(promises).then(function success(res){
+                Promise.all(promises).then(function success(res) {
                     //this.router.navigateByUrl('/');
                     location.href = "/";
                     alert('Catador cadastrado com sucesso!');
-                }, function error(res){
+                }, function error(res) {
                     alert('Algum erro ocorreu ao cadastrar o catador, por favor tente novamente mais tarde.');
                 })
             });
@@ -142,7 +148,7 @@ export class CatadorComponent implements OnInit {
     }
 
     cadastrarAvatar(userId) {
-        this.avatar = $('#preview').attr('src');        
+        this.avatar = $('#preview').attr('src');
         if (!this.avatar) return;
 
         return this.catadorDataService.addAvatar({ avatar: this.avatar }, userId).subscribe(res => {
@@ -164,9 +170,18 @@ export class CatadorComponent implements OnInit {
     }
 
     onClickMap(event: MouseEvent) {
+        this.cleanCatadorAddress();
         this.markLat = event['coords'].lat;
         this.markLng = event['coords'].lng;
         this.updateAddress();
+    }
+
+    private cleanCatadorAddress() {
+        this.catador.address_base = '';
+        this.catador.address_region = '';
+        this.catador.city = '';
+        this.catador.state = '';
+        this.catador.country = '';
     }
 
     updateAddress() {
@@ -176,26 +191,76 @@ export class CatadorComponent implements OnInit {
             var res = JSON.parse(data['_body']);
             var results = res.results;
 
-            for (var x = 0; x < results.length; x++) {
-                let item = results[x];
+            for (var x = 0; x < results[0].address_components.length; x++) {
+                let item = results[0].address_components[x];
 
                 if (item.types.indexOf('route') >= 0 || item.types.indexOf('street_address') >= 0) {
-                    this.catador.address_base = item.formatted_address;
+                    this.catador.address_base = item.long_name;
+                    //this.catador.address_base = item.formatted_address;
+                } else if (item.types.indexOf('sublocality') >= 0 || 
+                        item.types.indexOf('sublocality_level_1') >= 0) {
+                    this.catador.address_region = item.long_name;
                 } else if (item.types.indexOf('administrative_area_level_2') >= 0) {
-                    this.catador.city = item.formatted_address;
+                    this.catador.city = item.long_name;
+                    //this.catador.city = item.formatted_address;
                 } else if (item.types.indexOf('administrative_area_level_1') >= 0) {
-                    this.catador.state = item.formatted_address;
+                    this.catador.state = item.long_name;
+                    //this.catador.state = item.formatted_address;
                 } else if (item.types.indexOf('country') >= 0) {
-                    this.catador.country = item.formatted_address;
+                    this.catador.country = item.long_name;
                 }
             }
 
         }, err => {
             console.log(err);
-        });;
+        });
     }
 
+    addressFocusOut() {
+        let address = '';
+        if (this.catador.address_base) 
+            address += this.catador.address_base;
+
+        if (this.catador.city)
+            address += (address) ? ', ' + this.catador.city : this.catador.city;
+
+        if (this.catador.state)
+            address += (address) ? ', ' + this.catador.state : this.catador.state;
+
+        if (this.catador.country)
+            address += (address) ? ', ' + this.catador.country : this.catador.country;
+        
+        this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
+            var res = JSON.parse(data['_body']);
+            var results = res.results;
+            if (!results) return;
+
+            var location = results[0]['geometry']['location'];
+            this.updateMap(location);
+        });
+        
+        // this.geocoder.geocode({ address: "Montes Claros Minas Gerais" }, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
+        //         if (status == google.maps.GeocoderStatus.OK) {
+        //             return results;
+        //         } else {
+        //             throw new Error(status.toString());
+        //         }
+        // });
+    }
+
+    updateMap(location: any) {
+        this.markLat = location.lat;
+        this.markLng = location.lng;
+        this.mapLatitude = this.markLat;
+        this.mapLongitude = this.markLng;
+        this.zoom = 12;
+        this.gMaps.setCenter({ lat: this.mapLatitude, lng: this.mapLongitude });
+    }
+
+
+
     onMoveMark(event: MouseEvent) {
+        this.cleanCatadorAddress();
         this.markLat = event['coords'].lat;
         this.markLng = event['coords'].lng;
         this.updateAddress();
@@ -228,6 +293,6 @@ export class CatadorComponent implements OnInit {
         }
     }
 
-   
+
 
 }
