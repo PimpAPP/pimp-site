@@ -57,9 +57,10 @@ export class CatadorComponent implements OnInit {
     ngOnInit() {
         this.setCurrentPosition();
         $(":file")['filestyle']({
-            input: false,
+            input: true,
             buttonText: 'Selecionar Imagem',
-            buttonName: 'btn btn-primary'
+            //buttonName: 'btn btn-primary',
+            icon: false
         });
     }
 
