@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
@@ -11,6 +12,7 @@ import { CatadorDataService } from './catador/catador-data.service';
 import { ApiProvider } from './providers/ApiProvider';
 import { TextMaskModule } from 'angular2-text-mask';
 import { AgmCoreModule, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
+
 
 @NgModule({
     declarations: [
@@ -30,6 +32,7 @@ import { AgmCoreModule, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
         })
     ],
     providers: [
+        {provide: LocationStrategy, useClass: HashLocationStrategy},
         CatadorDataService,
         ApiProvider,
         MarkerManager,
