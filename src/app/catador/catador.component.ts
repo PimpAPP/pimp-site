@@ -9,6 +9,7 @@ import { CatadorDataService } from './catador-data.service';
 import { MaterialRecover } from './MaterialRecover';
 import { MapsAPILoader } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core';
+import * as _ from 'underscore';
 
 
 
@@ -20,6 +21,7 @@ import { GoogleMapsAPIWrapper } from '@agm/core';
 export class CatadorComponent implements OnInit {
 
 
+    public loading: boolean = false;
     public catador: Catador;
     public user: User;
     public materialRecover: MaterialRecover = new MaterialRecover();
@@ -44,7 +46,6 @@ export class CatadorComponent implements OnInit {
     constructor(private router: Router,
         public catadorDataService: CatadorDataService,
         public http: Http, public gMaps: GoogleMapsAPIWrapper) {
-
         this.catador = new Catador();
         this.user = new User();
         this.masks = {
@@ -79,9 +80,18 @@ export class CatadorComponent implements OnInit {
             return;
         }
 
-        let username = (this.catador.name) ?
-            this.catador.name.replace(/[^A-Z0-9]/ig, "_") :
-            this.catador.nickname.replace(/[^A-Z0-9]/ig, "_");
+        this.loading = true;
+        var username = '';
+
+        if (this.catador.prefererUseName) {
+            username = (this.catador.name) ? 
+                    this.catador.name.replace(/[^A-Z0-9]/ig, "_") : 
+                    this.catador.nickname.replace(/[^A-Z0-9]/ig, "_");
+        } else {
+            username = (this.catador.nickname) ? 
+                    this.catador.nickname.replace(/[^A-Z0-9]/ig, "_") : 
+                    this.catador.name.replace(/[^A-Z0-9]/ig, "_");
+        }    
 
         this.user.username = username;
         this.user.password = 'pimp';
@@ -98,7 +108,20 @@ export class CatadorComponent implements OnInit {
                 this.registerCatador();
             } else {
                 console.log('Erro: ' + res);
+                this.loading = false;
             }
+        }, error => {
+            this.loading = false;
+            var error = JSON.parse(error._body);
+            console.log(error);
+
+            var msg = '';
+
+            _.each(error, function(value, key) {
+                msg += ' - ' + value[0] + ' \n';
+            })
+
+            alert(msg);
         });
 
     }
@@ -122,8 +145,10 @@ export class CatadorComponent implements OnInit {
                     //this.router.navigateByUrl('/');
                     location.href = "/";
                     alert('Catador cadastrado com sucesso!');
+                    this.loading = false;
                 }, function error(res) {
                     alert('Algum erro ocorreu ao cadastrar o catador, por favor tente novamente mais tarde.');
+                    this.loading = false;
                 })
             });
     }
