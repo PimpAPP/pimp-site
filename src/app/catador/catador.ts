@@ -48,19 +48,45 @@ export class Catador {
         this.phones[1] = new Phone();
     }
 
+    /**
+     * Return true if valid and the field name if invalid
+     */
     valid() {
-        return (
-            (this.name.length > 0) &&
-            (this.minibio.length > 0) &&
-            (this.nickname.length > 0) &&
-            (this.presentation_phrase.length > 0) &&
-            (this.phones.length > 0) &&
-            (this.address_base.length > 0) &&
-            (this.region.length > 0) &&
-            (this.kg_day > 0) &&
-            (this.how_many_days_work_week > 0) &&
-            (this.how_many_years_work > 0)
-        );
+        if (!this.name || this.name.length == 0) {
+            return 'name';
+        } else if (!this.nickname || this.nickname.length == 0) {
+            return 'nickname';
+        } else if (!this.presentation_phrase || this.presentation_phrase.length == 0) {
+            return 'presentation_phrase';
+        } else if (!this.minibio || this.minibio.length == 0) {
+            return 'minibio';
+        } else if (!this.phones[0].phone || this.phones[0].phone.length == 0) {
+            return 'phones0';
+        } else if (!this.address_base || this.address_base.length == 0) {
+            return 'address_base';
+        } else if (!this.number || this.number.length == 0) {
+            return 'number';
+        } else if (!this.address_region || this.address_region.length == 0) {
+            return 'address_region';
+        } else if (!this.city || this.city.length == 0) {
+            return 'city';
+        } else if (!this.state || this.state.length == 0) {
+            return 'state';
+        } else if (!this.country || this.country.length == 0) {
+            return 'country';
+        } else if (!this.cooperative_name || this.cooperative_name.length == 0) {
+            return 'cooperative_name';    
+        } else if (!this.kg_day || this.kg_day == 0) {
+            return 'kg_day';  
+        } else if (!this.how_many_days_work_week || this.how_many_days_work_week == 0) {
+            return 'how_many_days_work_week';    
+        } else if (!this.how_many_years_work || this.how_many_years_work == 0) {
+            return 'how_many_years_work';
+        } else if (!this.region || this.region.length == 0) {
+            return 'region';
+        } 
+        
+        return true;
     }
 
     addMaterialOrRemoveIfAlreadyIncluded(material: Material){

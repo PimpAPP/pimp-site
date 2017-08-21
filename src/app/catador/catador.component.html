@@ -113,7 +113,7 @@
                             id="phones0" 
                             name="phones0"
                             [textMask]="{mask: masks.number}"
-                            [(ngModel)]="phone1.phone"
+                            [(ngModel)]="catador.phones[0].phone"
                             required>
                 </div>
 
@@ -122,7 +122,7 @@
                     <select class="form-control" 
                             id="whatsapp0"
                             name="whatsapp0"
-                            [(ngModel)]="phone1.whatsapp">
+                            [(ngModel)]="catador.phones[0].whatsapp">
                         <option value="1">Sim</option>
                         <option value="0">Não</option>
                     </select>
@@ -132,37 +132,37 @@
                     <label>Operadora: </label><br>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'V'" [(ngModel)]="phone1.mno">
+                            <input type="radio" name="mno0" [value]="'V'" [(ngModel)]="catador.phones[0].mno">
                             Vivo
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'T'" [(ngModel)]="phone1.mno">
+                            <input type="radio" name="mno0" [value]="'T'" [(ngModel)]="catador.phones[0].mno">
                             Tim
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'C'" [(ngModel)]="phone1.mno">
+                            <input type="radio" name="mno0" [value]="'C'" [(ngModel)]="catador.phones[0].mno">
                             Claro
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'R'" [(ngModel)]="phone1.mno">
+                            <input type="radio" name="mno0" [value]="'R'" [(ngModel)]="catador.phones[0].mno">
                             Oi
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'N'" [(ngModel)]="phone1.mno">
+                            <input type="radio" name="mno0" [value]="'N'" [(ngModel)]="catador.phones[0].mno">
                             Nextel
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'P'" [(ngModel)]="phone2.mno">
+                            <input type="radio" name="mno0" [value]="'P'" [(ngModel)]="catador.phones[0].mno">
                             Porto
                         </label>
                     </div>
@@ -178,7 +178,7 @@
                             id="phones1" 
                             [textMask]="{mask: masks.number}"
                             name="phones1"
-                            [(ngModel)]="phone2.phone">
+                            [(ngModel)]="catador.phones[1].phone">
                 </div>
 
                 <div class="form-group col-md-6">
@@ -186,7 +186,7 @@
                     <select class="form-control" 
                             id="whatsapp1"
                             name="whatsapp1"
-                            [(ngModel)]="phone2.whatsapp">
+                            [(ngModel)]="catador.phones[1].whatsapp">
                         <option value="1">Sim</option>
                         <option value="0">Não</option>
                     </select>
@@ -196,37 +196,37 @@
                     <label>Operadora: </label><br>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'V'" [(ngModel)]="phone2.mno">
+                            <input type="radio" name="mno1" [value]="'V'" [(ngModel)]="catador.phones[1].mno">
                             Vivo
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'T'" [(ngModel)]="phone2.mno">
+                            <input type="radio" name="mno1" [value]="'T'" [(ngModel)]="catador.phones[1].mno">
                             Tim
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'C'" [(ngModel)]="phone2.mno">
+                            <input type="radio" name="mno1" [value]="'C'" [(ngModel)]="catador.phones[1].mno">
                             Claro
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'O'" [(ngModel)]="phone2.mno">
+                            <input type="radio" name="mno1" [value]="'O'" [(ngModel)]="catador.phones[1].mno">
                             Oi
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'N'" [(ngModel)]="phone2.mno">
+                            <input type="radio" name="mno1" [value]="'N'" [(ngModel)]="catador.phones[1].mno">
                             Nextel
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'P'" [(ngModel)]="phone2.mno">
+                            <input type="radio" name="mno1" [value]="'P'" [(ngModel)]="catador.phones[1].mno">
                             Porto
                         </label>
                     </div>

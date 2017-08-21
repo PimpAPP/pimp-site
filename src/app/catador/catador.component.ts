@@ -26,8 +26,6 @@ export class CatadorComponent implements OnInit {
     public user: User;
     public materialRecover: MaterialRecover = new MaterialRecover();
     public materialSelected = [];
-    public phone1 = new Phone();
-    public phone2 = new Phone();
     public masks: any;
 
     public mapLatitude: number = -10.314919285813161;
@@ -70,8 +68,10 @@ export class CatadorComponent implements OnInit {
     }
 
     save() {
-        if (!this.catador.valid()) {
+        var valid: any = this.catador.valid();
+        if (valid !== true) {
             alert('Por favor preencha todos os campos obrigatórios.');
+            document.getElementById(valid).focus();
             return;
         }
 
@@ -81,25 +81,10 @@ export class CatadorComponent implements OnInit {
         }
 
         this.loading = true;
-        var username = '';
-
-        if (this.catador.prefererUseName) {
-            username = (this.catador.name) ? 
-                    this.catador.name.replace(/[^A-Z0-9]/ig, "_") : 
-                    this.catador.nickname.replace(/[^A-Z0-9]/ig, "_");
-        } else {
-            username = (this.catador.nickname) ? 
-                    this.catador.nickname.replace(/[^A-Z0-9]/ig, "_") : 
-                    this.catador.name.replace(/[^A-Z0-9]/ig, "_");
-        }    
-
-        this.user.username = username;
+        this.user.username = this.guid();
         this.user.password = 'pimp';
         this.user.email = '';
-
-        this.catador.phones = [];
-        this.catador.phones.push(this.phone1);
-        this.catador.phones.push(this.phone2);
+        this.user.first_name = this.catador.name;
 
         this.catadorDataService.saveUser(this.user).subscribe(res => {
             if (res.status == 201) {
@@ -126,6 +111,11 @@ export class CatadorComponent implements OnInit {
 
     }
 
+    guid() {
+        const s4=()=> Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
+    }
+    
     registerCatador() {
         let new_material_list = [];
         this.catador.materials_collected.forEach(
