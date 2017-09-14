@@ -10,6 +10,7 @@ import { MaterialRecover } from './MaterialRecover';
 import { MapsAPILoader } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core';
 import * as _ from 'underscore';
+import { Observable } from "rxjs/Rx";
 
 
 
@@ -68,12 +69,12 @@ export class CatadorComponent implements OnInit {
     }
 
     save() {
-        var valid: any = this.catador.valid();
-        if (valid !== true) {
-            alert('Por favor preencha todos os campos obrigatórios.');
-            document.getElementById(valid).focus();
-            return;
-        }
+        //var valid: any = this.catador.valid();
+        // if (valid !== true) {
+        //     alert('Por favor preencha todos os campos obrigatórios.');
+        //     document.getElementById(valid).focus();
+        //     return;
+        // }
 
         if (!this.markLat || !this.markLng) {
             alert('Por favor preencha o endereço');
@@ -127,28 +128,32 @@ export class CatadorComponent implements OnInit {
                 console.log(res);
                 let data = res.json();
                 this.catador.id = data.id;
-                var promises = [];
-                promises.push(this.cadastrarPhones(this.catador.phones));
-                promises.push(this.cadastrarLocation(this.catador.id));
-                promises.push(this.cadastrarAvatar(this.catador.user));
-                Promise.all(promises).then(function success(res) {
-                    //this.router.navigateByUrl('/');
-                    location.href = "/";
+
+                Observable.forkJoin([
+                    this.cadastrarPhones(this.catador.phones),
+                    this.cadastrarLocation(this.catador.id),
+                    this.cadastrarAvatar(this.catador.user)
+                ])
+                .subscribe(t=> {
+                    this.loading = false;
                     alert('Catador cadastrado com sucesso!');
-                    this.loading = false;
-                }, function error(res) {
-                    alert('Algum erro ocorreu ao cadastrar o catador, por favor tente novamente mais tarde.');
-                    this.loading = false;
-                })
+
+                    //location.href = "/";
+                    this.router.navigateByUrl('/');
+                },  err => {
+                    console.log(err);
+                });
+                 
             });
     }
 
     cadastrarPhones(phones) {
-        return this.catadorDataService.registerPhones(phones, this.catador.id).subscribe(data => {
-            console.log(data);
-        }, err => {
-            console.log(err);
-        });;
+        return this.catadorDataService.registerPhones(phones, this.catador.id);
+        // return this.catadorDataService.registerPhones(phones, this.catador.id).subscribe(data => {
+        //     console.log(data);
+        // }, err => {
+        //     console.log(err);
+        // });;
     }
 
     cadastrarLocation(catadorId) {
@@ -157,21 +162,24 @@ export class CatadorComponent implements OnInit {
             longitude: this.markLng
         }
 
-        return this.catadorDataService.updateLocation(location, catadorId)
-            .subscribe(res => {
-                console.log(res);
-            });
+        return this.catadorDataService.updateLocation(location, catadorId);
+
+        // return this.catadorDataService.updateLocation(location, catadorId)
+        //     .subscribe(res => {
+        //         console.log(res);
+        //     });
     }
 
     cadastrarAvatar(userId) {
         this.avatar = $('#preview').attr('src');
         if (!this.avatar) return;
 
-        return this.catadorDataService.addAvatar({ avatar: this.avatar }, userId).subscribe(res => {
-            console.log(res);
-        }, err => {
-            console.log(err);
-        });
+        return this.catadorDataService.addAvatar({ avatar: this.avatar }, userId);
+        // return this.catadorDataService.addAvatar({ avatar: this.avatar }, userId).subscribe(res => {
+        //     console.log(res);
+        // }, err => {
+        //     console.log(err);
+        // });
     }
 
     selectMaterial(material) {
