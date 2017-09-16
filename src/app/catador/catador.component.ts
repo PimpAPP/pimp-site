@@ -69,12 +69,12 @@ export class CatadorComponent implements OnInit {
     }
 
     save() {
-        //var valid: any = this.catador.valid();
-        // if (valid !== true) {
-        //     alert('Por favor preencha todos os campos obrigatórios.');
-        //     document.getElementById(valid).focus();
-        //     return;
-        // }
+        var valid: any = this.catador.valid();
+        if (valid !== true) {
+            alert('Por favor preencha todos os campos obrigatórios.');
+            document.getElementById(valid).focus();
+            return;
+        }
 
         if (!this.markLat || !this.markLng) {
             alert('Por favor preencha o endereço');
