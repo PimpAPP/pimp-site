@@ -67,7 +67,7 @@ export class CatadorComponent implements OnInit {
     goHome() {
         this.router.navigateByUrl('/');
     }
-
+    
     save() {
         var valid: any = this.catador.valid();
         if (valid !== true) {
@@ -81,11 +81,29 @@ export class CatadorComponent implements OnInit {
             return;
         }
 
+        this.avatar = $('#preview').attr('src');
+        if (!this.avatar) {
+            alert('Por favor selecione uma foto');
+            return;
+        }
+
         this.loading = true;
         this.user.username = this.guid();
         this.user.password = 'pimp';
         this.user.email = '';
-        this.user.first_name = this.catador.name;
+        this.user.first_name = '';
+        this.user.last_name = '';
+
+        var nameParts = this.catador.name.split(' ');
+        var hasLastName  = false;
+        for (var i=0; i<nameParts.length; i++) {
+            if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
+                this.user.first_name += nameParts[i] + ' ';
+            } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
+                this.user.last_name += nameParts[i] + ' ';
+                hasLastName = true;
+            }
+        }
 
         this.catadorDataService.saveUser(this.user).subscribe(res => {
             if (res.status == 201) {
@@ -214,6 +232,9 @@ export class CatadorComponent implements OnInit {
         this.http.get(url).subscribe(data => {
             var res = JSON.parse(data['_body']);
             var results = res.results;
+
+            if (!results || !results[0])
+                return;
 
             for (var x = 0; x < results[0].address_components.length; x++) {
                 let item = results[0].address_components[x];

@@ -29,6 +29,7 @@
                                 class="form-control" 
                                 id="nickname" 
                                 name="nickname"
+                                placeholder="Como quer ser chamado?"
                                 [(ngModel)]="catador.nickname"
                                 required>
                     </div>    
@@ -87,7 +88,7 @@
                             [(ngModel)]="catador.minibio"></textarea>
                 </div>
                         
-                <div class="form-group col-md-12">
+                <!-- <div class="form-group col-md-12">
                     <label>Prefere usar: </label><br>
                     <div class="radio-inline">
                         <label>
@@ -101,7 +102,7 @@
                             Apelido
                         </label>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="row">
@@ -397,16 +398,16 @@
                     </select>
                 </div>
 
-                <!-- <div class="form-group col-md-6">
-                    <label for="safety_kit">A Carroça equipada com itens de segurança?</label>
+                <div class="form-group col-md-6">
+                    <label for="carroca_pimpada">Carroça grafitada/pimpada?</label>
                     <select class="form-control" 
-                            id="safety_kit"
-                            name="safety_kit"
-                            [(ngModel)]="catador.safety_kit">
+                            id="carroca_pimpada"
+                            name="carroca_pimpada"
+                            [(ngModel)]="catador.carroca_pimpada">
                         <option value="true">Sim</option>
                         <option value="false">Não</option>
                     </select>
-                </div> -->
+                </div>
 
                 <div class="form-group col-md-6">
                     <label for="region">Região e bairros que coleta</label>
@@ -418,36 +419,6 @@
                                 [(ngModel)]="catador.region"></textarea>
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="safety_kit">A Carroça equipada com itens de segurança?</label>
-                    <div class="checkbox">
-                        <label>
-                            <input [(ngModel)]="catador.safety_kit_boot" name="safety_kit_boot" type="checkbox" value="true">Bota
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input [(ngModel)]="catador.safety_kit_gloves" name="safety_kit_gloves" type="checkbox" value="true">Luva
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input [(ngModel)]="catador.safety_kit_brakes" name="safety_kit_brakes" type="checkbox" value="true">Freios
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input [(ngModel)]="catador.safety_kit_reflective_tapes" name="safety_kit_reflective_tapes" type="checkbox" value="true">Fitas refletivas
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input [(ngModel)]="catador.safety_kit_rearview" name="safety_kit_rearview" type="checkbox" value="true">Retrovisor
-                        </label>
-                    </div>
-                </div>
-                
-                
             </div>
 
             <div class="row">
