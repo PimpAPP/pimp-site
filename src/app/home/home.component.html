@@ -11,9 +11,7 @@
                 <div class="row">
                 <div class="col-md-2 md2"></div>
                 <div class="col-md-4 col-sm-12 cada-div4" >
-                    <a href="http://www.cataki.org/#/cadastro">
-                    <button class="btn newbtn2 newbtn1">CADASTRE + UM CATADOR</button>
-                    </a>
+                    <button class="btn newbtn2 newbtn1" (click)="openCatadorPage()">CADASTRE + UM CATADOR</button>
                     <div class="p2 baixe-mob">
                         <div class="baixe-agora">
                             <p>BAIXE AGORA GRÁTIS</p>
@@ -29,8 +27,15 @@
                     </div>
                 </div>
                 <div class="col-md-5 andr-ip-btns col-sm-12">
-                    <a href="https://play.google.com/store/apps/details?id=com.ionicframework.pimp473818"> <button class="btn newbtn2 newbtn-android"><i class="fa fa-android fa-2x" aria-hidden="true"></i><span>Android</span></button></a>
-                    <button class="btn newbtn2 newbtn-apple"><i class="fa fa-apple fa-2x" aria-hidden="true"></i><span>iPhone</span></button>
+                    <a href="https://play.google.com/store/apps/details?id=com.ionicframework.pimp473818"> 
+                        <button class="btn newbtn2 newbtn-android"><i class="fa fa-android fa-2x" aria-hidden="true"></i>
+                            <span>Android</span></button>
+                    </a>
+                    <a href="https://itunes.apple.com/ie/app/cataki/id1250990464?mt=8">
+                        <button class="btn newbtn2 newbtn-apple"><i class="fa fa-apple fa-2x" aria-hidden="true"></i>
+                            <span>iPhone</span>
+                        </button>
+                    </a>
                 </div>
                 </div>
             </div>
@@ -96,7 +101,7 @@
                         <div class="car-div">
                             <h2 class="video-head">Vídeo</h2>
                             <p class="lead">Direto ao ponto e bonitona, esta animação é a forma mais fácil de apresentar o Cataki.</p>
-                            <img data-backdrop="false" data-toggle="modal" data-target="#modalvideo" class="i-img" src="assets/img/im-video.jpg">
+                            <iframe width="330" height="180" src="https://www.youtube.com/embed/ueRAwev8JT8?rel=0" frameborder="0" allowfullscreen></iframe>
                             <div class="share-down">
                             <!--        <img class="share-down-img share-img" src="assets/img/share_icon.png"> -->            <img class="share-down-img down-img" src="assets/img/download_icon.png">
                             </div>
@@ -111,7 +116,9 @@
                             <p class="lead car-sub">&middot; Impresso tamanho A5</p>
                             <img class="i-img" src="assets/img/im5.jpg">
                             <div class="share-down">
-                            <!--        <img class="share-down-img share-img" src="assets/img/share_icon.png"> -->          <img class="share-down-img down-img" src="assets/img/download_icon.png">
+                                <a href="assets/download/flyer.pdf" target="_blank">
+                                    <img class="share-down-img down-img" src="assets/img/download_icon.png">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -130,7 +137,9 @@
                             <img class="i-img" src="assets/img/grande.jpg" >
                             <div class="share-down">
                             <!--        <img class="share-down-img share-img" src="assets/img/share_icon.png"> -->
-                            <img class="share-down-img down-img" src="assets/img/download_icon.png">
+                            <a href="assets/download/adesivog.png" target="_blank">
+                                <img class="share-down-img down-img" src="assets/img/download_icon.png">
+                            </a>
                             </div>
                         </div>
                     </div>
@@ -143,8 +152,9 @@
                             <p class="lead car-sub">&middot; Impresso tamanho 11x4cm.</p>
                             <img class="i-img" src="assets/img/pequeno.jpg">
                             <div class="share-down">
-                            <!--        <img class="share-down-img share-img" src="assets/img/share_icon.png"> -->
-                            <img class="share-down-img down-img" src="assets/img/download_icon.png">
+                                <a href="assets/download/adesivop.png" target="_blank">
+                                    <img class="share-down-img down-img" src="assets/img/download_icon.png">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -205,9 +215,15 @@
                 <div class="row img-btns">
                     <div class="col-md-12 cart-img-div"><img src="assets/img/12.png"></div>
                     <div class="col-md-12"> 
-                        <a href="http://www.cataki.org/#/cadastro">  <button class="btn newbtn2 my-btn1"><span>CADASTRE + UM CATADOR</span></button></a>
+                        <button class="btn newbtn2 my-btn1" (click)="openCatadorPage()">
+                            <span>CADASTRE + UM CATADOR</span>
+                        </button>
                     </div>
-                    <div class="col-md-12"><button class="btn newbtn2 my-btn2" data-toggle="modal" data-target="#myModal" data-backdrop="false"><span>DICAS PARA CADASTRO</span></button></div>
+                    <div class="col-md-12">
+                        <button class="btn newbtn2 my-btn2" data-toggle="modal" data-target="#myModal" data-backdrop="false">
+                            <span>DICAS PARA CADASTRO</span>
+                        </button>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -335,7 +351,7 @@
     </div>
     </div>
     <!-- Modal2 -->
-    <div class="mod2">
+    <div class="mod3">
     <div class="modal fade" id="oakmodal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -353,91 +369,105 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="pdrmodal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                <h4 class="modal-title">Instituto PDR</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    </div>
+    <div class="mod3">    
+        <div class="modal fade" id="pdrmodal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title">Instituto PDR</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <p>
+                    A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
+                    </p>
+                    <p class="link">
+                    oakfnd.org
+                    </p>
                 </div>
-                <p>
-                A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
-                </p>
-                <p class="link">
-                oakfnd.org
-                </p>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="locawebmodal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                <h4 class="modal-title">Locaweb</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="mod3">   
+        <div class="modal fade" id="locawebmodal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title">Locaweb</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <p>
+                    A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
+                    </p>
+                    <p class="link">
+                    oakfnd.org
+                    </p>
                 </div>
-                <p>
-                A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
-                </p>
-                <p class="link">
-                oakfnd.org
-                </p>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="eccovidamodal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                <h4 class="modal-title">Eccovida</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="mod3">
+        <div class="modal fade" id="eccovidamodal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title">Eccovida</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <p>
+                    A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
+                    </p>
+                    <p class="link">
+                    oakfnd.org
+                    </p>
                 </div>
-                <p>
-                A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
-                </p>
-                <p class="link">
-                oakfnd.org
-                </p>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="mncrmodal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                <h4 class="modal-title">MNCR</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="mod3">            
+        <div class="modal fade" id="mncrmodal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title">MNCR</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <p>
+                    A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
+                    </p>
+                    <p class="link">
+                    oakfnd.org
+                    </p>
                 </div>
-                <p>
-                A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
-                </p>
-                <p class="link">
-                oakfnd.org
-                </p>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="mitmodal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                <h4 class="modal-title">MIT</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <div class="mod3">
+            
+        <div class="modal fade" id="mitmodal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h4 class="modal-title">MIT</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <p>
+                    A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
+                    </p>
+                    <p class="link">
+                    oakfnd.org
+                    </p>
                 </div>
-                <p>
-                A Fundação PDR emprega seus recursos em mais de 40 países, incentivando o trabalho em causas globais, com impacto social e ambiental.<span class=""> A OAK financia o Pimp My Carroça institucionamente, garantindo a continuidade deste trabalho.</span>
-                </p>
-                <p class="link">
-                oakfnd.org
-                </p>
             </div>
         </div>
     </div>
+    <div class="mod3">
+            
     <div class="modal fade" id="cddmodal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
