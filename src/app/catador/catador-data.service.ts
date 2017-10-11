@@ -27,7 +27,7 @@ export class CatadorDataService {
 
         return this.http.post(this.urlUser, user, {
             headers: headers
-        });
+        }).timeout(1500);
     }
 
     saveCatador(catador: Catador) {
@@ -36,7 +36,7 @@ export class CatadorDataService {
 
         return this.http.post(this.url, catador, {
             headers: headers
-        });
+        }).timeout(30000);
     }
 
     registerPhones(phones, catadorId) {

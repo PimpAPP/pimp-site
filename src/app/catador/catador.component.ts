@@ -55,7 +55,9 @@ export class CatadorComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.setCurrentPosition();
+        this.catador = new Catador();
+        this.user = new User();        
+        this.setCurrentPosition();        
         $(":file")['filestyle']({
             input: true,
             buttonText: 'Selecionar Imagem',
@@ -88,81 +90,93 @@ export class CatadorComponent implements OnInit {
         }
 
         this.loading = true;
-        this.user.username = this.guid();
-        this.user.password = 'pimp';
-        this.user.email = '';
-        this.user.first_name = '';
-        this.user.last_name = '';
 
-        var nameParts = this.catador.name.split(' ');
-        var hasLastName  = false;
-        for (var i=0; i<nameParts.length; i++) {
-            if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
-                this.user.first_name += nameParts[i] + ' ';
-            } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
-                this.user.last_name += nameParts[i] + ' ';
-                hasLastName = true;
+        if (this.catador.user) {
+            this.registerCatador();
+        } else {
+            this.user.username = this.guid();
+            this.user.password = 'pimp';
+            this.user.email = '';
+            this.user.first_name = '';
+            this.user.last_name = '';
+
+            var nameParts = this.catador.name.split(' ');
+            var hasLastName = false;
+            for (var i=0; i<nameParts.length; i++) {
+                if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
+                    this.user.first_name += nameParts[i] + ' ';
+                } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
+                    this.user.last_name += nameParts[i] + ' ';
+                    hasLastName = true;
+                }
             }
-        }
+            
+            this.catadorDataService.saveUser(this.user).subscribe(res => {
+                if (res.status == 201) {
+                    let data = res.json();
+                    this.catador.user = data.id;
+                    this.registerCatador();
+                } else {
+                    console.log('Erro: ' + res);
+                    this.loading = false;
+                    alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
+                }
+            }, error => {
+                this.showError(error);
+            });
+        }    
 
-        this.catadorDataService.saveUser(this.user).subscribe(res => {
-            if (res.status == 201) {
-                let data = res.json();
-                this.catador.user = data.id;
-                this.registerCatador();
-            } else {
-                console.log('Erro: ' + res);
-                this.loading = false;
-            }
-        }, error => {
-            this.loading = false;
-            var error = JSON.parse(error._body);
-            console.log(error);
-
-            var msg = '';
-
-            _.each(error, function(value, key) {
-                msg += ' - ' + value[0] + ' \n';
-            })
-
-            alert(msg);
-        });
-
-    }
-
-    guid() {
-        const s4=()=> Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
     }
     
     registerCatador() {
         let new_material_list = [];
         this.catador.materials_collected.forEach(
-            item => { new_material_list.push(item.id) });
+            item => { new_material_list.push(item.id) }
+        );
         this.catador.materials_collected = new_material_list;
 
-        this.catadorDataService.saveCatador(this.catador)
-            .subscribe(res => {
-                console.log(res);
-                let data = res.json();
-                this.catador.id = data.id;
+        this.catadorDataService.saveCatador(this.catador).subscribe(res => {
+            // console.log(res);
+            let data = res.json();
+            this.catador.id = data.id;
 
-                Observable.forkJoin([
-                    this.cadastrarPhones(this.catador.phones),
-                    this.cadastrarLocation(this.catador.id),
-                    this.cadastrarAvatar(this.catador.user)
-                ])
-                .subscribe(t=> {
-                    this.loading = false;
-                    alert('Catador cadastrado com sucesso!');
+            Observable.forkJoin([
+                this.cadastrarPhones(this.catador.phones),
+                this.cadastrarLocation(this.catador.id),
+                this.cadastrarAvatar(this.catador.user)
+            ])
+            .subscribe(t=> {
+                this.loading = false;
+                alert('Catador cadastrado com sucesso!');
+                this.catador = new Catador();
+                this.user = new User();
 
-                    //location.href = "/";
-                    this.router.navigateByUrl('/');
-                },  err => {
-                    console.log(err);
-                });
-                 
+                //location.href = "/";
+                this.router.navigateByUrl('/');
+            },  error => {
+                this.showError(error);
             });
+                
+        }, error => {
+            this.showError(error);            
+        });
+    }
+
+    showError(error) {
+        this.loading = false;
+        alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
+
+        try {
+            var error = JSON.parse(error._body);
+            console.log(error);    
+            var msg = '';    
+            _.each(error, function(value, key) {
+                msg += ' - ' + value[0] + ' \n';
+            })    
+            alert(msg);
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     cadastrarPhones(phones) {
@@ -339,5 +353,10 @@ export class CatadorComponent implements OnInit {
     }
 
 
+    guid() {
+        const s4=()=> Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
+    }
+    
 
 }
