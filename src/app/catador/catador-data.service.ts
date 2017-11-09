@@ -69,6 +69,15 @@ export class CatadorDataService {
         //.map(res => res.json());
     }
 
+    sendError(error) {
+        let url = this.urlUser + 1 + '/add_error/';
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers);
+
+        return this.http.post(url, {detail: error}, {
+            headers: headers
+        });
+    }
 
 
 }

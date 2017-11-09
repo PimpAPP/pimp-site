@@ -118,6 +118,7 @@ export class CatadorComponent implements OnInit {
                     this.registerCatador();
                 } else {
                     console.log('Erro: ' + res);
+                    this.showError(res);
                     this.loading = false;
                     alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
                 }
@@ -164,6 +165,7 @@ export class CatadorComponent implements OnInit {
 
     showError(error) {
         this.loading = false;
+        this.sendError(error);
         alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
 
         try {
@@ -179,13 +181,12 @@ export class CatadorComponent implements OnInit {
         }
     }
 
+    sendError(detail) {
+        this.catadorDataService.sendError(detail).subscribe();
+    }
+
     cadastrarPhones(phones) {
         return this.catadorDataService.registerPhones(phones, this.catador.id);
-        // return this.catadorDataService.registerPhones(phones, this.catador.id).subscribe(data => {
-        //     console.log(data);
-        // }, err => {
-        //     console.log(err);
-        // });;
     }
 
     cadastrarLocation(catadorId) {
@@ -193,25 +194,13 @@ export class CatadorComponent implements OnInit {
             latitude: this.markLat,
             longitude: this.markLng
         }
-
         return this.catadorDataService.updateLocation(location, catadorId);
-
-        // return this.catadorDataService.updateLocation(location, catadorId)
-        //     .subscribe(res => {
-        //         console.log(res);
-        //     });
     }
 
     cadastrarAvatar(userId) {
         this.avatar = $('#preview').attr('src');
         if (!this.avatar) return;
-
         return this.catadorDataService.addAvatar({ avatar: this.avatar }, userId);
-        // return this.catadorDataService.addAvatar({ avatar: this.avatar }, userId).subscribe(res => {
-        //     console.log(res);
-        // }, err => {
-        //     console.log(err);
-        // });
     }
 
     selectMaterial(material) {
