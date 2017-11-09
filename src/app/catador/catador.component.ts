@@ -152,8 +152,8 @@ export class CatadorComponent implements OnInit {
                 this.catador = new Catador();
                 this.user = new User();
 
-                //location.href = "/";
-                this.router.navigateByUrl('/');
+                location.href = "/";
+                // this.router.navigateByUrl('/');
             },  error => {
                 this.showError(error);
             });
@@ -182,7 +182,11 @@ export class CatadorComponent implements OnInit {
     }
 
     sendError(detail) {
-        this.catadorDataService.sendError(detail).subscribe();
+        let obj = {
+            user: this.user,
+            catador: this.catador
+        };
+        this.catadorDataService.sendError(detail, obj).subscribe();
     }
 
     cadastrarPhones(phones) {
