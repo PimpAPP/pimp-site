@@ -46,6 +46,7 @@ export class CatadorComponent implements OnInit {
         public catadorDataService: CatadorDataService,
         public http: Http, public gMaps: GoogleMapsAPIWrapper) {
         this.catador = new Catador();
+        this.catador.materials_collected = [];
         this.user = new User();
         this.masks = {
             number: ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
@@ -131,9 +132,12 @@ export class CatadorComponent implements OnInit {
     
     registerCatador() {
         let new_material_list = [];
-        this.catador.materials_collected.forEach(
-            item => { new_material_list.push(item.id) }
-        );
+        this.catador.materials_collected.forEach(item => { 
+            if (item && item.id) {
+                new_material_list.push(item.id) 
+            }     
+            
+        });
         this.catador.materials_collected = new_material_list;
 
         this.catadorDataService.saveCatador(this.catador).subscribe(res => {
