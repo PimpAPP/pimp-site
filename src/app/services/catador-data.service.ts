@@ -2,32 +2,21 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { ApiProvider } from './../providers/ApiProvider';
 
-import { User } from './user';
-import { Catador } from './catador';
+import { User } from '../models/user';
+import { Catador } from '../models/catador';
 
 
 @Injectable()
 export class CatadorDataService {
 
     public url: string;
-    public urlUser: string;
 
     constructor(public http: Http, public apiProvider: ApiProvider) {
         this.url = this.apiProvider.url + 'api/catadores/';
-        this.urlUser = this.apiProvider.url + 'api/users/';
     }
 
     createAuthorizationHeader(headers: Headers) {
         headers.append('Content-Type', 'application/json');
-    }
-
-    saveUser(user: User) {
-        let headers = new Headers();
-        this.createAuthorizationHeader(headers);
-
-        return this.http.post(this.urlUser, user, {
-            headers: headers
-        }).timeout(1500);
     }
 
     saveCatador(catador: Catador) {
@@ -58,26 +47,5 @@ export class CatadorDataService {
             headers: headers
         });
     }
-
-    addAvatar(data, userId) {        
-        let url = this.urlUser + userId + '/photos/';
-        let headers = new Headers();
-        this.createAuthorizationHeader(headers);
-        return this.http.post(url, data, {
-            headers: headers
-        })
-        //.map(res => res.json());
-    }
-
-    sendError(error, obj) {
-        let url = this.urlUser + 1 + '/add_error/';
-        let headers = new Headers();
-        this.createAuthorizationHeader(headers);
-
-        return this.http.post(url, {detail: error, object: obj}, {
-            headers: headers
-        });
-    }
-
 
 }

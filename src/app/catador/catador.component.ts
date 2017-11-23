@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 
-import { Catador } from './catador';
-import { User } from './user';
-import { Phone } from './phone';
-import { CatadorDataService } from './catador-data.service';
-import { MaterialRecover } from './MaterialRecover';
+import { Catador } from '../models/catador';
+import { User } from '../models/user';
+import { Phone } from '../models/phone';
+import { CatadorDataService } from '../services/catador-data.service';
+import { UserDataService } from '../services/user-data.service';
+import { MaterialRecover } from '../models/MaterialRecover';
 import { MapsAPILoader } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core';
 import * as _ from 'underscore';
@@ -36,6 +37,7 @@ export class CatadorComponent implements OnInit {
     public markLat: number;
     public markLng: number;
     public avatar: String;
+    public loadingMessage: string = '';
 
     public checkboxValue;
 
@@ -44,6 +46,7 @@ export class CatadorComponent implements OnInit {
 
     constructor(private router: Router,
         public catadorDataService: CatadorDataService,
+        public userDataService: UserDataService,
         public http: Http, public gMaps: GoogleMapsAPIWrapper) {
         this.catador = new Catador();
         this.catador.materials_collected = [];
@@ -95,6 +98,7 @@ export class CatadorComponent implements OnInit {
         if (this.catador.user) {
             this.registerCatador();
         } else {
+            this.loadingMessage = 'Cadastrando o usuário...';
             this.user.username = this.guid();
             this.user.password = 'pimp';
             this.user.email = '';
@@ -112,7 +116,7 @@ export class CatadorComponent implements OnInit {
                 }
             }
             
-            this.catadorDataService.saveUser(this.user).subscribe(res => {
+            this.userDataService.saveUser(this.user).subscribe(res => {
                 if (res.status == 201) {
                     let data = res.json();
                     this.catador.user = data.id;
@@ -131,6 +135,7 @@ export class CatadorComponent implements OnInit {
     }
     
     registerCatador() {
+        this.loadingMessage = 'Cadastrando o catador...';
         let new_material_list = [];
         this.catador.materials_collected.forEach(item => { 
             if (item && item.id) {
@@ -148,16 +153,22 @@ export class CatadorComponent implements OnInit {
             Observable.forkJoin([
                 this.cadastrarPhones(this.catador.phones),
                 this.cadastrarLocation(this.catador.id),
-                this.cadastrarAvatar(this.catador.user)
             ])
             .subscribe(t=> {
-                this.loading = false;
-                alert('Catador cadastrado com sucesso!');
-                this.catador = new Catador();
-                this.user = new User();
 
-                location.href = "/";
-                // this.router.navigateByUrl('/');
+                this.loadingMessage = 'Enviando a imagem...';
+                this.cadastrarAvatar(this.catador.user).subscribe(result => {
+                    this.loading = false;
+                    alert('Catador cadastrado com sucesso!');
+                    this.catador = new Catador();
+                    this.user = new User();
+                    this.loadingMessage = '...';    
+                    location.href = "/";
+                    // this.router.navigateByUrl('/');
+                }, error => {
+                    this.showError(error);
+                })
+                
             },  error => {
                 this.showError(error);
             });
@@ -190,7 +201,7 @@ export class CatadorComponent implements OnInit {
             user: this.user,
             catador: this.catador
         };
-        this.catadorDataService.sendError(detail, obj).subscribe();
+        this.userDataService.sendError(detail, obj).subscribe();
     }
 
     cadastrarPhones(phones) {
@@ -208,7 +219,7 @@ export class CatadorComponent implements OnInit {
     cadastrarAvatar(userId) {
         this.avatar = $('#preview').attr('src');
         if (!this.avatar) return;
-        return this.catadorDataService.addAvatar({ avatar: this.avatar }, userId);
+        return this.userDataService.addAvatar({ avatar: this.avatar }, userId);
     }
 
     selectMaterial(material) {
@@ -313,8 +324,6 @@ export class CatadorComponent implements OnInit {
         this.gMaps.setCenter({ lat: this.mapLatitude, lng: this.mapLongitude });
     }
 
-
-
     onMoveMark(event: MouseEvent) {
         this.cleanCatadorAddress();
         this.markLat = event['coords'].lat;
@@ -346,14 +355,85 @@ export class CatadorComponent implements OnInit {
             var reader = new FileReader();
             reader.onload = this.updateAvatarPreview;
             reader.readAsDataURL(fileInput.target.files[0]);
+            this.resizeImage(fileInput.target.files[0]);
         }
     }
-
 
     guid() {
         const s4=()=> Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
-    }
+    }    
+
+    resizeImage(file) {
+        // from an input element
+        // var input = document.getElementById('img-file');
+        // var filesToUpload = input['files'];
+        // var file = filesToUpload[0];
+
+        var img = document.createElement("img");
+        var reader = new FileReader();  
+        reader.onload = function(e) {
+            img.src = e.target['result']          
+            
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
     
+            var MAX_WIDTH = 800;
+            var MAX_HEIGHT = 600;
+            var width = img.width;
+            var height = img.height;
+    
+            if (width <= MAX_WIDTH && height <= MAX_HEIGHT)
+                return;
+
+            var ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);            
+            width = width*ratio; 
+            height = height*ratio;
+
+            // (1)
+            // if (width <= MAX_WIDTH && height <= MAX_HEIGHT) { 
+            //     // width, height 
+            // }
+            // else if (width / MAX_WIDTH > height / MAX_HEIGHT) {
+            //     width = MAX_WIDTH; 
+            //     height = height * MAX_WIDTH / width;
+            // } else { 
+            //     width = width * MAX_HEIGHT / height; 
+            //     height = MAX_HEIGHT ;
+            // };
+
+            // (2)
+
+            // if (width > height) {
+            //     if (width > MAX_WIDTH) {
+            //         height *= MAX_WIDTH / width;
+            //         width = MAX_WIDTH;
+            //     }
+            // } else {
+            //     if (height > MAX_HEIGHT) {
+            //         width *= MAX_HEIGHT / height;
+            //         height = MAX_HEIGHT;
+            //     }
+            // }
+            
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+    
+            var dataurl = canvas.toDataURL("image/png");
+            $('#preview').attr('src', dataurl);     
+        }
+
+        reader.readAsDataURL(file);
+    }
+
+    calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
+        
+        var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+    
+        return { width: srcWidth*ratio, height: srcHeight*ratio };
+    }
 
 }

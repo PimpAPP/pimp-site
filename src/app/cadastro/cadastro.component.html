@@ -1,0 +1,49 @@
+<div class="container-fluid container_style">
+
+    <div class="container">
+        <h1>Selecione o tipo</h1>
+
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" 
+                                name="catador" 
+                                [value]="'catador'" 
+                                [(ngModel)]="type"
+                                (change)="onChangeType($event)">
+                        Catador
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" 
+                                name="cooperativa" 
+                                [value]="'cooperativa'" 
+                                [(ngModel)]="type"
+                                (change)="onChangeType($event)">
+                        Cooperativa
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-md-12">
+                <button class="btn btn-success col-md-4 col-xs-4" (click)="next()">
+                    Avançar
+                </button>
+            </div> -->
+        </div>
+    </div>
+
+    <br><br>
+
+    <div [hidden]="type != 'catador'">
+        <app-catador></app-catador>
+    </div>    
+
+    <div [hidden]="type != 'cooperativa'">
+        <app-cooperativa></app-cooperativa>
+    </div>
+
+</div>

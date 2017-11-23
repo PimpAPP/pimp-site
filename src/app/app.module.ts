@@ -8,17 +8,23 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { CatadorComponent } from './catador/catador.component';
 import { HomeComponent } from './home/home.component';
-import { CatadorDataService } from './catador/catador-data.service';
+import { CatadorDataService } from './services/catador-data.service';
+import { CooperativaDataService } from './services/cooperativa-data.service';
 import { ApiProvider } from './providers/ApiProvider';
 import { TextMaskModule } from 'angular2-text-mask';
 import { AgmCoreModule, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
+import { CooperativaComponent } from './cooperativa/cooperativa.component';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { UserDataService } from 'app/services/user-data.service';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         CatadorComponent,
-        HomeComponent
+        HomeComponent,
+        CooperativaComponent,
+        CadastroComponent
     ],
     imports: [
         BrowserModule,
@@ -34,6 +40,8 @@ import { AgmCoreModule, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
         CatadorDataService,
+        CooperativaDataService,
+        UserDataService,
         ApiProvider,
         MarkerManager,
         GoogleMapsAPIWrapper
