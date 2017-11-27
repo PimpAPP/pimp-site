@@ -60,6 +60,21 @@
             </div>
 
             <div class="row">
+                <div class="form-group col-md-6">
+                    <div class="form-group">
+                        <label for="how_many_cooperators">Total de colaboradores</label>
+                        <input type="number" 
+                                class="form-control" 
+                                id="how_many_cooperators" 
+                                name="how_many_cooperators"
+                                placeholder="Informe a quantidade de colaboradores"
+                                [(ngModel)]="cooperativa.how_many_cooperators"
+                                required>
+                    </div> 
+                </div>        
+            </div>
+
+            <div class="row">
                 <hr>
                 <div class="form-group col-md-6">
                     <label for="phones0">Telefone</label>

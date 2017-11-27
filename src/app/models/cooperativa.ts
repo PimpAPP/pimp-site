@@ -16,14 +16,8 @@ export class Cooperativa {
     public city: string = '';
     public state: string = '';
     public country: string = '';
-    public region_where_operates: string = '';
-    public how_many_cooperators: string = '';
-    public image: string = '';
-    public partners: string = '';
-    public how_much_collect_day: string = '';
-    public how_many_days_work_week: string = '';
-    public work_since: string = '';
-    public cifounded_inty: string = '';
+    public how_many_cooperators: Number;
+    // public work_since: string = '';
     public latitude: number;
     public longitude: number;    
 

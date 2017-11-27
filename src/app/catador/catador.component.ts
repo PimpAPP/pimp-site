@@ -365,11 +365,6 @@ export class CatadorComponent implements OnInit {
     }    
 
     resizeImage(file) {
-        // from an input element
-        // var input = document.getElementById('img-file');
-        // var filesToUpload = input['files'];
-        // var file = filesToUpload[0];
-
         var img = document.createElement("img");
         var reader = new FileReader();  
         reader.onload = function(e) {
@@ -390,32 +385,6 @@ export class CatadorComponent implements OnInit {
             var ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);            
             width = width*ratio; 
             height = height*ratio;
-
-            // (1)
-            // if (width <= MAX_WIDTH && height <= MAX_HEIGHT) { 
-            //     // width, height 
-            // }
-            // else if (width / MAX_WIDTH > height / MAX_HEIGHT) {
-            //     width = MAX_WIDTH; 
-            //     height = height * MAX_WIDTH / width;
-            // } else { 
-            //     width = width * MAX_HEIGHT / height; 
-            //     height = MAX_HEIGHT ;
-            // };
-
-            // (2)
-
-            // if (width > height) {
-            //     if (width > MAX_WIDTH) {
-            //         height *= MAX_WIDTH / width;
-            //         width = MAX_WIDTH;
-            //     }
-            // } else {
-            //     if (height > MAX_HEIGHT) {
-            //         width *= MAX_HEIGHT / height;
-            //         height = MAX_HEIGHT;
-            //     }
-            // }
             
             canvas.width = width;
             canvas.height = height;

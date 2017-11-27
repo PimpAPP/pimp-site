@@ -174,8 +174,11 @@ export class CooperativaComponent implements OnInit {
         this.cooperativa.materials_collected = new_material_list;
         this.cooperativa.latitude = this.markLat;
         this.cooperativa.longitude = this.markLng;
-        this.cooperativaDataService.saveCooperativa(this.cooperativa).subscribe(res => {
-            // console.log(res);
+
+        var cooperativa = this.cooperativa;
+        delete cooperativa['phones'];
+        this.cooperativaDataService.saveCooperativa(cooperativa).subscribe(res => {
+            console.log(res);
             let data = res.json();
             this.cooperativa.id = data.id;
 
@@ -183,12 +186,12 @@ export class CooperativaComponent implements OnInit {
                 this.loadingMessage = 'Enviando a imagem...';
                 this.cadastrarAvatar(this.cooperativa.user).subscribe(result => {
                     this.loading = false;
-                    alert('Catador cadastrado com sucesso!');
+                    alert('Cooperativa cadastrada com sucesso!');
                     this.cooperativa = new Cooperativa();
                     this.user = new User();
                     this.loadingMessage = '...';    
-                    location.href = "/";
-                    // this.router.navigateByUrl('/');
+                    // location.href = "/";
+                    this.router.navigateByUrl('/');
                 }, error => {
                     this.showError(error);
                 })
@@ -198,6 +201,7 @@ export class CooperativaComponent implements OnInit {
             });
                 
         }, error => {
+            console.log(error)
             this.showError(error);            
         });
     }
@@ -341,11 +345,46 @@ export class CooperativaComponent implements OnInit {
             var reader = new FileReader();
             reader.onload = this.updateAvatarPreview;
             reader.readAsDataURL(fileInput.target.files[0]);
+            this.resizeImage(fileInput.target.files[0]);
         }
     }
 
     updateAvatarPreview(e: any) {
         $('#preview').attr('src', e.target.result);
+    }
+
+    resizeImage(file) {
+        var img = document.createElement("img");
+        var reader = new FileReader();  
+        reader.onload = function(e) {
+            img.src = e.target['result']          
+            
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+    
+            var MAX_WIDTH = 800;
+            var MAX_HEIGHT = 600;
+            var width = img.width;
+            var height = img.height;
+    
+            if (width <= MAX_WIDTH && height <= MAX_HEIGHT)
+                return;
+
+            var ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);            
+            width = width*ratio; 
+            height = height*ratio;
+            
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, width, height);
+    
+            var dataurl = canvas.toDataURL("image/png");
+            $('#preview').attr('src', dataurl);     
+        }
+
+        reader.readAsDataURL(file);
     }
 
 }

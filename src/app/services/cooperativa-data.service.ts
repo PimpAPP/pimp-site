@@ -14,14 +14,14 @@ export class CooperativaDataService {
 
     constructor(public http: Http, public apiProvider: ApiProvider,
             public userDataService: UserDataService) {
-        this.url = this.apiProvider.url + 'api/cooperative/';
+        this.url = this.apiProvider.url + 'api/cooperatives/';
     }
 
     createAuthorizationHeader(headers: Headers) {
         headers.append('Content-Type', 'application/json');
         if (this.userDataService.userToken) {
             headers.append('Authorization', 'Token ' + this.userDataService.userToken);
-            headers.append('X-CSRFToken', this.getCookie('csrftoken'));
+            // headers.append('X-CSRFToken', this.getCookie('csrftoken'));
         }
     }
 
