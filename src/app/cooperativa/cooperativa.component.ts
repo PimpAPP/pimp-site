@@ -175,7 +175,7 @@ export class CooperativaComponent implements OnInit {
         this.cooperativa.latitude = this.markLat;
         this.cooperativa.longitude = this.markLng;
 
-        var cooperativa = this.cooperativa;
+        var cooperativa = Object.assign({}, this.cooperativa);
         delete cooperativa['phones'];
         this.cooperativaDataService.saveCooperativa(cooperativa).subscribe(res => {
             console.log(res);

@@ -74,6 +74,38 @@ export class CatadorComponent implements OnInit {
         this.router.navigateByUrl('/');
     }
     
+    saveTemp() {
+        this.user.username = this.guid();
+        this.user.password = 'pimp';
+        this.user.email = '';
+        this.user.first_name = '';
+        this.user.last_name = '';
+
+        var nameParts = this.catador.name.split(' ');
+        var hasLastName = false;
+        for (var i=0; i<nameParts.length; i++) {
+            if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
+                this.user.first_name += nameParts[i] + ' ';
+            } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
+                this.user.last_name += nameParts[i] + ' ';
+                hasLastName = true;
+            }
+        }
+
+        var data = {
+            user: this.user,
+            catador: this.catador
+        }
+
+        this.catadorDataService.save(data).subscribe(res => {
+            console.log(res);
+        }, error => {
+            console.log(error);
+        });
+
+        this.loading = false;
+
+    }
     save() {
         var valid: any = this.catador.valid();
         if (valid !== true) {
@@ -94,6 +126,8 @@ export class CatadorComponent implements OnInit {
         }
 
         this.loading = true;
+
+        // this.saveTemp();
 
         if (this.catador.user) {
             this.registerCatador();

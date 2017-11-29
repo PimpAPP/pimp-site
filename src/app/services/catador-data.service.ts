@@ -19,6 +19,15 @@ export class CatadorDataService {
         headers.append('Content-Type', 'application/json');
     }
 
+    save(catador: any) {
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers);
+
+        return this.http.post(this.url + 'add/', catador, {
+            headers: headers
+        }).timeout(30000);
+    }
+
     saveCatador(catador: Catador) {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
