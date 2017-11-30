@@ -21,4 +21,8 @@ export class HomeComponent implements OnInit {
         this.router.navigateByUrl('/cadastro');
     }
 
+    openCooperativaPage() {
+        this.router.navigateByUrl('/cooperativa');
+    }
+
 }
