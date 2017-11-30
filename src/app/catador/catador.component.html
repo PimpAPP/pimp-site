@@ -23,6 +23,7 @@
                                 name="name"
                                 placeholder="Nome completo"
                                 [(ngModel)]="catador.name"
+                                maxlength="60"
                                 required>
                     </div>
 
@@ -34,6 +35,7 @@
                                 name="nickname"
                                 placeholder="Como quer ser chamado?"
                                 [(ngModel)]="catador.nickname"
+                                maxlength="128"
                                 required>
                     </div>    
                     
@@ -44,6 +46,7 @@
                                 id="presentation_phrase" 
                                 name="presentation_phrase"
                                 required
+                                maxlength="140"
                                 [(ngModel)]="catador.presentation_phrase">
                     </div>  
 
@@ -269,6 +272,7 @@
                             name="address_base"
                             [(ngModel)]="catador.address_base"
                             (focusout)="addressFocusOut()"
+                            maxlength="500"
                             required>
                 </div>
 
@@ -290,6 +294,7 @@
                             name="address_region"
                             [(ngModel)]="catador.address_region"
                             (focusout)="addressFocusOut()"
+                            maxlength="128"
                             required>
                 </div>
 
@@ -301,6 +306,7 @@
                             name="city"
                             [(ngModel)]="catador.city"
                             (focusout)="addressFocusOut()"
+                            maxlength="64"
                             required>
                 </div>
 
@@ -312,6 +318,7 @@
                             name="state"
                             [(ngModel)]="catador.state"
                             (focusout)="addressFocusOut()"
+                            maxlength="128"
                             required>
                 </div>
 
@@ -323,6 +330,7 @@
                             name="country"
                             (focusout)="addressFocusOut()"
                             [(ngModel)]="catador.country"
+                            maxlength="64"
                             required>
                 </div>
             </div>                
@@ -337,6 +345,7 @@
                             id="cooperative_name" 
                             name="cooperative_name"
                             [(ngModel)]="catador.cooperative_name"
+                            maxlength="200"
                             required>
                 </div>
 
@@ -346,6 +355,7 @@
                             class="form-control" 
                             id="iron_work" 
                             name="iron_work"
+                            maxlength="200"
                             [(ngModel)]="catador.iron_work">
                 </div>
                         
@@ -419,6 +429,7 @@
                                 rows="3"
                                 name="region"
                                 required
+                                maxlength="128"
                                 [(ngModel)]="catador.region"></textarea>
                 </div>
 
@@ -446,6 +457,7 @@
                                 class="form-control" 
                                 id="another_user_name" 
                                 name="another_user_name"
+                                maxlength="200"
                                 [(ngModel)]="catador.another_user_name">
                     </div>
                     <div class="form-group col-md-12">
@@ -455,6 +467,7 @@
                                 placeholder="só precisa preencher no primeiro cadastro"
                                 id="another_user_email" 
                                 name="another_user_email"
+                                maxlength="200"
                                 [(ngModel)]="catador.another_user_email">
                     </div>
                     <div class="form-group col-md-12">

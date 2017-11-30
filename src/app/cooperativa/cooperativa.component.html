@@ -23,6 +23,7 @@
                                 name="name"
                                 placeholder="Nome da cooperativa"
                                 [(ngModel)]="cooperativa.name"
+                                maxlength="60"
                                 required>
                     </div>
 
@@ -34,6 +35,7 @@
                                 name="email"
                                 placeholder="E-mail"
                                 [(ngModel)]="cooperativa.email"
+                                maxlength="100"
                                 required>
                     </div>                    
                     
@@ -44,6 +46,7 @@
                                 id="phrase" 
                                 name="phrase"
                                 required
+                                maxlength="200"
                                 [(ngModel)]="cooperativa.phrase">
                     </div> 
                 </div>
@@ -234,6 +237,7 @@
                             name="address_base"
                             [(ngModel)]="cooperativa.address_base"
                             (focusout)="addressFocusOut()"
+                            maxlength="400"
                             required>
                 </div>
 
@@ -255,6 +259,7 @@
                             name="address_region"
                             [(ngModel)]="cooperativa.address_region"
                             (focusout)="addressFocusOut()"
+                            maxlength="128"
                             required>
                 </div>
 
@@ -266,6 +271,7 @@
                             name="city"
                             [(ngModel)]="cooperativa.city"
                             (focusout)="addressFocusOut()"
+                            maxlength="64"
                             required>
                 </div>
 
@@ -277,6 +283,7 @@
                             name="state"
                             [(ngModel)]="cooperativa.state"
                             (focusout)="addressFocusOut()"
+                            maxlength="128"
                             required>
                 </div>
 
@@ -288,6 +295,7 @@
                             name="country"
                             (focusout)="addressFocusOut()"
                             [(ngModel)]="cooperativa.country"
+                            maxlength="64"
                             required>
                 </div>
             </div>
