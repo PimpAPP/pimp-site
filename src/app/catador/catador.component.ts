@@ -200,7 +200,14 @@ export class CatadorComponent implements OnInit {
                     location.href = "/";
                     // this.router.navigateByUrl('/');
                 }, error => {
-                    this.showError(error);
+                    this.sendError(error);
+                    this.loading = false;
+                    alert('Catador cadastrado com sucesso!');
+                    this.catador = new Catador();
+                    this.user = new User();
+                    this.loadingMessage = '...';    
+                    location.href = "/";
+                    // this.router.navigateByUrl('/');
                 })
                 
             },  error => {

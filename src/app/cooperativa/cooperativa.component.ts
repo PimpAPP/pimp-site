@@ -184,16 +184,22 @@ export class CooperativaComponent implements OnInit {
 
             this.cadastrarPhones(this.cooperativa.phones).subscribe(t=> {
                 this.loadingMessage = 'Enviando a imagem...';
+
                 this.cadastrarAvatar(this.cooperativa.user).subscribe(result => {
                     this.loading = false;
                     alert('Cooperativa cadastrada com sucesso!');
                     this.cooperativa = new Cooperativa();
                     this.user = new User();
                     this.loadingMessage = '...';    
-                    // location.href = "/";
-                    this.router.navigateByUrl('/');
+                    location.href = "/";
                 }, error => {
-                    this.showError(error);
+                    this.sendError(error);
+                    this.loading = false;
+                    alert('Cooperativa cadastrada com sucesso!');
+                    this.cooperativa = new Cooperativa();
+                    this.user = new User();
+                    this.loadingMessage = '...';    
+                    location.href = "/";
                 })
                 
             },  error => {
