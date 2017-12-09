@@ -207,7 +207,6 @@ export class CooperativaComponent implements OnInit {
             });
                 
         }, error => {
-            console.log(error)
             this.showError(error);            
         });
     }
@@ -215,18 +214,17 @@ export class CooperativaComponent implements OnInit {
     showError(error) {
         this.loading = false;
         this.sendError(error);
-        alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
-
         try {
             var error = JSON.parse(error._body);
-            console.log(error);    
+            alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
             var msg = '';    
             _.each(error, function(value, key) {
                 msg += ' - ' + value[0] + ' \n';
             })    
             alert(msg);
         } catch(err) {
-            console.log(err);
+            alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
+            location.href = "/";
         }
     }
 

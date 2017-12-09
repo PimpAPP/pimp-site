@@ -74,38 +74,6 @@ export class CatadorComponent implements OnInit {
         this.router.navigateByUrl('/');
     }
     
-    saveTemp() {
-        this.user.username = this.guid();
-        this.user.password = 'pimp';
-        this.user.email = '';
-        this.user.first_name = '';
-        this.user.last_name = '';
-
-        var nameParts = this.catador.name.split(' ');
-        var hasLastName = false;
-        for (var i=0; i<nameParts.length; i++) {
-            if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
-                this.user.first_name += nameParts[i] + ' ';
-            } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
-                this.user.last_name += nameParts[i] + ' ';
-                hasLastName = true;
-            }
-        }
-
-        var data = {
-            user: this.user,
-            catador: this.catador
-        }
-
-        this.catadorDataService.save(data).subscribe(res => {
-            console.log(res);
-        }, error => {
-            console.log(error);
-        });
-
-        this.loading = false;
-
-    }
     save() {
         var valid: any = this.catador.valid();
         if (valid !== true) {
@@ -127,113 +95,80 @@ export class CatadorComponent implements OnInit {
 
         this.loading = true;
 
-        // this.saveTemp();
+        this.loadingMessage = 'Cadastrando o usuário...';
+        this.user.username = this.guid();
+        this.user.password = 'pimp';
+        this.user.email = '';
+        this.user.first_name = '';
+        this.user.last_name = '';
 
-        if (this.catador.user) {
-            this.registerCatador();
-        } else {
-            this.loadingMessage = 'Cadastrando o usuário...';
-            this.user.username = this.guid();
-            this.user.password = 'pimp';
-            this.user.email = '';
-            this.user.first_name = '';
-            this.user.last_name = '';
-
-            var nameParts = this.catador.name.split(' ');
-            var hasLastName = false;
-            for (var i=0; i<nameParts.length; i++) {
-                if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
-                    this.user.first_name += nameParts[i] + ' ';
-                } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
-                    this.user.last_name += nameParts[i] + ' ';
-                    hasLastName = true;
-                }
+        var nameParts = this.catador.name.split(' ');
+        var hasLastName = false;
+        for (var i=0; i<nameParts.length; i++) {
+            if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
+                this.user.first_name += nameParts[i] + ' ';
+            } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
+                this.user.last_name += nameParts[i] + ' ';
+                hasLastName = true;
             }
-            
-            this.userDataService.saveUser(this.user).subscribe(res => {
-                if (res.status == 201) {
-                    let data = res.json();
-                    this.catador.user = data.id;
-                    this.registerCatador();
-                } else {
-                    console.log('Erro: ' + res);
-                    this.showError(res);
-                    this.loading = false;
-                    alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
-                }
-            }, error => {
-                this.showError(error);
-            });
-        }    
+        }
 
-    }
-    
-    registerCatador() {
-        this.loadingMessage = 'Cadastrando o catador...';
-        let new_material_list = [];
-        this.catador.materials_collected.forEach(item => { 
-            if (item && item.id) {
-                new_material_list.push(item.id) 
-            }     
-            
-        });
-        this.catador.materials_collected = new_material_list;
+        this.avatar = $('#preview').attr('src');
+        var position = {
+            latitude: this.markLat,
+            longitude: this.markLng
+        }
 
-        this.catadorDataService.saveCatador(this.catador).subscribe(res => {
-            // console.log(res);
-            let data = res.json();
-            this.catador.id = data.id;
-
-            Observable.forkJoin([
-                this.cadastrarPhones(this.catador.phones),
-                this.cadastrarLocation(this.catador.id),
-            ])
-            .subscribe(t=> {
-
-                this.loadingMessage = 'Enviando a imagem...';
-                this.cadastrarAvatar(this.catador.user).subscribe(result => {
-                    this.loading = false;
-                    alert('Catador cadastrado com sucesso!');
-                    this.catador = new Catador();
-                    this.user = new User();
-                    this.loadingMessage = '...';    
-                    location.href = "/";
-                    // this.router.navigateByUrl('/');
-                }, error => {
-                    this.sendError(error);
-                    this.loading = false;
-                    alert('Catador cadastrado com sucesso!');
-                    this.catador = new Catador();
-                    this.user = new User();
-                    this.loadingMessage = '...';    
-                    location.href = "/";
-                    // this.router.navigateByUrl('/');
-                })
-                
-            },  error => {
-                this.showError(error);
-            });
-                
+        this.catadorDataService.save(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
+            this.loading = false;
+            alert('Cadastro realizado com sucesso!');
+            location.href = "/";
         }, error => {
-            this.showError(error);            
+            this.showError(error);
+            this.loading = false;
         });
     }
 
     showError(error) {
         this.loading = false;
         this.sendError(error);
-        alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
 
-        try {
-            var error = JSON.parse(error._body);
-            console.log(error);    
-            var msg = '';    
-            _.each(error, function(value, key) {
-                msg += ' - ' + value[0] + ' \n';
-            })    
-            alert(msg);
+        try {            
+            var error = error.json();
+            alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
+
+            if (error['catador'] || error['user']) {
+                var msg = '';
+                _.each(error, function(value, key) {
+                    if (value instanceof Object) {
+                        // _.each(value, function(value2, key2) {
+                        for (var i in Object.keys(value)) {
+                            var value2 = value[i];
+                            if (value2 instanceof Array) {
+                                msg += i + ' - ' + value2[0] + ' \n';
+                            } else {
+                                msg += i + ' - ' + value2 + ' \n';
+                            }
+                        }
+                    } else {
+                        msg += key + ' - ' + value + ' \n';
+                    }
+                    
+                })    
+                alert(msg);
+            } else {
+                if (Object.keys(error).length > 0) {
+                    alert(error);
+                    location.href = "/";
+                } else {
+                    alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
+                    location.href = "/";
+                }    
+            }
+            
         } catch(err) {
-            console.log(err);
+            alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
+            location.href = "/";
         }
     }
 
@@ -243,24 +178,6 @@ export class CatadorComponent implements OnInit {
             catador: this.catador
         };
         this.userDataService.sendError(detail, obj).subscribe();
-    }
-
-    cadastrarPhones(phones) {
-        return this.catadorDataService.registerPhones(phones, this.catador.id);
-    }
-
-    cadastrarLocation(catadorId) {
-        var location = {
-            latitude: this.markLat,
-            longitude: this.markLng
-        }
-        return this.catadorDataService.updateLocation(location, catadorId);
-    }
-
-    cadastrarAvatar(userId) {
-        this.avatar = $('#preview').attr('src');
-        if (!this.avatar) return;
-        return this.userDataService.addAvatar({ avatar: this.avatar }, userId);
     }
 
     selectMaterial(material) {
@@ -346,14 +263,6 @@ export class CatadorComponent implements OnInit {
             var location = results[0]['geometry']['location'];
             this.updateMap(location);
         });
-        
-        // this.geocoder.geocode({ address: "Montes Claros Minas Gerais" }, (results: google.maps.GeocoderResult[], status: google.maps.GeocoderStatus) => {
-        //         if (status == google.maps.GeocoderStatus.OK) {
-        //             return results;
-        //         } else {
-        //             throw new Error(status.toString());
-        //         }
-        // });
     }
 
     updateMap(location: any) {

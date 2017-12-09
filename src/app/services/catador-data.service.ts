@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { ApiProvider } from './../providers/ApiProvider';
+import 'rxjs/add/operator/timeout';
 
 import { User } from '../models/user';
 import { Catador } from '../models/catador';
@@ -19,13 +20,21 @@ export class CatadorDataService {
         headers.append('Content-Type', 'application/json');
     }
 
-    save(catador: any) {
+    save(catador: any, user: any, avatar: any, location: any, phones: any) {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
 
-        return this.http.post(this.url + 'add/', catador, {
+        var data = {
+            catador: catador,
+            user: user,
+            avatar: avatar,
+            location: location,
+            phones: phones
+        }
+
+        return this.http.post(this.apiProvider.url + 'api/cadastro_catador/', data, {
             headers: headers
-        }).timeout(30000);
+        }).timeout(180000);
     }
 
     saveCatador(catador: Catador) {

@@ -27,7 +27,7 @@ export class Catador {
     public belongsCooperative: boolean = false;
     public cooperative_name: string = '';
     public iron_work: string = '';
-    public materials_collected: Array<Material> = new Array<Material>();
+    public materials_collected: Array<any> = new Array<any>();
     public safety_kit: boolean = false;
     public has_motor_vehicle: boolean = false;
     public has_smartphone_with_internet: boolean = false;
@@ -91,13 +91,18 @@ export class Catador {
     }
 
     addMaterialOrRemoveIfAlreadyIncluded(material: Material){
+        var found = false;
+
         for(let i=0; i<this.materials_collected.length; i++){
-            if (material.id === this.materials_collected[i].id){
+            if (material.id === this.materials_collected[i]){
                 this.materials_collected.splice(i, 1);
+                found = true;
                 return 0;
             }
         }
-        this.materials_collected.push(material);
+
+        if (!found)
+            this.materials_collected.push(material.id);
     }
 
 }
