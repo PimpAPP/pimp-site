@@ -22,7 +22,7 @@ export class Cooperativa {
     public longitude: number;    
 
     public user: string = '';
-    public materials_collected: Array<Material> = new Array<Material>();
+    public materials_collected: Array<any> = new Array<any>();
     public phones: Array<Phone> = new Array<Phone>();
 
     constructor() {
@@ -46,13 +46,20 @@ export class Cooperativa {
     }
 
     addMaterialOrRemoveIfAlreadyIncluded(material: Material){
+        var found = false;
+
         for(let i=0; i<this.materials_collected.length; i++){
-            if (material.id === this.materials_collected[i].id){
+            if (material.id === this.materials_collected[i]){
                 this.materials_collected.splice(i, 1);
+                found = true;
                 return 0;
             }
         }
-        this.materials_collected.push(material);
+
+        if (!found)
+            this.materials_collected.push(material.id);
     }
+
+    
 
 }

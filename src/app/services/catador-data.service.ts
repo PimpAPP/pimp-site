@@ -34,7 +34,7 @@ export class CatadorDataService {
 
         return this.http.post(this.apiProvider.url + 'api/cadastro_catador/', data, {
             headers: headers
-        }).timeout(180000);
+        }).timeout(360000);
     }
 
     saveCatador(catador: Catador) {

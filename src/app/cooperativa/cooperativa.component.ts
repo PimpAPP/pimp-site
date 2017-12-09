@@ -95,8 +95,6 @@ export class CooperativaComponent implements OnInit {
     }
 
     save() {
-        console.log(this.cooperativa);
-
         var valid: any = this.cooperativa.valid();
         if (valid !== true) {
             alert('Por favor preencha todos os campos obrigatórios.');
@@ -117,111 +115,75 @@ export class CooperativaComponent implements OnInit {
 
         this.loading = true;
 
-        if (this.cooperativa.user) {
-            this.registerCooperativa();
-        } else {
-            this.loadingMessage = 'Cadastrando o usuário...';
-            this.user.username = this.cooperativa.email;
-            this.user.password = 'pimp';
-            this.user.email = this.cooperativa.email;
-            this.user.first_name = '';
-            this.user.last_name = '';
+        this.loadingMessage = 'Cadastrando a cooperativa...';
+        this.user.username = this.cooperativa.email;
+        this.user.password = 'pimp';
+        this.user.email = this.cooperativa.email;
+        this.user.first_name = '';
+        this.user.last_name = '';
 
-            var nameParts = this.cooperativa.name.split(' ');
-            var hasLastName = false;
-            for (var i=0; i<nameParts.length; i++) {
-                if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
-                    this.user.first_name += nameParts[i] + ' ';
-                } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
-                    this.user.last_name += nameParts[i] + ' ';
-                    hasLastName = true;
-                }
+        var nameParts = this.cooperativa.name.split(' ');
+        var hasLastName = false;
+        for (var i=0; i<nameParts.length; i++) {
+            if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
+                this.user.first_name += nameParts[i] + ' ';
+            } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
+                this.user.last_name += nameParts[i] + ' ';
+                hasLastName = true;
             }
-            
-            this.userDataService.saveUser(this.user).subscribe(res => {
-                if (res.status == 201) {
-                    let data = res.json();
-                    this.cooperativa.user = data.id;
-                    this.userDataService.login(this.user.username, this.user.password)
-                            .subscribe(res => {
-                        var data = res.json();
-                        this.userDataService.userToken = data.token;
-                        this.registerCooperativa();
-                    }, error => {
-                        console.log(error);
-                    });
-                } else {
-                    console.log('Erro: ' + res);
-                    this.showError(res);
-                    this.loading = false;
-                    alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
-                }
-            }, error => {
-                this.showError(error);
-            });
         }
-    }
-    
-    registerCooperativa() {
-        this.loadingMessage = 'Cadastrando o cooperativa...';
-        let new_material_list = [];
-        this.cooperativa.materials_collected.forEach(item => { 
-            if (item && item.id) {
-                new_material_list.push(item.id) 
-            }     
-            
-        });
-        this.cooperativa.materials_collected = new_material_list;
+
         this.cooperativa.latitude = this.markLat;
         this.cooperativa.longitude = this.markLng;
+        this.avatar = $('#preview').attr('src');
 
-        var cooperativa = Object.assign({}, this.cooperativa);
-        delete cooperativa['phones'];
-        this.cooperativaDataService.saveCooperativa(cooperativa).subscribe(res => {
-            console.log(res);
-            let data = res.json();
-            this.cooperativa.id = data.id;
-
-            this.cadastrarPhones(this.cooperativa.phones).subscribe(t=> {
-                this.loadingMessage = 'Enviando a imagem...';
-
-                this.cadastrarAvatar(this.cooperativa.user).subscribe(result => {
-                    this.loading = false;
-                    alert('Cooperativa cadastrada com sucesso!');
-                    this.cooperativa = new Cooperativa();
-                    this.user = new User();
-                    this.loadingMessage = '...';    
-                    location.href = "/";
-                }, error => {
-                    this.sendError(error);
-                    this.loading = false;
-                    alert('Cooperativa cadastrada com sucesso!');
-                    this.cooperativa = new Cooperativa();
-                    this.user = new User();
-                    this.loadingMessage = '...';    
-                    location.href = "/";
-                })
-                
-            },  error => {
-                this.showError(error);
-            });
-                
+        this.cooperativaDataService.save(this.cooperativa, this.user, this.avatar, this.cooperativa.phones).subscribe(res => {
+            this.loading = false;
+            alert('Cadastro realizado com sucesso!');
+            location.href = "/";
         }, error => {
-            this.showError(error);            
+            this.showError(error);
+            this.loading = false;
         });
     }
 
     showError(error) {
         this.loading = false;
         this.sendError(error);
-        try {
-            var error = JSON.parse(error._body);
+
+        try {            
+            var error = error.json();
             alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
-            var msg = '';    
-            _.each(error, function(value, key) {
-                msg += ' - ' + value[0] + ' \n';
-            })    
-            alert(msg);
+
+            if (error['cooperativa'] || error['user']) {
+                var msg = '';
+                _.each(error, function(value, key) {
+                    if (value instanceof Object) {
+                        // _.each(value, function(value2, key2) {
+                        for (var i in Object.keys(value)) {
+                            var value2 = value[i];
+                            if (value2 instanceof Array) {
+                                msg += i + ' - ' + value2[0] + ' \n';
+                            } else {
+                                msg += i + ' - ' + value2 + ' \n';
+                            }
+                        }
+                    } else {
+                        msg += key + ' - ' + value + ' \n';
+                    }
+                    
+                })    
+                alert(msg);
+            } else {
+                if (Object.keys(error).length > 0) {
+                    alert(error);
+                    location.href = "/";
+                } else {
+                    alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
+                    location.href = "/";
+                }    
+            }
+            
         } catch(err) {
             alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
             location.href = "/";
@@ -235,16 +197,7 @@ export class CooperativaComponent implements OnInit {
         };
         this.userDataService.sendError(detail, obj).subscribe();
     }
-
-    cadastrarPhones(phones) {
-        return this.cooperativaDataService.registerPhones(phones, this.cooperativa.id);
-    }
-
-    cadastrarAvatar(userId) {
-        this.avatar = $('#preview').attr('src');
-        if (!this.avatar) return;
-        return this.userDataService.addAvatar({ avatar: this.avatar }, userId);
-    }
+    
 
     selectMaterial(material) {
         let materialSelected = this.materialRecover.findMaterial(material);
