@@ -113,6 +113,18 @@
             </div>
 
             <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                    <label for="year_of_birth">Data de nascimento</label>
+                    <input type="text" 
+                            id="datepicker"
+                            class="form-control" 
+                            name="year_of_birth"
+                            [textMask]="{mask: masks.date}"
+                            [(ngModel)]="catador.year_of_birth">
+                </div>
+            </div>
+
+            <div class="row">
                 <hr>
                 <div class="form-group col-md-6">
                     <label for="phones0">Telefone</label>

@@ -74,7 +74,30 @@
                                 [(ngModel)]="cooperativa.how_many_cooperators"
                                 required>
                     </div> 
-                </div>        
+                </div>  
+                
+                <div class="form-group col-md-12">
+                    <label for="founded_in">Data de fundação</label>
+                    <input type="text" 
+                            id="datepicker"
+                            class="form-control" 
+                            name="founded_in"
+                            [textMask]="{mask: masks.date}"
+                            [(ngModel)]="cooperativa.founded_in">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="minibio">História da cooperativa</label>
+                    <textarea class="form-control" 
+                            id="history" 
+                            rows="5"
+                            name="history"
+                            maxlength="600"
+                            required
+                            [(ngModel)]="cooperativa.history"></textarea>
+                </div>
             </div>
 
             <div class="row">

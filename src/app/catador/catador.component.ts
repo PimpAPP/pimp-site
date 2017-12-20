@@ -52,7 +52,8 @@ export class CatadorComponent implements OnInit {
         this.catador.materials_collected = [];
         this.user = new User();
         this.masks = {
-            number: ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+            number: ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+            date: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
         };
 
         //this.geocoder = new google.maps.Geocoder();
@@ -68,13 +69,19 @@ export class CatadorComponent implements OnInit {
             //buttonName: 'btn btn-primary',
             icon: false
         });
+
+        (<any>$("#datepicker")).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'dd/mm/yy'
+        });
     }
 
     goHome() {
         this.router.navigateByUrl('/');
     }
     
-    save() {
+    save() {        
         var valid: any = this.catador.valid();
         if (valid !== true) {
             alert('Por favor preencha todos os campos obrigatórios.');
@@ -114,6 +121,8 @@ export class CatadorComponent implements OnInit {
         }
 
         this.avatar = $('#preview').attr('src');
+        this.catador.year_of_birth = this.getFormatDate((<any>$("#datepicker")).datepicker( "getDate" ));
+
         var position = {
             latitude: this.markLat,
             longitude: this.markLng
@@ -353,6 +362,18 @@ export class CatadorComponent implements OnInit {
         var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
     
         return { width: srcWidth*ratio, height: srcHeight*ratio };
+    }
+
+    getFormatDate(date: any) {
+        var m = (date.getMonth() + 1) + '';
+        if (m.length == 1)
+            m = '0' + m;
+
+        var d = date.getDate() + '';
+        if (d.length == 1)
+            d = '0' + d;
+
+        return date.getFullYear() + '-' + m + '-' + d;
     }
 
 }

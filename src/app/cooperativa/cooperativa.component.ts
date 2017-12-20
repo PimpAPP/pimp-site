@@ -46,7 +46,8 @@ export class CooperativaComponent implements OnInit {
         this.user = new User();
         this.cooperativa.materials_collected = [];
         this.masks = {
-            number: ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
+            number: ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+            date: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
         };
     }
 
@@ -58,6 +59,12 @@ export class CooperativaComponent implements OnInit {
             buttonText: 'Selecionar Imagem',
             //buttonName: 'btn btn-primary',
             icon: false
+        });
+
+        (<any>$("#datepicker")).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'dd/mm/yy'
         });
 
         setTimeout(()=>{
@@ -136,6 +143,7 @@ export class CooperativaComponent implements OnInit {
         this.cooperativa.latitude = this.markLat;
         this.cooperativa.longitude = this.markLng;
         this.avatar = $('#preview').attr('src');
+        this.cooperativa.founded_in = this.getFormatDate((<any>$("#datepicker")).datepicker( "getDate" ));
 
         this.cooperativaDataService.save(this.cooperativa, this.user, this.avatar, this.cooperativa.phones).subscribe(res => {
             this.loading = false;
@@ -344,4 +352,15 @@ export class CooperativaComponent implements OnInit {
         reader.readAsDataURL(file);
     }
 
+    getFormatDate(date: any) {
+        var m = (date.getMonth() + 1) + '';
+        if (m.length == 1)
+            m = '0' + m;
+
+        var d = date.getDate() + '';
+        if (d.length == 1)
+            d = '0' + d;
+
+        return date.getFullYear() + '-' + m + '-' + d;
+    }
 }

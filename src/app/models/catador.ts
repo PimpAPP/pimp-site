@@ -42,6 +42,7 @@ export class Catador {
     public another_user_email: string = '';
     public another_user_whatsapp: string = '';
     public image: string = '';
+    public year_of_birth: any;
     public user: string = '';
 
     constructor() {

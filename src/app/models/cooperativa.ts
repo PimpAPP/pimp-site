@@ -18,12 +18,14 @@ export class Cooperativa {
     public country: string = '';
     public how_many_cooperators: Number;
     // public work_since: string = '';
+    public history: string = '';
     public latitude: number;
     public longitude: number;    
 
     public user: string = '';
     public materials_collected: Array<any> = new Array<any>();
     public phones: Array<Phone> = new Array<Phone>();
+    public founded_in: any;
 
     constructor() {
         this.phones[0] = new Phone();
