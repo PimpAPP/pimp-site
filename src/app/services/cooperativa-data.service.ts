@@ -25,15 +25,20 @@ export class CooperativaDataService {
         }
     }
 
-    save(cooperativa: any, user: any, avatar: any, phones: any) {
+    save(cooperativa: any, user: any, avatar: any, phones: any, materials: any) {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
 
+        var coop = Object.assign({}, cooperativa);
+        delete coop.phones;
+        delete coop.materials_collected
+
         var data = {
-            cooperativa: cooperativa,
+            cooperativa: coop,
             user: user,
             avatar: avatar,
-            phones: phones
+            phones: phones,
+            materials: materials
         }
 
         return this.http.post(this.apiProvider.url + 'api/cadastro_cooperativa/', data, {

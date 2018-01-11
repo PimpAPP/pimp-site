@@ -145,7 +145,11 @@ export class CooperativaComponent implements OnInit {
         this.avatar = $('#preview').attr('src');
         this.cooperativa.founded_in = this.getFormatDate((<any>$("#datepicker")).datepicker( "getDate" ));
 
-        this.cooperativaDataService.save(this.cooperativa, this.user, this.avatar, this.cooperativa.phones).subscribe(res => {
+        this.cooperativaDataService.save(this.cooperativa, 
+                this.user, 
+                this.avatar, 
+                this.cooperativa.phones, 
+                this.cooperativa.materials_collected).subscribe(res => {
             this.loading = false;
             alert('Cadastro realizado com sucesso!');
             location.href = "/";
@@ -194,7 +198,7 @@ export class CooperativaComponent implements OnInit {
             
         } catch(err) {
             alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
-            location.href = "/";
+            // location.href = "/";
         }
     }
 
