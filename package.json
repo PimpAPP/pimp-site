@@ -36,8 +36,7 @@
     "typescript": "^2.1.0",
     "underscore": "^1.8.3",
     "zone.js": "^0.8.14",
-    "@angular/cli": "^1.2.3",
-    "@angular/compiler-cli": "^2.3.1"
+    "@angular/cli": "^1.2.3"
   },
   "devDependencies": {
     "@angular/cli": "^1.2.3",
