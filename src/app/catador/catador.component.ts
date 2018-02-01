@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 
 import { Catador } from '../models/catador';
@@ -12,6 +12,8 @@ import { MapsAPILoader } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core';
 import * as _ from 'underscore';
 import { Observable } from "rxjs/Rx";
+import { Response } from '@angular/http/src/static_response';
+import { setTimeout } from 'timers';
 
 
 
@@ -24,7 +26,9 @@ export class CatadorComponent implements OnInit {
 
 
     public loading: boolean = false;
-    public catador: Catador;
+    public isEditing: boolean = false;
+
+    public catador: Catador = new Catador();
     public user: User;
     public materialRecover: MaterialRecover = new MaterialRecover();
     public materialSelected = [];
@@ -47,7 +51,9 @@ export class CatadorComponent implements OnInit {
     constructor(private router: Router,
         public catadorDataService: CatadorDataService,
         public userDataService: UserDataService,
-        public http: Http, public gMaps: GoogleMapsAPIWrapper) {
+        public http: Http, public gMaps: GoogleMapsAPIWrapper,
+        private route: ActivatedRoute) {
+
         this.catador = new Catador();
         this.catador.materials_collected = [];
         this.user = new User();
@@ -55,6 +61,10 @@ export class CatadorComponent implements OnInit {
             number: ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
             date: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
         };
+
+        var catadorId = route.snapshot.params['catadorId'];
+        if (catadorId)
+            this.fillData(catadorId);
 
         //this.geocoder = new google.maps.Geocoder();
     }
@@ -77,11 +87,66 @@ export class CatadorComponent implements OnInit {
         });
     }
 
+    /**
+     * Called when edit catadores     
+     */
+    fillData(catadorId) {
+        this.loading = true;
+        this.isEditing = true;
+        this.catadorDataService.getCatador(catadorId).subscribe((res: Response) => {
+            var data = res.json();
+            this.catador = Object.assign(new Catador, data);
+            // this.catador = <Catador>res.json();
+
+            this.catador.phones.forEach((phone) => {
+                if (phone['has_whatsapp']) {
+                    phone['whatsapp'] = 1;
+                } else {
+                    phone['whatsapp'] = 0;
+                }
+            })
+
+            console.log(this.catador);
+
+            if (!this.catador.phones) {
+                this.catador.phones = [];
+                this.catador.phones.push(new Phone());
+                this.catador.phones.push(new Phone());
+            } else if (!this.catador.phones[0]) {
+                this.catador.phones[0] = new Phone();
+            } else if (!this.catador.phones[1]) {
+                this.catador.phones[1] = new Phone();
+            }
+
+            this.catador.materials_collected.forEach(id => {
+                var material = this.materialRecover.findMaterialId(id);
+                this.materialSelected.push(material.name.toLowerCase());
+            });
+
+            var url = this.catadorDataService.apiProvider.url.substring(0, this.catadorDataService.apiProvider.url.length -1);
+            $('#preview').attr('src', url + this.catador['profile_photo']);
+
+            var a = this.catador.year_of_birth.split('-');
+            var date = a[2] + '/' + a[1] + '/' + a[0];
+
+            setTimeout(function() {
+                (<any>$("#datepicker")).datepicker("setDate", date);
+            }, 500);
+            
+            
+            this.loading = false;
+        }, (error) => {
+            console.log(error);
+            this.loading = false;
+            this.router.navigateByUrl('/');
+        });
+    }
+
     goHome() {
         this.router.navigateByUrl('/');
     }
     
-    save() {        
+    save() { 
         var valid: any = this.catador.valid();
         if (valid !== true) {
             alert('Por favor preencha todos os campos obrigatórios.');
@@ -128,14 +193,26 @@ export class CatadorComponent implements OnInit {
             longitude: this.markLng
         }
 
-        this.catadorDataService.save(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
-            this.loading = false;
-            alert('Cadastro realizado com sucesso!');
-            location.href = "/";
-        }, error => {
-            this.showError(error);
-            this.loading = false;
-        });
+        if (!this.isEditing) {
+            this.catadorDataService.save(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
+                this.loading = false;
+                alert('Cadastro realizado com sucesso!');
+                location.href = "/";
+            }, error => {
+                this.showError(error);
+                this.loading = false;
+            });
+        } else {
+            this.user['id'] = parseInt(this.catador['user']);
+            this.catadorDataService.edit(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
+                this.loading = false;
+                // alert('Alteração realizada com sucesso!');
+                // location.href = "/";
+            }, error => {
+                this.showError(error);
+                this.loading = false;
+            });
+        }    
     }
 
     showError(error) {
@@ -357,10 +434,8 @@ export class CatadorComponent implements OnInit {
         reader.readAsDataURL(file);
     }
 
-    calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
-        
-        var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
-    
+    calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {        
+        var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);    
         return { width: srcWidth*ratio, height: srcHeight*ratio };
     }
 
