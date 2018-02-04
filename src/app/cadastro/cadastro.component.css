@@ -1,0 +1,162 @@
+button[type="button"] {
+    border-color: white;
+    height: 40px;
+    font-size: 15px
+}
+
+button[type="submit"] {
+    outline: black;
+    height: 40px;
+    width: 40%;
+    font-size: 14px;
+    border-radius: 20px;
+}
+
+input[type="button"] {
+    outline: black;
+    height: 40px;
+    width: 100%;
+    color: #fff;
+    font-size: 14px;
+    background: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+hr {
+    border-color: #5cb85c;
+    border-width: 3px;
+    border-radius: 20px;
+}
+
+input[type="text"],
+textarea[type="text"] {
+    border-radius: 20px;
+}
+
+span.glyphicon-camera {
+    font-size: 2.6em;
+    color: grey;
+}
+
+#left-arrow {
+    display: inline-block;
+    position: relative;
+    background: lightgrey;
+    width: 92%;
+    border-radius: 8px;
+}
+
+#left-arrow:after {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -40px;
+    content: '';
+    display: block;
+    width: 0%;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-right: 30px solid lightgrey;
+    border-bottom: 15px solid transparent;
+}
+
+#style {
+    margin-left: -15px;
+    width: 255%;
+    margin-top: -2px;
+}
+
+@media only screen and (max-width: 640px) and (min-width: 360px) {
+    #style {
+        margin-left: -45px;
+        width: 360%;
+        margin-top: -2px;
+    }
+    #left-arrow {
+        margin-top: 2%;
+        display: inline-block;
+        position: relative;
+        background: lightgrey;
+        width: 90%;
+        margin-left: 5%;
+        color: lightgrey;
+        text-decoration: none;
+        padding: 20px;
+    }
+    #left-arrow:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 40px;
+        top: 0%;
+        width: 0;
+        height: 0;
+        border-bottom: 30px solid lightgrey;
+        border-top: 15px solid transparent;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+}
+
+@media only screen and (max-width: 732px) and (min-width: 412px) {
+    #style {
+        margin-left: -45px;
+        width: 330%;
+        margin-top: -2px;
+    }
+    #left-arrow {
+        margin-top: 2%;
+        /* width: ; */
+        display: inline-block;
+        position: relative;
+        background: lightgrey;
+        color: lightgrey;
+        text-decoration: none;
+        padding: 20px;
+    }
+    #left-arrow:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 40px;
+        top: 0%;
+        width: 0;
+        height: 0;
+        border-bottom: 30px solid lightgrey;
+        border-top: 15px solid transparent;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+    #style {
+        margin-left: -45px;
+        width: 255%;
+        margin-top: -2px;
+    }
+    #left-arrow {
+        margin-top: 2%;
+        display: inline-block;
+        position: relative;
+        background: lightgrey;
+        color: lightgrey;
+        text-decoration: none;
+        padding: 20px;
+    }
+    #left-arrow:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 80px;
+        top: 0%;
+        width: 0;
+        height: 0;
+        border-bottom: 30px solid lightgrey;
+        border-top: 15px solid transparent;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+}

@@ -1,49 +1,682 @@
-<div class="container-fluid container_style">
-
+<form name="adduser" ng-submit="AddUser(adduser.$valid)">
+    <div class="cont">
+        <img src="assets/img/cadastro/image1.png" class="img-responsive">
+    </div>
+    <br>
     <div class="container">
-        <h1>Selecione o tipo</h1>
-
         <div class="row">
-            <div class="form-group col-md-12">
-                <div class="radio-inline">
-                    <label>
-                        <input type="radio" 
-                                name="catador" 
-                                [value]="'catador'" 
-                                [(ngModel)]="type"
-                                (change)="onChangeType($event)">
-                        Catador
-                    </label>
+            <div class="col-md-12">
+                <!-- -----------1st col--------------- -->
+                <div class="col-md-1 col-xs-1">
                 </div>
-                <div class="radio-inline">
-                    <label>
-                        <input type="radio" 
-                                name="cooperativa" 
-                                [value]="'cooperativa'" 
-                                [(ngModel)]="type"
-                                (change)="onChangeType($event)">
-                        Cooperativa
-                    </label>
+                <!-- ------------2nd col --------------------- -->
+                <div class="col-md-10 col-xs-10 col-lg-10" style="margin-left:-2%">
+                    <!-- ---------Description and the Button--------------- -->
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label> Com este formul&aacute;rio voc&ecirc; ir&aacute; cadastrar um novo catador no nossos aplicativo.Preencha
+                                tudo com muito carinho e aten&ccedil;&atilde;o, este perfil ser&aacute; o cart&atilde;o
+                                de visita do catador:)</label>
+                        </div>
+
+                        <div class="col-md-6" align="">
+                            <b>
+                                <input type="button" value="+DICAS PARA CADASTR0" style="width:100%">
+                            </b>
+                        </div>
+
+
+                    </div>
+                    <!-- -------------End of row------------------------- -->
+                    <hr>
+                    <!-- -------------------hr---------------------------- -->
+
+
+
+                    <!-- -----------New Row---------- -->
+                    <div class="row">
+                        <!-- ----------Col for the form------------------- -->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label align="right">DASDOS PESSOAIS</label>
+                            </div>
+                            <!-- -----------End of 1stcol------- -->
+                        </div>
+                        <!-- --------------End of row-------------- -->
+                    </div>
+
+                    <!-- -----------New Row---------- -->
+                    <div class="row">
+                        <!-- ----------Col for the form------------------- -->
+                        <div class="col-md-6">
+                            <!-- --------1st row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" id="name-group">
+                                        <input type="text" 
+                                                class="form-control" 
+                                                placeholder="Nome completo" 
+                                                required 
+                                                name="name" 
+                                                id="name"
+                                                [(ngModel)]="catador.name"
+                                                maxlength="60">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------2nd row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" 
+                                                class="form-control" 
+                                                placeholder="Como quer ser chamado" 
+                                                required 
+                                                maxlength="128"
+                                                id="nickname" 
+                                                name="nickname"
+                                                [(ngModel)]="catador.nickname">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------3rd row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-2 col-sm-1-col-xs-1">
+
+                                    <span class="input-group-btn">
+
+                                        <button id="fake-file-button-browse" type="button" style="width:70px;background-color:white;">
+                                            <span class="glyphicon glyphicon-camera"></span>
+                                        </button>
+                                    </span>
+                                </div>
+
+                                <div class="col-md-10 col-sm-11 col-xs-11">
+                                    <input type="file" id="files-input-upload" style="display:none">
+                                    <input type="text" id="fake-file-input-name" disabled="disabled" placeholder="Adiconar foto" class="form-control">
+
+                                </div>
+
+                                <script type="text/javascript">
+                                    // Fake file upload
+                                    document.getElementById('fake-file-button-browse').addEventListener('click', function () {
+                                        document.getElementById('files-input-upload').click();
+                                    });
+
+                                    document.getElementById('files-input-upload').addEventListener('change', function () {
+                                        document.getElementById('fake-file-input-name').value = this.value;
+
+                                        document.getElementById('fake-file-button-upload').removeAttribute('disabled');
+                                    });
+                                </script>
+                            </div>
+                            <!-- --------4th row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" ng-app="">
+                                        <input type="text" 
+                                                class="form-control" 
+                                                placeholder="Frase marcante" 
+                                                required
+                                                id="presentation_phrase" 
+                                                name="presentation_phrase"
+                                                required
+                                                maxlength="140"
+                                                [(ngModel)]="catador.presentation_phrase">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------5th row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        <textarea type="text" 
+                                                class="form-control" 
+                                                placeholder="Adiconar foto" 
+                                                style="height:130px;" 
+                                                name="minibio"
+                                                maxlength="600"
+                                                required
+                                                [(ngModel)]="catador.minibio"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- -----------End of 1stcol------- -->
+                        </div>
+
+                        <div class="col-md-1"></div>
+
+                        <!-- ----------Col 2nd for the form------------------- -->
+                        <div class="col-md-6">
+                            <!-- --------1st row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" 
+                                                class="form-control" 
+                                                placeholder="Telefone 1" 
+                                                id="phones0" 
+                                                name="phones0"
+                                                [textMask]="{mask: masks.number}"
+                                                [(ngModel)]="catador.phones[0].phone">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- --------2nd row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" style="color:grey">
+                                        Operadora:
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12" style="color:grey">
+                                    <div class="form-group">
+                                        <div class="radio-inline">
+                                            <label>
+                                                <input type="radio" name="mno0" [value]="'V'" [(ngModel)]="catador.phones[0].mno">
+                                                Vivo
+                                            </label>
+                                        </div>
+                                        <div class="radio-inline">
+                                            <label>
+                                                <input type="radio" name="mno0" [value]="'T'" [(ngModel)]="catador.phones[0].mno">
+                                                Tim
+                                            </label>
+                                        </div>
+                                        <div class="radio-inline">
+                                            <label>
+                                                <input type="radio" name="mno0" [value]="'C'" [(ngModel)]="catador.phones[0].mno">
+                                                Claro
+                                            </label>
+                                        </div>
+                                        <div class="radio-inline">
+                                            <label>
+                                                <input type="radio" name="mno0" [value]="'O'" [(ngModel)]="catador.phones[0].mno">
+                                                Oi
+                                            </label>
+                                        </div>
+                                        <div class="radio-inline">
+                                            <label>
+                                                <input type="radio" name="mno0" [value]="'N'" [(ngModel)]="catador.phones[0].mno">
+                                                Nextel
+                                            </label>
+                                        </div>
+                                        <div class="radio-inline">
+                                            <label>
+                                                <input type="radio" name="mno0" [value]="'P'" required [(ngModel)]="catador.phones[0].mno">
+                                                Porto
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- --------3rd row of the colm--------- -->
+                            <div class="row" style="padding-left:3%">
+                                <div class="col-md-12">
+                                    <div class="form-group" style="color:grey">
+                                        Este n&uacute;mero tem Whatsapp?
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------4th row of the colm--------- -->
+                            <div class="row" style="padding-left:3%">
+                                <div class="col-md-12" style="color:grey">
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" required name="name" ng-model="userfullName6">Sim</label>
+                                        <label class="radio-inline" style="margin-left:17%">
+                                            <input type="radio" required name="name" ng-model="userfullName6">N&atilde;o</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- --------5th row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Telefone 2(opcional)" required name="name7" ng-model="userfullName7">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------6th row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Operadora do telefone 2" required name="name8" ng-model="userfullName8">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------7th row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12" style="padding-left:6%">
+                                    <div class="form-group" style="color:grey">
+                                        Este numero tem Whatsapp?
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------8th row of the colm--------- -->
+                            <div class="row" style="padding-left:3%">
+                                <div class="col-md-12" style="color:grey">
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" required name="name9" ng-model="userfullName9">Sim</label>
+                                        <label class="radio-inline" style="margin-left:17%">
+                                            <input type="radio" required name="name9" ng-model="userfullName9">N&atilde;o</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- -----------End of 2nd col------- -->
+                        </div>
+                        <!-- --------------End of row-------------- -->
+                    </div>
+                    <br>
+                    <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                    <!-- -----------New Row---------- -->
+                    <div class="row">
+                        <form class="form-group">
+                            <!-- ----------Col for the form------------------- -->
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label align="right">LOCAL DE TRABALHO (REF.)</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- -----------New Row---------- -->
+                    <div class="row">
+                        <!-- ----------Col for the form------------------- -->
+                        <div class="col-md-6">
+                            <!-- --------1st row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Endereco de trabalho" required name="name10" ng-model="userfullName10">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------2nd row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Numero" required name="name11" ng-model="userfullName11">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------3rd row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Bairro" required name="name12" ng-model="userfullName12">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------4th row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Cidade" required name="name13" ng-model="userfullName13">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------5th row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Estado" required name="name14" ng-model="userfullName14">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------6th row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Pais" required name="name15" ng-model="userfullName15" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- --------7th row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Outros bairros que coleta" required name="name16" ng-model="userfullName16"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- -----------End of 1stcol------- -->
+                        </div>
+
+
+                        <!-- ----------Col 2nd for the form------------------- -->
+                        <div class="col-md-6">
+                            <!-- --------1st row of the colm--------- -->
+                            <div class="row" style=" ">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <img src="assets/img/cadastro/map.jpg" class="img-responsive">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- -----------End of 2nd col------- -->
+                        </div>
+
+
+                        <!-- --------------End of row-------------- -->
+                    </div>
+                    <br>
+                    <!-- -----------New Row---------- -->
+                    <div class="row">
+                        <!-- ----------Col for the form------------------- -->
+                        <div class="col-md-12 col-xs-12 col-sm-12">
+                            <div class="form-group">
+                                <label align="left">INFORMACOES DO TRABALHO</label>
+                            </div>
+                            <!-- -----------End of 1stcol------- -->
+                        </div>
+                        <!-- --------------End of row-------------- -->
+                    </div>
+
+                    <!-- -----------New Row---------- -->
+                    <div class="row">
+                        <!-- ----------Col for the form------------------- -->
+                        <div class="col-md-6">
+                            <!-- --------1st row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12" style="padding-left:6%">
+                                    <div class="form-group" style="color:grey">
+                                        Catador(a) motorizado(a)?
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------2nd row of the colm--------- -->
+                            <div class="row" style="padding-left:3%">
+                                <div class="col-md-12" style="color:grey">
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" required name="name17" ng-model="userfullName17">Sim</label>
+                                        <label class="radio-inline" style="margin-left:17%">
+                                            <input type="radio" required name="name17" ng-model="userfullName17">N&atilde;o</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- -----------End of 1stcol------- -->
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- --------1st row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12" style="padding-left:6%">
+                                    <div class="form-group" style="color:grey">
+                                        Carroca grafitada/pipada?
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------2nd row of the colm--------- -->
+                            <div class="row" style="padding-left:3%">
+                                <div class="col-md-12" style="color:grey">
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" required name="name18" ng-model="userfullName18">Sim</label>
+                                        <label class="radio-inline" style="margin-left:17%">
+                                            <input type="radio" required name="name18" ng-model="userfullName18">N&atilde;o</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- -----------End of 2nd col------- -->
+                        </div>
+                        <!-- --------------End of row-------------- -->
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <!-- ----------Col for the form------------------- -->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label align="right">MATERIAIS QUE COLETA</label>
+                            </div>
+                            <!-- -----------End of 1stcol------- -->
+                        </div>
+                        <!-- --------------End of row-------------- -->
+                    </div>
+
+
+                    <!-- -----------New Row---------- -->
+                    <div class="row">
+                        <!-- ----------Col for the form------------------- -->
+                        <div class="col-md-6">
+                            <!-- --------1st row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-4  col-sm-4  col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon 1.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:20%">
+                                        <input type="radio" class="inline" name="name19" ng-model="userfullName19">Misturado</label>
+                                </div>
+
+                                <!-- ----------2nd colm------------- -->
+                                <div class="col-md-4  col-sm-4 col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon2.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:20%">
+                                        <input type="radio" class="inline" name="name19" ng-model="userfullName19">Aluminio</label>
+                                </div>
+
+                                <!-- -----------3rd colm-------------------- -->
+                                <div class="col-md-4  col-sm-4 col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon3.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:28%">
+                                        <input type="radio" class="inline" name="name19" ng-model="userfullName19">Vidro</label>
+                                </div>
+                            </div>
+
+
+
+                            <!-- --------2nd row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-4  col-sm-4  col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon4.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:20%">
+                                        <input type="radio" class="inline" required name="name19" ng-model="userfullName19">Papel</label>
+                                </div>
+
+                                <!-- ----------2nd colm------------- -->
+                                <div class="col-md-4  col-sm-4 col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon5.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:20%">
+                                        <input type="radio" class="inline" required name="name19" ng-model="userfullName19">Plastico</label>
+                                </div>
+
+                                <!-- -----------3rd colm-------------------- -->
+                                <div class="col-md-4  col-sm-4 col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon6.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:28%">
+                                        <input type="radio" class="inline" required name="name19" ng-model="userfullName19">Metal</label>
+                                </div>
+                            </div>
+
+                            <!-- -----------End of 1stcol------- -->
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- --------1st row of the colm--------- -->
+                            <!-- --------1st row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-4  col-sm-4  col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon7.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:20%">
+                                        <input type="radio" class="inline" required name="name19" ng-model="userfullName19">Oleo</label>
+                                </div>
+
+                                <!-- ----------2nd colm------------- -->
+                                <div class="col-md-4  col-sm-4 col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon8.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:10%">
+                                        <input type="radio" class="inline" required name="name19" ng-model="userfullName19">Electronico</label>
+                                </div>
+
+                                <!-- -----------3rd colm-------------------- -->
+                                <div class="col-md-4  col-sm-4 col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon9.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:28%">
+                                        <input type="radio" class="inline" required name="name19" ng-model="userfullName19">Pihas</label>
+                                </div>
+                            </div>
+
+
+
+                            <!-- --------2nd row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-4  col-sm-4  col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon10.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:20%">
+                                        <input type="radio" class="inline" required name="name19" ng-model="userfullName19">Moveis</label>
+                                </div>
+
+                                <!-- ----------2nd colm------------- -->
+                                <div class="col-md-4  col-sm-4 col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon11.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:20%">
+                                        <input type="radio" class="inline" required name="name19" ng-model="userfullName19">Enthulho</label>
+                                </div>
+
+                                <!-- -----------3rd colm-------------------- -->
+                                <div class="col-md-4  col-sm-4 col-xs-4">
+                                    <p>
+                                        <img src="assets/img/cadastro/icon12.png" class="img-responsive">
+                                    </p>
+                                    <label class="radio-inline" style="padding-left:28%">
+                                        <input type="radio" class="inline" required name="name19" ng-model="userfullName19">Outros</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------------End of row-------------- -->
+                    </div>
+                    <br>
+                    <br>
+
+                    <!-- -----------New Row---------- -->
+                    <div class="row">
+                        <!-- ----------Col for the form------------------- -->
+                        <div class="col-md-6">
+                            <!-- --------1st row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" style="color:grey">
+                                        <label>Quem esta cadastrando?</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------2nd row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-6 col-xs-5 col-sm-6" style="color:grey">
+                                    <div class="form-group" align="left">
+                                        <label class="radio-inline">
+                                            <input type="radio" required name="name20" VALUE="no" id="no" ng-model="userfullName20">Eu,catador(a)</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xs-7 col-sm-6" style="color:grey">
+                                    <div class="form-group" align="center" id="radio">
+                                        <label class="radio-inline">
+                                            <input type="radio" required name="name20" VALUE="yes" id="yes" ng-model="userfullName20">Outra pessoa</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- -----------End of 1stcol------- -->
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <!-- --------2nd row of the colm--------- -->
+                            <div class="row">
+                                <div class="col-md-12" style="color:grey" id="left-arrow">
+
+
+
+                                    <div class="col-md-6 col-xs-6" id="color">
+                                        <form>
+                                            <br>
+                                            <p>
+                                                <input type="text" class="form-control frm" placeholder="Nome" id="style"
+                                                    name="name21" ng-model="userfullName21">
+                                            </p>
+                                            <p>
+                                                <input type="text" class="form-control frm" placeholder="E-mail" id="style"
+                                                    name="name22" ng-model="userfullName22">
+                                            </p>
+                                            <p>
+                                                <input type="text" class="form-control frm" placeholder="Whatsapp" id="style"
+                                                    name="name23" ng-model="userfullName23">
+                                            </p>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <!-- -----------End of 1stcol------- -->
+                        </div>
+                        <!-- --------------End of row-------------- -->
+                    </div>
+                    <br>
+
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12 col-xs-12 col-sm-12">
+                                <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success" onclick="rajat();">CADASTRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <!-- ----------------End of the main col---------------------------------- -->
+
+                <!-- --------------3rd col----------------------------- -->
+                <div class="col-md-1 col-xs-1">
                 </div>
             </div>
         </div>
-        <div class="row">
-            <!-- <div class="col-md-12">
-                <button class="btn btn-success col-md-4 col-xs-4" (click)="next()">
-                    Avançar
-                </button>
-            </div> -->
-        </div>
     </div>
+    </form>
 
-    <br><br>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('formCtrl', function ($scope) {
 
-    <div [hidden]="type != 'catador'">
-        <app-catador></app-catador>
-    </div>    
-
-    <div [hidden]="type != 'cooperativa'">
-        <app-cooperativa></app-cooperativa>
-    </div>
-
-</div>
+        });
+    </script>
