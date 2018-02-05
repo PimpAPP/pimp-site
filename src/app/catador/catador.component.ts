@@ -126,13 +126,14 @@ export class CatadorComponent implements OnInit {
             var url = this.catadorDataService.apiProvider.url.substring(0, this.catadorDataService.apiProvider.url.length -1);
             $('#preview').attr('src', url + this.catador['profile_photo']);
 
-            var a = this.catador.year_of_birth.split('-');
-            var date = a[2] + '/' + a[1] + '/' + a[0];
+            if (this.catador.year_of_birth) {
+                var a = this.catador.year_of_birth.split('-');
+                var date = a[2] + '/' + a[1] + '/' + a[0];
 
-            setTimeout(function() {
-                (<any>$("#datepicker")).datepicker("setDate", date);
-            }, 500);
-            
+                setTimeout(function() {
+                    (<any>$("#datepicker")).datepicker("setDate", date);
+                }, 500);
+            }
             
             this.loading = false;
         }, (error) => {

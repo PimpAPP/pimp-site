@@ -76,16 +76,16 @@ export class Catador {
             return 'state';
         } else if (!this.country || this.country.length == 0) {
             return 'country';
-        } else if (!this.cooperative_name || this.cooperative_name.length == 0) {
-            return 'cooperative_name';    
-        } else if (!this.kg_day || this.kg_day == 0) {
-            return 'kg_day';  
-        } else if (!this.how_many_days_work_week || this.how_many_days_work_week == 0) {
-            return 'how_many_days_work_week';    
-        } else if (!this.how_many_years_work || this.how_many_years_work == 0) {
-            return 'how_many_years_work';
-        } else if (!this.region || this.region.length == 0) {
-            return 'region';
+        // } else if (!this.cooperative_name || this.cooperative_name.length == 0) {
+        //     return 'cooperative_name';    
+        // } else if (!this.kg_day || this.kg_day == 0) {
+        //     return 'kg_day';  
+        // } else if (!this.how_many_days_work_week || this.how_many_days_work_week == 0) {
+        //     return 'how_many_days_work_week';    
+        // } else if (!this.how_many_years_work || this.how_many_years_work == 0) {
+        //     return 'how_many_years_work';
+        // } else if (!this.region || this.region.length == 0) {
+        //     return 'region';
         } 
         
         return true;

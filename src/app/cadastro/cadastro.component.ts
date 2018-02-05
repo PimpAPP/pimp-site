@@ -76,9 +76,12 @@ export class CadastroComponent implements OnInit {
         this.setCurrentPosition();        
         $(":file")['filestyle']({
             input: true,
-            buttonText: 'Selecionar Imagem',
+            buttonText: '',
             //buttonName: 'btn btn-primary',
-            icon: false
+            icon: true,
+            iconName: "glyphicon glyphicon-camera",
+            buttonBefore: true,
+            placeholder: "Selecionar imagem"
         });
 
         (<any>$("#datepicker")).datepicker({
@@ -86,6 +89,16 @@ export class CadastroComponent implements OnInit {
             changeYear: true,
             dateFormat: 'dd/mm/yy'
         });
+
+        // document.getElementById('fake-file-button-browse').addEventListener('click', function () {
+        //     document.getElementById('img-file').click();
+        // });
+
+        // document.getElementById('files-input-upload').addEventListener('change', function () {
+        //     document.getElementById('fake-file-input-name').value = this.value;
+
+        //     document.getElementById('fake-file-button-upload').removeAttribute('disabled');
+        // });
     }
 
     /**
@@ -125,15 +138,19 @@ export class CadastroComponent implements OnInit {
             });
 
             var url = this.catadorDataService.apiProvider.url.substring(0, this.catadorDataService.apiProvider.url.length -1);
-            $('#preview').attr('src', url + this.catador['profile_photo']);
+            var previewEl = $('#preview');
+            previewEl.attr('src', url + this.catador['profile_photo']);
+            previewEl.css('margin-bottom', '10px');
+            previewEl.css('display', 'unset');
 
-            var a = this.catador.year_of_birth.split('-');
-            var date = a[2] + '/' + a[1] + '/' + a[0];
+            // if (this.catador.year_of_birth) {
+            //     var a = this.catador.year_of_birth.split('-');
+            //     var date = a[2] + '/' + a[1] + '/' + a[0];
 
-            setTimeout(function() {
-                (<any>$("#datepicker")).datepicker("setDate", date);
-            }, 500);
-            
+            //     setTimeout(function() {
+            //         (<any>$("#datepicker")).datepicker("setDate", date);
+            //     }, 500);
+            // }
             
             this.loading = false;
         }, (error) => {
@@ -187,7 +204,7 @@ export class CadastroComponent implements OnInit {
         }
 
         this.avatar = $('#preview').attr('src');
-        this.catador.year_of_birth = this.getFormatDate((<any>$("#datepicker")).datepicker( "getDate" ));
+        // this.catador.year_of_birth = this.getFormatDate((<any>$("#datepicker")).datepicker( "getDate" ));
 
         var position = {
             latitude: this.markLat,
@@ -384,7 +401,10 @@ export class CadastroComponent implements OnInit {
     }
 
     updateAvatarPreview(e: any) {
-        $('#preview').attr('src', e.target.result);
+        var previewEl = $('#preview');
+        previewEl.css('margin-bottom', '10px');
+        previewEl.css('display', 'unset');
+        previewEl.attr('src', e.target.result);
     }
 
     readURL(fileInput) {
@@ -450,26 +470,5 @@ export class CadastroComponent implements OnInit {
             d = '0' + d;
 
         return date.getFullYear() + '-' + m + '-' + d;
-    }
-
-    rajat() {
-        var name = document.adduser.name20.value;
-        var name1 = document.adduser.name21.value;
-        var name2 = document.adduser.name22.value;
-        var name3 = document.adduser.name23.value;
-        if (name == "yes") {
-            if (name1 == "" || name1 == null) {
-                alert("Please NOME fill");
-                return false;
-            }
-            if (name2 == "" || name2 == null) {
-                alert("Please E-mail fill");
-                return false;
-            }
-            if (name3 == "" || name3 == null) {
-                alert("Please Whatsup fill");
-                return false;
-            }
-        }
     }
 }
