@@ -7,7 +7,7 @@ button[type="button"] {
 button[type="submit"] {
     outline: black;
     height: 40px;
-    width: 40%;
+    /* width: 40%; */
     font-size: 14px;
     border-radius: 20px;
 }
@@ -82,6 +82,14 @@ span.glyphicon-camera {
 
 #preview {
     max-height: 148px;
+}
+
+@media (max-width: 320px) {
+
+    .container {
+        padding: 3px !important;
+    }
+
 }
 
 
