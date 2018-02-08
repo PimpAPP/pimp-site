@@ -588,8 +588,8 @@ box-shadow: 0px 0px 16px -3px rgba(0,0,0,0.75);
   font-family: overpassregular;
 }
 .container{
-  padding-left:40px;
-  padding-right:40px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .header .baixe-mob{
   display:block;
@@ -1591,3 +1591,4 @@ margin-bottom:60px;
 
 
   }
+

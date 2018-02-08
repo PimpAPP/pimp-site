@@ -15,9 +15,9 @@
                     <div class="row">
 
                         <div class="col-md-6">
-                            <label> Com este formul&aacute;rio voc&ecirc; ir&aacute; cadastrar um novo catador no nossos aplicativo.Preencha
+                            <label> Com este formul&aacute;rio voc&ecirc; ir&aacute; cadastrar um novo catador no nossos aplicativo. Preencha
                                 tudo com muito carinho e aten&ccedil;&atilde;o, este perfil ser&aacute; o cart&atilde;o
-                                de visita do catador:)</label>
+                                de visita do catador :)</label>
                         </div>
 
                         <div class="col-md-6" align="">
@@ -39,7 +39,7 @@
                         <!-- ----------Col for the form------------------- -->
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label align="right">DASDOS PESSOAIS</label>
+                                <label align="right">DADOS PESSOAIS</label>
                             </div>
                             <!-- -----------End of 1stcol------- -->
                         </div>
@@ -161,7 +161,7 @@
                             </div>
 
                             <!-- --------2nd row of the colm--------- -->
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group" style="color:grey">
                                         Operadora:
@@ -210,7 +210,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- --------3rd row of the colm--------- -->
                             <div class="row" style="padding-left:3%">
@@ -260,7 +260,7 @@
                             </div>
                             <!-- --------6th row of the colm--------- -->
 
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group" style="color:grey">
                                         Operadora do telefone 2
@@ -309,13 +309,13 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- --------7th row of the colm--------- -->
-                            <div class="row">
+                            <div class="row"> 
                                 <div class="col-md-12" style="padding-left:6%">
                                     <div class="form-group" style="color:grey">
-                                        Este numero tem Whatsapp?
+                                        Este número tem Whatsapp?
                                     </div>
                                 </div>
                             </div>
@@ -370,7 +370,7 @@
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
-                                                placeholder="Endereco de trabalho" 
+                                                placeholder="Endereço de trabalho" 
                                                 id="address_base" 
                                                 name="address_base"
                                                 [(ngModel)]="catador.address_base"
@@ -385,7 +385,7 @@
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
-                                                placeholder="Numero" 
+                                                placeholder="Número" 
                                                 required
                                                 id="number" 
                                                 name="number"
@@ -443,7 +443,7 @@
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
-                                                placeholder="Pais" 
+                                                placeholder="País" 
                                                 id="country" 
                                                 name="country"
                                                 (focusout)="addressFocusOut()"
@@ -499,7 +499,7 @@
                         <!-- ----------Col for the form------------------- -->
                         <div class="col-md-12 col-xs-12 col-sm-12">
                             <div class="form-group">
-                                <label align="left">INFORMACOES DO TRABALHO</label>
+                                <label align="left">INFORMAÇÕES DO TRABALHO</label>
                             </div>
                             <!-- -----------End of 1stcol------- -->
                         </div>
@@ -521,19 +521,13 @@
                             <!-- --------2nd row of the colm--------- -->
                             <div class="row" style="padding-left:3%">
                                 <div class="col-md-12" style="color:grey">
-                                    <div class="form-group">
-                                        <label class="radio-inline">
-                                            <input type="radio" 
-                                                    required 
-                                                    name="has_motor_vehicle"
-                                                    [value]="true"
-                                                    [(ngModel)]="catador.has_motor_vehicle">Sim</label>
-                                        <label class="radio-inline" style="margin-left:17%">
-                                            <input type="radio" 
-                                                    name="has_motor_vehicle"
-                                                    [value]="false"
-                                                    [(ngModel)]="catador.has_motor_vehicle">N&atilde;o</label>
-                                    </div>
+                                    <select class="form-control" 
+                                            id="has_motor_vehicle"
+                                            name="has_motor_vehicle"
+                                            [(ngModel)]="catador.has_motor_vehicle">
+                                        <option value="true">Sim</option>
+                                        <option value="false">Não</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -545,14 +539,22 @@
                             <div class="row">
                                 <div class="col-md-12" style="padding-left:6%">
                                     <div class="form-group" style="color:grey">
-                                        Carroca grafitada/pimpada?
+                                        Carroça grafitada/pimpada?
                                     </div>
                                 </div>
                             </div>
                             <!-- --------2nd row of the colm--------- -->
                             <div class="row" style="padding-left:3%">
                                 <div class="col-md-12" style="color:grey">
-                                    <div class="form-group">
+                                    <select class="form-control" 
+                                            id="carroca_pimpada"
+                                            name="carroca_pimpada"
+                                            [(ngModel)]="catador.carroca_pimpada">
+                                        <option value="true">Sim</option>
+                                        <option value="false">Não</option>
+                                    </select>
+                                    
+                                    <!-- <div class="form-group">
                                         <label class="radio-inline">
                                             <input type="radio" 
                                                     required 
@@ -567,7 +569,7 @@
                                                     id="carroca_pimpada"
                                                     name="carroca_pimpada"
                                                     [(ngModel)]="catador.carroca_pimpada">N&atilde;o</label>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <!-- -----------End of 2nd col------- -->
@@ -679,7 +681,7 @@
                                                 value="'plastico'" 
                                                 [checked]="materialSelected.indexOf('plastico') > -1" 
                                                 (click)="selectMaterial('plastico')">
-                                            Plastico
+                                            Plástico
                                     </label>
                                 </div>
 
@@ -722,7 +724,7 @@
                                                 value="'oleo'" 
                                                 [checked]="materialSelected.indexOf('oleo') > -1" 
                                                 (click)="selectMaterial('oleo')">
-                                            Oleo
+                                            Óleo
                                     </label>
                                 </div>
 
@@ -740,7 +742,7 @@
                                                 value="'eletronico'" 
                                                 [checked]="materialSelected.indexOf('eletronico') > -1" 
                                                 (click)="selectMaterial('eletronico')">
-                                            Electronico
+                                            Eletrônico
                                     </label>
                                 </div>
 
@@ -777,7 +779,7 @@
                                                 class="inline" 
                                                 value="'moveis'" 
                                                 [checked]="materialSelected.indexOf('moveis') > -1" 
-                                                (click)="selectMaterial('moveis')">Moveis</label>
+                                                (click)="selectMaterial('moveis')">Móveis</label>
                                 </div>
 
                                 <!-- ----------2nd colm------------- -->
@@ -826,7 +828,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group" style="color:grey">
-                                        <label>Quem esta cadastrando?</label>
+                                        <label>Quem está cadastrando?</label>
                                     </div>
                                 </div>
                             </div>
@@ -839,7 +841,7 @@
                                                     id="registered_by_another_user"
                                                     [value]="false"
                                                     name="registered_by_another_user"
-                                                    [(ngModel)]="catador.registered_by_another_user">Eu,catador(a)</label>
+                                                    [(ngModel)]="catador.registered_by_another_user">Eu, catador(a)</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-xs-7 col-sm-6" style="color:grey">
@@ -863,16 +865,13 @@
                             <div class="row">
                                 <div class="col-md-12" style="color:grey" id="left-arrow">
 
-
-
-                                    <div class="col-md-6 col-xs-6" id="color">
+                                    <div id="color">
                                         <form>
                                             <br>
                                             <p>
                                                 <input type="text" 
                                                         class="form-control frm" 
-                                                        placeholder="Nome" 
-                                                        id="style"
+                                                        placeholder="Nome"
                                                         name="name21" 
                                                         maxlength="200"
                                                         [(ngModel)]="catador.another_user_name">
@@ -880,8 +879,7 @@
                                             <p>
                                                 <input type="text" 
                                                         class="form-control frm" 
-                                                        placeholder="E-mail" 
-                                                        id="style"
+                                                        placeholder="E-mail"
                                                         name="name22" 
                                                         maxlength="200"
                                                         [(ngModel)]="catador.another_user_email">
@@ -889,16 +887,13 @@
                                             <p>
                                                 <input type="text" 
                                                         class="form-control frm" 
-                                                        placeholder="Whatsapp" 
-                                                        id="style"
+                                                        placeholder="Whatsapp"
                                                         name="name23"
                                                         [textMask]="{mask: masks.number}"
                                                         [(ngModel)]="catador.another_user_whatsapp">
                                             </p>
                                         </form>
                                     </div>
-
-
                                 </div>
                             </div>
 
@@ -915,10 +910,6 @@
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
                 </div>
                 <!-- ----------------End of the main col---------------------------------- -->
 

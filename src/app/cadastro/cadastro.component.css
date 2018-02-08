@@ -94,11 +94,7 @@ span.glyphicon-camera {
 
 
 @media only screen and (max-width: 640px) and (min-width: 360px) {
-    #style {
-        margin-left: -45px;
-        width: 360%;
-        margin-top: -2px;
-    }
+    
     #left-arrow {
         margin-top: 2%;
         display: inline-block;
