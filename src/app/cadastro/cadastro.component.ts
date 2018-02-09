@@ -364,8 +364,12 @@ export class CadastroComponent implements OnInit {
             var results = res.results;
             if (!results) return;
 
-            var location = results[0]['geometry']['location'];
-            this.updateMap(location);
+            if (results[0] && results[0]['geometry'] && results[0]['geometry']['location']) {
+                var location = results[0]['geometry']['location'];
+                this.updateMap(location);
+            } else {
+                alert('Endereço não encontrado. Por favor verifique se os dados foram preenchidos corretamente ou selecione no mapa o seu endereço.')
+            }
         });
     }
 

@@ -8,10 +8,10 @@ import { CooperativaComponent } from './cooperativa/cooperativa.component';
 
 
 const APP_ROUTES: Routes = [
-    { path: 'cadastro', component: CatadorComponent },
-    { path: 'cadastro/:catadorId', component: CatadorComponent },
-    { path: 'cadastro2', component: CadastroComponent },
-    { path: 'cadastro2/:catadorId', component: CadastroComponent },
+    // { path: 'cadastro', component: CatadorComponent },
+    // { path: 'cadastro/:catadorId', component: CatadorComponent },
+    { path: 'cadastro', component: CadastroComponent },
+    { path: 'cadastro/:catadorId', component: CadastroComponent },
     { path: 'cooperativa', component: CooperativaComponent },
     { path: '', component: HomeComponent },
 ];

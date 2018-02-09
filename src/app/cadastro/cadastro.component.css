@@ -31,7 +31,8 @@ hr {
 }
 
 input[type="text"],
-textarea[type="text"] {
+textarea[type="text"],
+input[type="number"] {
     border-radius: 20px;
 }
 
