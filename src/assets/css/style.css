@@ -106,7 +106,7 @@ li::before {
 }
 
 .newli li::before {
-    content: "â€¢ ";
+    content: "- ";
     color: #000;
     /* or whatever color you prefer */
 }
@@ -501,6 +501,9 @@ li::before {
     list-style: none;
     color: #000;
     font-size: 22px;
+    text-align: justify;
+    text-justify: inter-word;
+    padding-right: 40px;
 }
 
 .header8 {
@@ -1716,7 +1719,7 @@ li::before {
             right: 0;
             top: 0;
             /*z-index: 9999;*/
-            min-height: 350px;
+            min-height: 560px;
             padding-top: 50px;
         }
         .mod1 .mod1-ph {

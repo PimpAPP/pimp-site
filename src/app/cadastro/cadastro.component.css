@@ -12,6 +12,10 @@ button[type="submit"] {
     border-radius: 20px;
 }
 
+.close {
+    font-size: 100px !important;
+}
+
 input[type="button"] {
     outline: black;
     height: 40px;
