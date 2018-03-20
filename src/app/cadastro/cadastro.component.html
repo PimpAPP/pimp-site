@@ -376,6 +376,7 @@
                                         <input type="text" 
                                                 class="form-control" 
                                                 placeholder="Endereço de trabalho" 
+                                                required
                                                 id="address_base" 
                                                 name="address_base"
                                                 [(ngModel)]="catador.address_base"
@@ -390,8 +391,7 @@
                                     <div class="form-group">
                                         <input type="number" 
                                                 class="form-control" 
-                                                placeholder="Número" 
-                                                required
+                                                placeholder="Número"
                                                 id="number" 
                                                 name="number"
                                                 [(ngModel)]="catador.number">
@@ -423,6 +423,7 @@
                                                 id="city" 
                                                 name="city"
                                                 [(ngModel)]="catador.city"
+                                                required
                                                 (focusout)="addressFocusOut()"
                                                 maxlength="64">
                                     </div>
@@ -434,7 +435,7 @@
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
-                                                name="region"
+                                                name="state"
                                                 placeholder="Estado" 
                                                 [(ngModel)]="catador.state"
                                                 (focusout)="addressFocusOut()"
@@ -466,7 +467,6 @@
                                                 class="form-control" 
                                                 placeholder="Outros bairros que coleta" 
                                                 name="region"
-                                                required
                                                 maxlength="128"
                                                 [(ngModel)]="catador.region"/>
                                     </div>

@@ -207,8 +207,8 @@ export class CatadorComponent implements OnInit {
             this.user['id'] = parseInt(this.catador['user']);
             this.catadorDataService.edit(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
                 this.loading = false;
-                // alert('Alteração realizada com sucesso!');
-                // location.href = "/";
+                alert('Alteração realizada com sucesso!');
+                location.href = "/";
             }, error => {
                 this.showError(error);
                 this.loading = false;

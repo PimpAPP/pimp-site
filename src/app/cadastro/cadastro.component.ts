@@ -173,7 +173,7 @@ export class CadastroComponent implements OnInit {
         }
 
         if (!this.markLat || !this.markLng) {
-            alert('Por favor preencha o endereço');
+            alert('Por favor selecione no mapa a sua localização.');
             return;
         }
 
@@ -368,7 +368,7 @@ export class CadastroComponent implements OnInit {
                 var location = results[0]['geometry']['location'];
                 this.updateMap(location);
             } else {
-                alert('Endereço não encontrado. Por favor verifique se os dados foram preenchidos corretamente ou selecione no mapa o seu endereço.')
+                // alert('Endereço não encontrado. Por favor verifique se os dados foram preenchidos corretamente ou selecione no mapa o seu endereço.')
             }
         });
     }

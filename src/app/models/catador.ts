@@ -64,18 +64,18 @@ export class Catador {
             return 'minibio';
         } else if (!this.phones[0].phone || this.phones[0].phone.length == 0) {
             return 'phones0';
-        } else if (!this.address_base || this.address_base.length == 0) {
-            return 'address_base';
-        } else if (!this.number || this.number.length == 0) {
-            return 'number';
-        } else if (!this.address_region || this.address_region.length == 0) {
-            return 'address_region';
-        } else if (!this.city || this.city.length == 0) {
-            return 'city';
-        } else if (!this.state || this.state.length == 0) {
-            return 'state';
-        } else if (!this.country || this.country.length == 0) {
-            return 'country';
+        // } else if (!this.address_base || this.address_base.length == 0) {
+        //     return 'address_base';
+        // } else if (!this.number || this.number.length == 0) {
+        //     return 'number';
+        // } else if (!this.address_region || this.address_region.length == 0) {
+        //     return 'address_region';
+        // } else if (!this.city || this.city.length == 0) {
+        //     return 'city';
+        // } else if (!this.state || this.state.length == 0) {
+        //     return 'state';
+        // } else if (!this.country || this.country.length == 0) {
+        //     return 'country';
         // } else if (!this.cooperative_name || this.cooperative_name.length == 0) {
         //     return 'cooperative_name';    
         // } else if (!this.kg_day || this.kg_day == 0) {
