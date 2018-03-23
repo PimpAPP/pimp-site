@@ -13,6 +13,7 @@ const APP_ROUTES: Routes = [
     { path: 'cadastro', component: CadastroComponent },
     { path: 'cadastro/:catadorId', component: CadastroComponent },
     { path: 'cooperativa', component: CooperativaComponent },
+    { path: 'cooperativa/:id', component: CooperativaComponent },
     { path: '', component: HomeComponent },
 ];
 

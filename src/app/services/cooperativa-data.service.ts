@@ -46,6 +46,15 @@ export class CooperativaDataService {
         }).timeout(180000);
     }
 
+    get(id) {
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers);
+
+        return this.http.get(this.url + id + '/', {
+            headers: headers
+        }).timeout(30000);
+    }
+
     saveCooperativa(cooperativa: Cooperativa) {
         let headers = new Headers();
         this.createAuthorizationHeader(headers);
@@ -64,6 +73,22 @@ export class CooperativaDataService {
             headers: headers
         });
     }   
+
+    edit(cooperativa: any, user: any, avatar: any, phones: any) {
+        let headers = new Headers();
+        this.createAuthorizationHeader(headers);
+
+        var data = {
+            cooperativa: cooperativa,
+            user: user,
+            avatar: avatar,
+            phones: phones
+        }
+
+        return this.http.post(this.apiProvider.url + 'api/edit_cooperativa/', data, {
+            headers: headers
+        }).timeout(360000);
+    }
 
     getCookie(name) {
         var cookieValue = null;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 import { Cooperativa } from '../models/cooperativa';
 import { User } from '../models/user';
@@ -10,6 +10,8 @@ import { MapsAPILoader } from '@agm/core';
 import { GoogleMapsAPIWrapper } from '@agm/core';
 import * as _ from 'underscore';
 import { Observable } from "rxjs/Rx";
+import { Response } from '@angular/http/src/static_response';
+import { Phone } from '../models/phone';
 
 declare var jQuery: any;
 
@@ -22,6 +24,7 @@ declare var jQuery: any;
 export class CooperativaComponent implements OnInit {
         
     public loading: Boolean = false;
+    public isEditing: boolean = false;
 
     public cooperativa: Cooperativa;
     public user: User;
@@ -41,7 +44,9 @@ export class CooperativaComponent implements OnInit {
             public gMaps: GoogleMapsAPIWrapper,
             private router: Router, 
             public cooperativaDataService: CooperativaDataService,
-            public userDataService: UserDataService) {
+            public userDataService: UserDataService,
+            private route: ActivatedRoute) {
+                
         this.cooperativa = new Cooperativa();
         this.user = new User();
         this.cooperativa.materials_collected = [];
@@ -49,6 +54,10 @@ export class CooperativaComponent implements OnInit {
             number: ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
             date: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
         };
+
+        var cooperativeId = route.snapshot.params['id'];
+        if (cooperativeId)
+            this.fillData(cooperativeId);
     }
 
     ngOnInit() {
@@ -85,6 +94,68 @@ export class CooperativaComponent implements OnInit {
                 this.updateAddress();
             });
         }
+    }
+
+    /**
+     * Called when edit catadores     
+     */
+    fillData(catadorId) {
+        this.loading = true;
+        this.isEditing = true;
+        this.cooperativaDataService.get(catadorId).subscribe((res: Response) => {
+            var data = res.json();
+            this.cooperativa = Object.assign(new Cooperativa, data);
+
+            this.cooperativa.phones.forEach((phone) => {
+                if (phone['has_whatsapp']) {
+                    phone['whatsapp'] = 1;
+                } else {
+                    phone['whatsapp'] = 0;
+                }
+            })
+
+            console.log(this.cooperativa);
+
+            if (!this.cooperativa.phones || this.cooperativa.phones.length == 0) {
+                this.cooperativa.phones = [];
+                this.cooperativa.phones.push(new Phone());
+                this.cooperativa.phones.push(new Phone());
+            }  else {
+                if (!this.cooperativa.phones[0]) {
+                    this.cooperativa.phones[0] = new Phone();
+                } 
+                if (!this.cooperativa.phones[1]) {
+                    this.cooperativa.phones[1] = new Phone();
+                }
+            }    
+
+            this.cooperativa.materials_collected.forEach(id => {
+                var material = this.materialRecover.findMaterialId(id);
+                this.materialSelected.push(material.name.toLowerCase());
+            });
+
+            var url = this.cooperativaDataService.apiProvider.url.substring(
+                0, this.cooperativaDataService.apiProvider.url.length -1);
+            var previewEl = $('#preview');
+            previewEl.attr('src', url + this.cooperativa['profile_photo']);
+            previewEl.css('margin-bottom', '10px');
+            previewEl.css('display', 'unset');
+
+            // if (this.catador.year_of_birth) {
+            //     var a = this.catador.year_of_birth.split('-');
+            //     var date = a[2] + '/' + a[1] + '/' + a[0];
+
+            //     setTimeout(function() {
+            //         (<any>$("#datepicker")).datepicker("setDate", date);
+            //     }, 500);
+            // }
+            
+            this.loading = false;
+        }, (error) => {
+            console.log(error);
+            this.loading = false;
+            this.router.navigateByUrl('/');
+        });
     }
 
     onClickMap(event: MouseEvent) {
@@ -144,19 +215,33 @@ export class CooperativaComponent implements OnInit {
         this.cooperativa.longitude = this.markLng;
         this.avatar = $('#preview').attr('src');
         this.cooperativa.founded_in = this.getFormatDate((<any>$("#datepicker")).datepicker( "getDate" ));
+        
+        if (!this.isEditing) {
+            this.cooperativaDataService.save(this.cooperativa, 
+                    this.user, 
+                    this.avatar, 
+                    this.cooperativa.phones, 
+                    this.cooperativa.materials_collected).subscribe(res => {
+                this.loading = false;
+                alert('Cadastro realizado com sucesso!');
+                location.href = "/";
+            }, error => {
+                this.showError(error);
+                this.loading = false;
+            });
 
-        this.cooperativaDataService.save(this.cooperativa, 
-                this.user, 
-                this.avatar, 
-                this.cooperativa.phones, 
-                this.cooperativa.materials_collected).subscribe(res => {
-            this.loading = false;
-            alert('Cadastro realizado com sucesso!');
-            location.href = "/";
-        }, error => {
-            this.showError(error);
-            this.loading = false;
-        });
+        } else {
+            this.user['id'] = parseInt(this.cooperativa['user']);
+            this.cooperativaDataService.edit(this.cooperativa, this.user, this.avatar, this.cooperativa.phones).subscribe(res => {
+                this.loading = false;
+                alert('Alteração realizada com sucesso!');
+                location.href = "/";
+            }, error => {
+                this.showError(error);
+                this.loading = false;
+            });
+        }    
+
     }
 
     showError(error) {
