@@ -277,7 +277,7 @@ li::before {
 }
 
 .heading2 {
-    font-size: 51px;
+    font-size: 40px;
     font-weight: bold !important;
     color: #fff;
     text-align: center;
@@ -448,6 +448,16 @@ li::before {
     margin-top: 10px;
 }
 
+/*
+    word-wrap: break-word;
+    padding: 16px 15px;
+    background-color: #3FAC39;
+    border-color: #3FAC39;
+    font-size: 20px;
+    white-space: normal;
+    width: 100%;
+*/
+
 .header8 .newbtn2 {
     background-color: transparent;
     border: 3px solid #000;
@@ -461,14 +471,20 @@ li::before {
 }
 
 .header8 .newbtn2.my-btn1 {
-    padding: 20px 42px;
-    background-color: #3FAB39;
-    border-color: #3FAB39;
-    color: #fff;
+    word-wrap: break-word;
+    padding: 16px 15px;
+    background-color: #3FAC39;
+    border-color: #3FAC39;
+    font-size: 20px;
+    white-space: normal;
+    width: 100%;
 }
 
 .header8 .newbtn2.my-btn2 {
-    padding: 20px 63px;
+    padding: 15px 10px;
+    word-wrap: break-word;
+    width: 100%;
+    white-space: normal;
 }
 
 .header8 .featurette-heading {
@@ -1454,6 +1470,15 @@ li::before {
         left: -160px;
         top: 80px;
     }
+
+    .heading2 {
+        font-size: 51px;
+        font-weight: bold !important;
+        color: #fff;
+        text-align: center;
+        margin-top: 20px;
+        /*margin-left: 250px;*/
+    }    
 
 }
 
