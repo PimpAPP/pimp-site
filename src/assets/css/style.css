@@ -1,4 +1,4 @@
-    @font-face {
+@font-face {
     font-family: 'overpassblack';
     src: url('../fonts/overpass-black-webfont.woff2') format('woff2'), url('../fonts/overpass-black-webfont.woff') format('woff');
     font-weight: normal;
@@ -49,22 +49,15 @@ h6 {
     min-height: auto;
     background-size: cover;
     background-position: center center;
-    padding-top: 140px;
+    padding-top: 30px;
     padding-bottom: 60px;
 }
 
 .logo {
-    padding: 0 0 60px 0;
-    position: relative;
     /* margin-left: 180px;*/
     text-align: center;
 }
 
-.logo .p1 {
-    position: absolute;
-    right: -12%;
-    top: 49%;
-}
 
 .header .p1 {
     color: #fff;
@@ -79,10 +72,13 @@ h6 {
 }
 
 .header .newbtn2.newbtn1 {
-    padding: 16px 58px;
+    word-wrap: break-word;
+    padding: 16px 15px;
     background-color: #3FAC39;
     border-color: #3FAC39;
     font-size: 20px;
+    white-space: normal;
+    width: 100%;
 }
 
 .header .baixe-down-row {
@@ -93,6 +89,7 @@ h6 {
 .baixe-agora {
     padding-top: 10px;
     padding-left: 6px;
+    text-align: center;
 }
 
 .featurette-image {
@@ -123,7 +120,7 @@ li::before {
 
 .header .newbtn2.newbtn-android {
     position: relative;
-    width: 40%;
+    width: 100%;
     height: 60px;
 }
 
@@ -142,7 +139,7 @@ li::before {
 
 .header .newbtn2.newbtn-apple {
     position: relative;
-    width: 40%;
+    width: 100%;
     height: 60px;
 }
 
@@ -716,9 +713,9 @@ li::before {
         font-size: 22px;
     }
     .logo .p1 {
-        position: relative;
+       /* position: relative;
         top: 17%;
-        font-size: 25px;
+        font-size: 25px; */
     }
     .header .p1.bold-hun {
         font-family: overpassregular;
@@ -733,13 +730,6 @@ li::before {
         min-height: auto;
         padding-top: 60px;
         padding-bottom: 60px;
-    }
-    .baixe-agora {
-        text-align: center;
-    }
-    .baixe-agora p {
-        margin-top: 30px;
-        margin-bottom: 0;
     }
     .header .logo-img {
         width: 100%;
@@ -760,7 +750,7 @@ li::before {
         display: none;
     }
     .header .cada-div4 {
-        display: none;
+
     }
     .header .cada-div6 {
         display: block;
@@ -781,8 +771,8 @@ li::before {
         width: 46%;
     }
     .logo .p1 {
-        position: relative;
-        top: 17%;
+        /* position: relative;
+        top: 17%; */
     }
     .andr-ip-btns {
         text-align: center;
@@ -790,12 +780,7 @@ li::before {
     .header {
         height: auto;
     }
-    .baixe-agora {
-        text-align: center;
-        position: absolute;
-        left: 54%;
-        font-size: 16px;
-    }
+
     .header .logo-img {
         width: 100%;
     }
@@ -816,7 +801,7 @@ li::before {
         display: none;
     }
     .header .cada-div4 {
-        display: none;
+
     }
     .header .cada-div6 {
         display: block;
@@ -826,8 +811,8 @@ li::before {
         width: 100%;
     }
     .logo .p1 {
-        position: relative;
-        top: 17%;
+        /*position: relative;
+        top: 17%; */
     }
     .andr-ip-btns {
         text-align: center;
@@ -835,12 +820,7 @@ li::before {
     .header {
         height: auto;
     }
-    .baixe-agora {
-        text-align: center;
-        position: absolute;
-        left: 51%;
-        font-size: 16px;
-    }
+
     .header .logo-img {
         width: 100%;
     }
@@ -1461,8 +1441,30 @@ li::before {
         max-height: 180px;
     }
 }
+/* tablet, desktop and beyond */
+@media screen and (min-width: 993px) {
+
+    .logo {
+        margin-top: 120px;
+        margin-bottom: 30px;
+    }
+
+    .logo .p1 {
+        position: absolute;
+        left: -160px;
+        top: 80px;
+    }
+
+}
 
 @media screen and (max-width: 1780px) and (min-width: 993px) {
+
+    .logo .p1 {
+        position: absolute;
+        left: -160px;
+        top: 80px;
+    }
+
     .car-div {
         height: 567px;
         background-color: #fff;
