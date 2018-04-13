@@ -97,7 +97,7 @@ h6 {
 }
 
 li::before {
-    content: "â€¢ ";
+    /*content: "â€¢ ";
     color: #fff;
     /* or whatever color you prefer */
 }
@@ -322,7 +322,7 @@ li::before {
 }
 
 .newul {
-    list-style: none;
+    /*list-style: none;
     /*margin-top: 115px;*/
     font-size: 23px;
     color: #fff;
@@ -380,6 +380,7 @@ li::before {
 .header6 .newbtn2 {
     background-color: transparent;
     border: 3px solid #fff;
+    word-wrap: break-word;
     border-radius: 50px;
     color: #fff;
     margin-top: 10px;
@@ -1090,7 +1091,7 @@ li::before {
 
 /*responsive header6 starts*/
 
-@media screen and (max-width: 768px) and (min-width: 350px) {
+@media screen and (max-width: 768px) and (min-width: 274px) { 
     .header6 {
         padding-top: 100px;
         padding-bottom: 100px;
@@ -1117,7 +1118,7 @@ li::before {
         width: 100%;
     }
     .header6 .newbtn2 {
-        font-size: 17px;
+        font-size: 15px;
     }
 }
 
@@ -1192,10 +1193,10 @@ li::before {
 
 #carousel div.prev {
     z-index: 5;
-    left: -6%;
+    /* left: -6%;
     /*transform: translateY(50px) translateX(-50%);*/
     /*opacity:0.2;*/
-    top: 8%;
+    /* top: 8%; */
     pointer-events: none
 }
 
@@ -1253,6 +1254,7 @@ li::before {
 }
 
 .car-div {
+    margin-bottom: 30px;
     height: 450px;
     background-color: #fff;
     border-radius: 34px;
@@ -1509,7 +1511,7 @@ li::before {
     }
     .share-down {
         right: 10%;
-        bottom: 3%;
+        bottom: 9%;
     }
     .share-down i {
         color: #000;
@@ -1558,6 +1560,7 @@ li::before {
 }
 
 @media screen and (max-width: 767px) and (min-width: 350px) {
+    
     #carousel .car-sub {
         font-size: 16px;
     }
@@ -1782,5 +1785,14 @@ li::before {
         }
         .mod2 .mod2-ph {
             display: none;
+        }
+    }
+
+    /* bootstrap hack */
+
+    @media screen and (max-width: 767px) and (min-width: 350px) {
+        .row {
+            margin-right: 0px;
+            margin-left: 0px
         }
     }
