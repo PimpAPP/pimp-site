@@ -31,15 +31,15 @@
     "angular2-text-mask": "^8.0.2",
     "core-js": "^2.4.1",
     "moment": "^2.20.1",
+    "require-path": "^0.3.0",
     "rxjs": "^5.0.1",
     "ts-helpers": "^1.1.1",
-    "typescript": "^2.1.0",
     "underscore": "^1.8.3",
-    "zone.js": "^0.8.14",
-    "@angular/cli": "^1.2.3"
+    "webpack": "^3.11.0",
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
-    "@angular/cli": "^1.2.3",
+    "@angular/cli": "^1.7.4",
     "@angular/compiler-cli": "^2.3.1",
     "@types/googlemaps": "^3.26.17",
     "@types/jasmine": "2.5.38",
@@ -52,9 +52,9 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
-    "protractor": "~4.0.13",
-    "ts-node": "1.2.1",
+    "protractor": "^5.3.1",
+    "ts-node": "3.3.0",
     "tslint": "^4.0.2",
-    "typescript": "^2.1.0"
+    "typescript": "^2.3.4"
   }
 }

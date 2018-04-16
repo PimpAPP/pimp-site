@@ -137,6 +137,7 @@
                                                 placeholder="História de vida" 
                                                 style="height:130px;" 
                                                 name="minibio"
+                                                id="minibio"
                                                 maxlength="600"
                                                 required
                                                 [(ngModel)]="catador.minibio"></textarea>
@@ -436,6 +437,7 @@
                                         <input type="text" 
                                                 class="form-control" 
                                                 name="state"
+                                                id="state"
                                                 placeholder="Estado" 
                                                 [(ngModel)]="catador.state"
                                                 (focusout)="addressFocusOut()"
@@ -911,7 +913,7 @@
                     <div>
                         <div class="row">
                             <div class="col-md-12 col-xs-12 col-sm-12">
-                                <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success">CADASTRAR</button>
+                                <button type="submit" value="CADASTRAR" id="btn-cadastrar" class="btn btn-success">CADASTRAR</button>
                             </div>
                         </div>
                     </div>

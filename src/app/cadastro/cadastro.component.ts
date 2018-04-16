@@ -72,8 +72,8 @@ export class CadastroComponent implements OnInit {
 
     ngOnInit() {
         this.catador = new Catador();
-        this.user = new User();        
-        this.setCurrentPosition();        
+        this.user = new User();
+        this.setCurrentPosition();
         $(":file")['filestyle']({
             input: true,
             buttonText: '',
@@ -137,7 +137,7 @@ export class CadastroComponent implements OnInit {
                 this.materialSelected.push(material.name.toLowerCase());
             });
 
-            var url = this.catadorDataService.apiProvider.url.substring(0, this.catadorDataService.apiProvider.url.length -1);
+            var url = this.catadorDataService.apiProvider.url.substring(0, this.catadorDataService.apiProvider.url.length - 1);
             var previewEl = $('#preview');
             previewEl.attr('src', url + this.catador['profile_photo']);
             previewEl.css('margin-bottom', '10px');
@@ -151,7 +151,7 @@ export class CadastroComponent implements OnInit {
             //         (<any>$("#datepicker")).datepicker("setDate", date);
             //     }, 500);
             // }
-            
+
             this.loading = false;
         }, (error) => {
             console.log(error);
@@ -163,8 +163,8 @@ export class CadastroComponent implements OnInit {
     goHome() {
         this.router.navigateByUrl('/');
     }
-    
-    save() { 
+
+    save() {
         var valid: any = this.catador.valid();
         if (valid !== true) {
             alert('Por favor preencha todos os campos obrigatórios.');
@@ -194,7 +194,7 @@ export class CadastroComponent implements OnInit {
 
         var nameParts = this.catador.name.split(' ');
         var hasLastName = false;
-        for (var i=0; i<nameParts.length; i++) {
+        for (var i = 0; i < nameParts.length; i++) {
             if (!hasLastName && (this.user.first_name.length + nameParts[i].length + 1) <= 30) {
                 this.user.first_name += nameParts[i] + ' ';
             } else if ((this.user.last_name.length + nameParts[i].length + 1) <= 30) {
@@ -230,20 +230,20 @@ export class CadastroComponent implements OnInit {
                 this.showError(error);
                 this.loading = false;
             });
-        }    
+        }
     }
 
     showError(error) {
         this.loading = false;
         this.sendError(error);
 
-        try {            
+        try {
             var error = error.json();
             alert('Erro ao cadastrar. Por favor verifique os campos preenchidos e tente novamente.');
 
             if (error['catador'] || error['user']) {
                 var msg = '';
-                _.each(error, function(value, key) {
+                _.each(error, function (value, key) {
                     if (value instanceof Object) {
                         // _.each(value, function(value2, key2) {
                         for (var i in Object.keys(value)) {
@@ -257,8 +257,8 @@ export class CadastroComponent implements OnInit {
                     } else {
                         msg += key + ' - ' + value + ' \n';
                     }
-                    
-                })    
+
+                })
                 alert(msg);
             } else {
                 if (Object.keys(error).length > 0) {
@@ -267,10 +267,10 @@ export class CadastroComponent implements OnInit {
                 } else {
                     alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
                     location.href = "/";
-                }    
+                }
             }
-            
-        } catch(err) {
+
+        } catch (err) {
             alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
             location.href = "/";
         }
@@ -326,8 +326,8 @@ export class CadastroComponent implements OnInit {
                 if (item.types.indexOf('route') >= 0 || item.types.indexOf('street_address') >= 0) {
                     this.catador.address_base = item.long_name;
                     //this.catador.address_base = item.formatted_address;
-                } else if (item.types.indexOf('sublocality') >= 0 || 
-                        item.types.indexOf('sublocality_level_1') >= 0) {
+                } else if (item.types.indexOf('sublocality') >= 0 ||
+                    item.types.indexOf('sublocality_level_1') >= 0) {
                     this.catador.address_region = item.long_name;
                 } else if (item.types.indexOf('administrative_area_level_2') >= 0) {
                     this.catador.city = item.long_name;
@@ -347,7 +347,7 @@ export class CadastroComponent implements OnInit {
 
     addressFocusOut() {
         let address = '';
-        if (this.catador.address_base) 
+        if (this.catador.address_base)
             address += this.catador.address_base;
 
         if (this.catador.city)
@@ -358,7 +358,7 @@ export class CadastroComponent implements OnInit {
 
         if (this.catador.country)
             address += (address) ? ', ' + this.catador.country : this.catador.country;
-        
+
         this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
             var res = JSON.parse(data['_body']);
             var results = res.results;
@@ -421,47 +421,47 @@ export class CadastroComponent implements OnInit {
     }
 
     guid() {
-        const s4=()=> Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        const s4 = () => Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
-    }    
+    }
 
     resizeImage(file) {
         var img = document.createElement("img");
-        var reader = new FileReader();  
-        reader.onload = function(e) {
-            img.src = e.target['result']          
-            
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            img.src = e.target['result']
+
             var canvas = document.createElement("canvas");
             var ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0);
-    
+
             var MAX_WIDTH = 800;
             var MAX_HEIGHT = 600;
             var width = img.width;
             var height = img.height;
-    
+
             if (width <= MAX_WIDTH && height <= MAX_HEIGHT)
                 return;
 
-            var ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);            
-            width = width*ratio; 
-            height = height*ratio;
-            
+            var ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);
+            width = width * ratio;
+            height = height * ratio;
+
             canvas.width = width;
             canvas.height = height;
             var ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, width, height);
-    
+
             var dataurl = canvas.toDataURL("image/png");
-            $('#preview').attr('src', dataurl);     
+            $('#preview').attr('src', dataurl);
         }
 
         reader.readAsDataURL(file);
     }
 
-    calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {        
-        var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);    
-        return { width: srcWidth*ratio, height: srcHeight*ratio };
+    calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
+        var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+        return { width: srcWidth * ratio, height: srcHeight * ratio };
     }
 
     getFormatDate(date: any) {
