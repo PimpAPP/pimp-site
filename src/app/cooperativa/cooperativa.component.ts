@@ -105,15 +105,7 @@ export class CooperativaComponent implements OnInit {
         this.cooperativaDataService.get(catadorId).subscribe((res: Response) => {
             var data = res.json();
             this.cooperativa = Object.assign(new Cooperativa, data);
-
-            this.cooperativa.phones.forEach((phone) => {
-                if (phone['has_whatsapp']) {
-                    phone['whatsapp'] = 1;
-                } else {
-                    phone['whatsapp'] = 0;
-                }
-            })
-
+            
             console.log(this.cooperativa);
 
             if (!this.cooperativa.phones || this.cooperativa.phones.length == 0) {

@@ -234,16 +234,16 @@
                                             <input type="radio" 
                                                 required 
                                                 name="whatsapp0-s"
-                                                [value]="1"
-                                                [(ngModel)]="catador.phones[0].whatsapp">
+                                                [value]="true"
+                                                [(ngModel)]="catador.phones[0].has_whatsapp">
                                                 Sim
                                         </label>
                                         <label class="radio-inline" style="margin-left:17%">
                                             <input type="radio" 
                                                 required 
                                                 name="whatsapp0-n"
-                                                [value]="0"
-                                                [(ngModel)]="catador.phones[0].whatsapp"
+                                                [value]="false"
+                                                [(ngModel)]="catador.phones[0].has_whatsapp"
                                                 ng-model="userfullName6">N&atilde;o
                                             </label>
                                     </div>
@@ -333,16 +333,16 @@
                                             <input type="radio" 
                                                 required 
                                                 name="whatsapp1-s"
-                                                [value]="1"
-                                                [(ngModel)]="catador.phones[1].whatsapp">
+                                                [value]="true"
+                                                [(ngModel)]="catador.phones[1].has_whatsapp">
                                                 Sim
                                         </label>
                                         <label class="radio-inline" style="margin-left:17%">
                                             <input type="radio" 
                                                 required 
                                                 name="whatsapp1-n"
-                                                [value]="0"
-                                                [(ngModel)]="catador.phones[1].whatsapp"
+                                                [value]="false"
+                                                [(ngModel)]="catador.phones[1].has_whatsapp"
                                                 ng-model="userfullName6">N&atilde;o
                                             </label>
                                     </div>
@@ -642,6 +642,7 @@
                                         <img src="assets/img/cadastro/icon3.png" 
                                                 class="img-responsive img-material"
                                                 (click)="selectMaterial('vidro')"
+                                                id="selectMaterial-id"
                                                 [ngClass]="{'img-selected': materialSelected.indexOf('vidro') > -1 }">
                                     </p>
                                     <label class="radio-inline" style="padding-left:28%">

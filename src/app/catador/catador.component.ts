@@ -98,14 +98,6 @@ export class CatadorComponent implements OnInit {
             this.catador = Object.assign(new Catador, data);
             // this.catador = <Catador>res.json();
 
-            this.catador.phones.forEach((phone) => {
-                if (phone['has_whatsapp']) {
-                    phone['whatsapp'] = 1;
-                } else {
-                    phone['whatsapp'] = 0;
-                }
-            })
-
             console.log(this.catador);
 
             if (!this.catador.phones) {
