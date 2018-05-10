@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { PathLocationStrategy, LocationStrategy } from '@angular/common';
 
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
@@ -38,7 +38,7 @@ import { UserDataService } from 'app/services/user-data.service';
         })
     ],
     providers: [
-        {provide: LocationStrategy, useClass: HashLocationStrategy},
+        {provide: LocationStrategy, useClass: PathLocationStrategy},
         CatadorDataService,
         CooperativaDataService,
         UserDataService,
