@@ -28,6 +28,7 @@ export class CadastroComponent implements OnInit {
 
     public loading: boolean = false;
     public isEditing: boolean = false;
+    public showMap: boolean = false;
 
     public catador: Catador = new Catador();
     public user: User;
@@ -164,6 +165,11 @@ export class CadastroComponent implements OnInit {
         this.router.navigateByUrl('/');
     }
     
+    nextStep() { 
+        console.log('next step');
+        this.showMap = true;
+    }
+
     save() { 
         var valid: any = this.catador.valid();
         if (valid !== true) {

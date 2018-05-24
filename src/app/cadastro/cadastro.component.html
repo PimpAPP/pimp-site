@@ -1,4 +1,4 @@
-<form (ngSubmit)="save()" #catadorForm="ngForm">
+<form (ngSubmit)="nextStep()" #catadorForm="ngForm">
     <div class="cont">
         <img src="assets/img/cadastro/image1.png" class="img-responsive">
     </div>
@@ -6,11 +6,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <!-- -----------1st col--------------- -->
-                <div class="col-md-1 col-xs-1">
-                </div>
-                <!-- ------------2nd col --------------------- -->
-                <div class="col-md-10 col-xs-10 col-lg-10" style="margin-left:-2%">
+                <!-- ------------1nd col --------------------- -->
+                <div class="col-md-12 col-xs-12 col-lg-12">
                     <!-- ---------Description and the Button--------------- -->
                     <div class="row">
 
@@ -353,8 +350,10 @@
                     </div>
                     <br>
                     <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+                    <!-- MAP -->
                     <!-- -----------New Row---------- -->
-                    <div class="row">
+                    <div class="row" *ngIf="showMap">
                         <form class="form-group">
                             <!-- ----------Col for the form------------------- -->
                             <div class="col-md-12">
@@ -366,8 +365,8 @@
                     </div>
 
                     <!-- -----------New Row---------- -->
-                    <div class="row">
-                        <!-- ----------Col for the form------------------- -->
+                    <div class="row" *ngIf="showMap">
+                        <!-- ----------Col 1nd for the form------------------- -->
                         <div class="col-md-6">
                             <!-- --------1st row of the colm--------- -->
                             <div class="row">
@@ -479,7 +478,7 @@
 
 
                         <!-- ----------Col 2nd for the form------------------- -->
-                        <div class="col-md-6">
+                        <div class="col-lg-6">
                             <agm-map [latitude]="mapLatitude" 
                                 [longitude]="mapLongitude"
                                 [zoom]="zoom"
@@ -498,6 +497,8 @@
 
                         <!-- --------------End of row-------------- -->
                     </div>
+                    <!-- #EOF MAP -->
+
                     <br>
                     <!-- -----------New Row---------- -->
                     <div class="row">
@@ -917,10 +918,6 @@
                     </div>
                 </div>
                 <!-- ----------------End of the main col---------------------------------- -->
-
-                <!-- --------------3rd col----------------------------- -->
-                <div class="col-md-1 col-xs-1">
-                </div>
             </div>
         </div>
     </div>
