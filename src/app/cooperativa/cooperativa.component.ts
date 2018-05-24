@@ -1,3 +1,4 @@
+import { ApiProvider } from './../providers/ApiProvider';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
@@ -247,6 +248,7 @@ export class CooperativaComponent implements OnInit {
     showError(error) {
         this.loading = false;
         this.sendError(error);
+        console.log(this.cooperativa);
 
         try {            
             var error = error.json();
@@ -274,10 +276,10 @@ export class CooperativaComponent implements OnInit {
             } else {
                 if (Object.keys(error).length > 0) {
                     alert(error);
-                    location.href = "/";
+                    // location.href = "/";
                 } else {
                     alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
-                    location.href = "/";
+                    // location.href = "/";
                 }    
             }
             
@@ -394,12 +396,81 @@ export class CooperativaComponent implements OnInit {
         return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
     } 
 
-    readURL(fileInput) {
+    readLogoURL(fileInput) {
         if (fileInput.target.files && fileInput.target.files[0]) {
             var reader = new FileReader();
             reader.onload = this.updateAvatarPreview;
             reader.readAsDataURL(fileInput.target.files[0]);
             this.resizeImage(fileInput.target.files[0]);
+        }
+    }
+
+    readGalleryURL(event, name) {
+        // this.cooperativa.photos = [];
+        if(event.target.files && event.target.files.length > 0) {
+            let files = event.target.files;
+            for (var x=0; x<files.length; x++) {
+                var reader = new FileReader();
+                reader.onload = (e: any) => {
+                    var img = document.createElement("img");
+                    var canvas = document.createElement("canvas");
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0);
+            
+                    var MAX_WIDTH = 800;
+                    var MAX_HEIGHT = 600;
+                    var width = img.width;
+                    var height = img.height;
+            
+                    if (width <= MAX_WIDTH && height <= MAX_HEIGHT) {
+                        this.addImageOnGallery(e.target.result);
+                        return;
+                    }
+        
+                    var ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);            
+                    width = width*ratio; 
+                    height = height*ratio;
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+            
+                    var dataurl = canvas.toDataURL("image/png");
+                    this.addImageOnGallery(dataurl);
+                };
+
+                reader.readAsDataURL(files[x]);
+            }
+        }
+    }
+
+    addImageOnGallery(url) {
+        this.cooperativa.photos.push(url);
+    }
+
+    removeImageOnGallery(photo) {
+        if (typeof photo == 'string') {
+            for (var x=0; x<this.cooperativa.photos.length; x++) {
+                if (typeof this.cooperativa.photos[x] == 'string') {
+                    if (this.cooperativa.photos[x] == photo) {
+                        this.cooperativa.photos.splice(x, 1);
+                    }
+                }
+            }
+        } else {
+            photo.delete = true;
+        }
+
+        console.log(this.cooperativa.photos);
+    }
+
+    getGallerySrc(photo) {
+        if (typeof photo == 'string') {
+            return photo;
+        } else {
+            var apiUrl = this.userDataService.apiProvider.url;
+            return apiUrl.substring(0, apiUrl.length - 1) + photo['full_photo'];
         }
     }
 

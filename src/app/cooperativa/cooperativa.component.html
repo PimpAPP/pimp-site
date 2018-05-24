@@ -1,64 +1,46 @@
 <div class="container-fluid container_style">
-        
+
     <div class="container" [hidden]="!loading">
         <div class="loading-box">
             <div class="loading">Loading&#8230;</div>
-            <p class="loading-message">{{ loadingMessage }}</p> 
-        </div>    
-    </div>        
+            <p class="loading-message">{{ loadingMessage }}</p>
+        </div>
+    </div>
 
     <div class="container">
         <h1>Cadastro de Cooperativas</h1>
         <hr>
 
-        <form (ngSubmit)="save()" #catadorForm="ngForm">
-            
+        <form (ngSubmit)="save()" #catadorForm="ngForm" enctype="multipart/form-data">
+
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="name">Nome</label>
-                        <input type="text" 
-                                class="form-control" 
-                                id="name" 
-                                name="name"
-                                placeholder="Nome da cooperativa"
-                                [(ngModel)]="cooperativa.name"
-                                maxlength="60"
-                                required>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Nome da cooperativa" [(ngModel)]="cooperativa.name"
+                            maxlength="60" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">E-mail</label>
-                        <input type="text" 
-                                class="form-control" 
-                                id="email" 
-                                name="email"
-                                placeholder="E-mail"
-                                [(ngModel)]="cooperativa.email"
-                                maxlength="100"
-                                required>
-                    </div>                    
-                    
+                        <input type="text" class="form-control" id="email" name="email" placeholder="E-mail" [(ngModel)]="cooperativa.email" maxlength="100"
+                            required>
+                    </div>
+
                     <div class="form-group">
                         <label for="phrase">Frase/Slogan</label>
-                        <input type="text" 
-                                class="form-control" 
-                                id="phrase" 
-                                name="phrase"
-                                required
-                                maxlength="200"
-                                [(ngModel)]="cooperativa.phrase">
-                    </div> 
+                        <input type="text" class="form-control" id="phrase" name="phrase" required maxlength="200" [(ngModel)]="cooperativa.phrase">
+                    </div>
                 </div>
 
                 <div class="col-md-6 text-center">
                     <div class="col-md-12">
-                        <img src="" id="preview"/>
+                        <img src="" id="preview" />
                     </div>
-                    <div class="col-md-12">                        
-                        <label>Adicionar Foto do Catador:</label>
-                        <input type='file' class="filestyle col-md-12" data-input="false" (change)="readURL($event);" />
-                    </div>    
+                    <div class="col-md-12">
+                        <label>Adicionar Logo:</label>
+                        <input type='file' class="filestyle col-md-12" data-input="false" (change)="readLogoURL($event);" />
+                    </div>
                 </div>
             </div>
 
@@ -66,37 +48,21 @@
                 <div class="form-group col-md-6">
                     <div class="form-group">
                         <label for="how_many_cooperators">Total de colaboradores</label>
-                        <input type="number" 
-                                class="form-control" 
-                                id="how_many_cooperators" 
-                                name="how_many_cooperators"
-                                placeholder="Informe a quantidade de colaboradores"
-                                [(ngModel)]="cooperativa.how_many_cooperators"
-                                required>
-                    </div> 
-                </div>  
-                
+                        <input type="number" class="form-control" id="how_many_cooperators" name="how_many_cooperators" placeholder="Informe a quantidade de colaboradores"
+                            [(ngModel)]="cooperativa.how_many_cooperators" required>
+                    </div>
+                </div>
+
                 <div class="form-group col-md-12">
                     <label for="founded_in">Data de fundação</label>
-                    <input type="text" 
-                            id="datepicker"
-                            class="form-control" 
-                            name="founded_in"
-                            [textMask]="{mask: masks.date}"
-                            [(ngModel)]="cooperativa.founded_in">
+                    <input type="text" id="datepicker" class="form-control" name="founded_in" [textMask]="{mask: masks.date}" [(ngModel)]="cooperativa.founded_in">
                 </div>
             </div>
 
             <div class="row">
                 <div class="form-group col-md-12">
                     <label for="minibio">História da cooperativa</label>
-                    <textarea class="form-control" 
-                            id="history" 
-                            rows="5"
-                            name="history"
-                            maxlength="600"
-                            required
-                            [(ngModel)]="cooperativa.history"></textarea>
+                    <textarea class="form-control" id="history" rows="5" name="history" maxlength="600" required [(ngModel)]="cooperativa.history"></textarea>
                 </div>
             </div>
 
@@ -104,62 +70,49 @@
                 <hr>
                 <div class="form-group col-md-6">
                     <label for="phones0">Telefone</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="phones0" 
-                            name="phones0"
-                            [textMask]="{mask: masks.number}"
-                            [(ngModel)]="cooperativa.phones[0].phone"
-                            required>
+                    <input type="text" class="form-control" id="phones0" name="phones0" [textMask]="{mask: masks.number}" [(ngModel)]="cooperativa.phones[0].phone"
+                        required>
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="whatsapp0">Esta linha tem WhatsApp?</label>
-                    <select class="form-control" 
-                            id="whatsapp0"
-                            name="whatsapp0"
-                            [(ngModel)]="cooperativa.phones[0].whatsapp">
+                    <select class="form-control" id="whatsapp0" name="whatsapp0" [(ngModel)]="cooperativa.phones[0].whatsapp">
                         <option value="1">Sim</option>
                         <option value="0">Não</option>
                     </select>
                 </div>
 
                 <div class="form-group col-md-12">
-                    <label>Operadora: </label><br>
+                    <label>Operadora: </label>
+                    <br>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'V'" [(ngModel)]="cooperativa.phones[0].mno">
-                            Vivo
+                            <input type="radio" name="mno0" [value]="'V'" [(ngModel)]="cooperativa.phones[0].mno"> Vivo
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'T'" [(ngModel)]="cooperativa.phones[0].mno">
-                            Tim
+                            <input type="radio" name="mno0" [value]="'T'" [(ngModel)]="cooperativa.phones[0].mno"> Tim
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'C'" [(ngModel)]="cooperativa.phones[0].mno">
-                            Claro
+                            <input type="radio" name="mno0" [value]="'C'" [(ngModel)]="cooperativa.phones[0].mno"> Claro
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'R'" [(ngModel)]="cooperativa.phones[0].mno">
-                            Oi
+                            <input type="radio" name="mno0" [value]="'R'" [(ngModel)]="cooperativa.phones[0].mno"> Oi
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'N'" [(ngModel)]="cooperativa.phones[0].mno">
-                            Nextel
+                            <input type="radio" name="mno0" [value]="'N'" [(ngModel)]="cooperativa.phones[0].mno"> Nextel
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno0" [value]="'P'" [(ngModel)]="cooperativa.phones[0].mno">
-                            Porto
+                            <input type="radio" name="mno0" [value]="'P'" [(ngModel)]="cooperativa.phones[0].mno"> Porto
                         </label>
                     </div>
                 </div>
@@ -169,61 +122,48 @@
                 <hr>
                 <div class="form-group col-md-6">
                     <label for="phones1">Telefone 2</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="phones1" 
-                            [textMask]="{mask: masks.number}"
-                            name="phones1"
-                            [(ngModel)]="cooperativa.phones[1].phone">
+                    <input type="text" class="form-control" id="phones1" [textMask]="{mask: masks.number}" name="phones1" [(ngModel)]="cooperativa.phones[1].phone">
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="whatsapp1">Esta linha tem WhatsApp?</label>
-                    <select class="form-control" 
-                            id="whatsapp1"
-                            name="whatsapp1"
-                            [(ngModel)]="cooperativa.phones[1].whatsapp">
+                    <select class="form-control" id="whatsapp1" name="whatsapp1" [(ngModel)]="cooperativa.phones[1].whatsapp">
                         <option value="1">Sim</option>
                         <option value="0">Não</option>
                     </select>
                 </div>
 
                 <div class="form-group col-md-12">
-                    <label>Operadora: </label><br>
+                    <label>Operadora: </label>
+                    <br>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'V'" [(ngModel)]="cooperativa.phones[1].mno">
-                            Vivo
+                            <input type="radio" name="mno1" [value]="'V'" [(ngModel)]="cooperativa.phones[1].mno"> Vivo
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'T'" [(ngModel)]="cooperativa.phones[1].mno">
-                            Tim
+                            <input type="radio" name="mno1" [value]="'T'" [(ngModel)]="cooperativa.phones[1].mno"> Tim
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'C'" [(ngModel)]="cooperativa.phones[1].mno">
-                            Claro
+                            <input type="radio" name="mno1" [value]="'C'" [(ngModel)]="cooperativa.phones[1].mno"> Claro
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'O'" [(ngModel)]="cooperativa.phones[1].mno">
-                            Oi
+                            <input type="radio" name="mno1" [value]="'O'" [(ngModel)]="cooperativa.phones[1].mno"> Oi
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'N'" [(ngModel)]="cooperativa.phones[1].mno">
-                            Nextel
+                            <input type="radio" name="mno1" [value]="'N'" [(ngModel)]="cooperativa.phones[1].mno"> Nextel
                         </label>
                     </div>
                     <div class="radio-inline">
                         <label>
-                            <input type="radio" name="mno1" [value]="'P'" [(ngModel)]="cooperativa.phones[1].mno">
-                            Porto
+                            <input type="radio" name="mno1" [value]="'P'" [(ngModel)]="cooperativa.phones[1].mno"> Porto
                         </label>
                     </div>
                 </div>
@@ -233,267 +173,144 @@
             <div class="row">
                 <div class="col-md-12">
                     <label>Aponte um local de referência, central para o trabalho do catador/a</label>
-                </div>     
+                </div>
                 <div class="col-md-12">
-                    <agm-map [latitude]="mapLatitude" 
-                            [longitude]="mapLongitude"
-                            [zoom]="zoom"
-                            (mapClick)="onClickMap($event)">
-                        
-                        <agm-marker [latitude]="markLat" 
-                                [longitude]="markLng" 
-                                [markerDraggable]="true"
-                                (dragEnd)="onMoveMark($event)"></agm-marker>
+                    <agm-map [latitude]="mapLatitude" [longitude]="mapLongitude" [zoom]="zoom" (mapClick)="onClickMap($event)">
+
+                        <agm-marker [latitude]="markLat" [longitude]="markLng" [markerDraggable]="true" (dragEnd)="onMoveMark($event)"></agm-marker>
 
                     </agm-map>
                 </div>
             </div>
-            
+
             <br>
 
             <div class="row">
                 <div class="form-group col-md-4">
                     <label for="address_base">Rua</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="address_base" 
-                            name="address_base"
-                            [(ngModel)]="cooperativa.address_base"
-                            (focusout)="addressFocusOut()"
-                            maxlength="400"
-                            required>
+                    <input type="text" class="form-control" id="address_base" name="address_base" [(ngModel)]="cooperativa.address_base" (focusout)="addressFocusOut()"
+                        maxlength="400" required>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="number">Número</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="number" 
-                            name="number"
-                            [(ngModel)]="cooperativa.number"
-                            required>
+                    <input type="text" class="form-control" id="number" name="number" [(ngModel)]="cooperativa.number" required>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="address_base">Bairro</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="address_region" 
-                            name="address_region"
-                            [(ngModel)]="cooperativa.address_region"
-                            (focusout)="addressFocusOut()"
-                            maxlength="128"
-                            required>
+                    <input type="text" class="form-control" id="address_region" name="address_region" [(ngModel)]="cooperativa.address_region"
+                        (focusout)="addressFocusOut()" maxlength="128" required>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="city">Cidade</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="city" 
-                            name="city"
-                            [(ngModel)]="cooperativa.city"
-                            (focusout)="addressFocusOut()"
-                            maxlength="64"
-                            required>
+                    <input type="text" class="form-control" id="city" name="city" [(ngModel)]="cooperativa.city" (focusout)="addressFocusOut()"
+                        maxlength="64" required>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="state">Estado</label>
-                    <input type="text" 
-                            class="form-control" 
-                            id="state" 
-                            name="state"
-                            [(ngModel)]="cooperativa.state"
-                            (focusout)="addressFocusOut()"
-                            maxlength="128"
-                            required>
+                    <input type="text" class="form-control" id="state" name="state" [(ngModel)]="cooperativa.state" (focusout)="addressFocusOut()"
+                        maxlength="128" required>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="country">País</label>
-                    <input type="text"
-                            class="form-control" 
-                            id="country" 
-                            name="country"
-                            (focusout)="addressFocusOut()"
-                            [(ngModel)]="cooperativa.country"
-                            maxlength="64"
-                            required>
+                    <input type="text" class="form-control" id="country" name="country" (focusout)="addressFocusOut()" [(ngModel)]="cooperativa.country"
+                        maxlength="64" required>
                 </div>
             </div>
-           
+
             <!-- MATERIAIS -->
 
             <div class="row">
-                <div class="col-md-12"><label>Selecione os materiais em que você trabalha:</label></div>
-
-                <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-misturado.png" 
-                            alt="Misturado" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('misturado')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('misturado') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'misturado'" 
-                            [checked]="materialSelected.indexOf('misturado') > -1" 
-                            (click)="selectMaterial('misturado')" />
-                    Misturado
+                <div class="col-md-12">
+                    <label>Selecione os materiais em que você trabalha:</label>
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-lata.png" 
-                            alt="Lata" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('lata')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('lata') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox"
-                            value="'lata'" 
-                            [checked]="materialSelected.indexOf('lata') > -1" 
-                            (click)="selectMaterial('lata')" />
-                    Lata
+                    <img src="assets/img/materiais/Icones_materiais-misturado.png" alt="Misturado" class="img-responsive img-material" (click)="selectMaterial('misturado')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('misturado') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'misturado'" [checked]="materialSelected.indexOf('misturado') > -1" (click)="selectMaterial('misturado')"
+                    /> Misturado
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-vidro.png" 
-                            alt="Vidro" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('vidro')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('vidro') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'vidro'" 
-                            [checked]="materialSelected.indexOf('vidro') > -1" 
-                            (click)="selectMaterial('vidro')" />
-                    Vidro
+                    <img src="assets/img/materiais/Icones_materiais-lata.png" alt="Lata" class="img-responsive img-material" (click)="selectMaterial('lata')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('lata') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'lata'" [checked]="materialSelected.indexOf('lata') > -1" (click)="selectMaterial('lata')"
+                    /> Lata
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-papel.png" 
-                            alt="papel" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('papel')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('papel') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'papel'" 
-                            [checked]="materialSelected.indexOf('papel') > -1" 
-                            (click)="selectMaterial('papel')" />
-                    Papel
+                    <img src="assets/img/materiais/Icones_materiais-vidro.png" alt="Vidro" class="img-responsive img-material" (click)="selectMaterial('vidro')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('vidro') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'vidro'" [checked]="materialSelected.indexOf('vidro') > -1" (click)="selectMaterial('vidro')"
+                    /> Vidro
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-plastico.png" 
-                            alt="plastico" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('plastico')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('plastico') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'plastico'" 
-                            [checked]="materialSelected.indexOf('plastico') > -1" 
-                            (click)="selectMaterial('plastico')" />
-                    Plastico
+                    <img src="assets/img/materiais/Icones_materiais-papel.png" alt="papel" class="img-responsive img-material" (click)="selectMaterial('papel')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('papel') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'papel'" [checked]="materialSelected.indexOf('papel') > -1" (click)="selectMaterial('papel')"
+                    /> Papel
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-metal.png" 
-                            alt="metal" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('metal')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('metal') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'metal'" 
-                            [checked]="materialSelected.indexOf('metal') > -1" 
-                            (click)="selectMaterial('metal')" />
-                    Metal
+                    <img src="assets/img/materiais/Icones_materiais-plastico.png" alt="plastico" class="img-responsive img-material" (click)="selectMaterial('plastico')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('plastico') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'plastico'" [checked]="materialSelected.indexOf('plastico') > -1" (click)="selectMaterial('plastico')"
+                    /> Plastico
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-oleo.png" 
-                            alt="oleo" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('oleo')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('oleo') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'oleo'" 
-                            [checked]="materialSelected.indexOf('oleo') > -1" 
-                            (click)="selectMaterial('oleo')" />
-                    Óleo
+                    <img src="assets/img/materiais/Icones_materiais-metal.png" alt="metal" class="img-responsive img-material" (click)="selectMaterial('metal')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('metal') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'metal'" [checked]="materialSelected.indexOf('metal') > -1" (click)="selectMaterial('metal')"
+                    /> Metal
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-eletronico.png" 
-                            alt="eletronico" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('eletronico')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('eletronico') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'eletronico'" 
-                            [checked]="materialSelected.indexOf('eletronico') > -1" 
-                            (click)="selectMaterial('eletronico')" />
-                    Eletrônicos
+                    <img src="assets/img/materiais/Icones_materiais-oleo.png" alt="oleo" class="img-responsive img-material" (click)="selectMaterial('oleo')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('oleo') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'oleo'" [checked]="materialSelected.indexOf('oleo') > -1" (click)="selectMaterial('oleo')"
+                    /> Óleo
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-bateria.png" 
-                            alt="bateria" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('bateria')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('bateria') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'bateria'" 
-                            [checked]="materialSelected.indexOf('bateria') > -1" 
-                            (click)="selectMaterial('bateria')" />
-                    Bateria
+                    <img src="assets/img/materiais/Icones_materiais-eletronico.png" alt="eletronico" class="img-responsive img-material" (click)="selectMaterial('eletronico')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('eletronico') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'eletronico'" [checked]="materialSelected.indexOf('eletronico') > -1" (click)="selectMaterial('eletronico')"
+                    /> Eletrônicos
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-moveis.png" 
-                            alt="moveis" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('moveis')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('moveis') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'moveis'" 
-                            [checked]="materialSelected.indexOf('moveis') > -1" 
-                            (click)="selectMaterial('moveis')" />
-                    Móveis
+                    <img src="assets/img/materiais/Icones_materiais-bateria.png" alt="bateria" class="img-responsive img-material" (click)="selectMaterial('bateria')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('bateria') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'bateria'" [checked]="materialSelected.indexOf('bateria') > -1" (click)="selectMaterial('bateria')"
+                    /> Bateria
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-entulho.png" 
-                            alt="entulho" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('entulho')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('entulho') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'entulho'" 
-                            [checked]="materialSelected.indexOf('entulho') > -1" 
-                            (click)="selectMaterial('entulho')" />
-                    Entulho
+                    <img src="assets/img/materiais/Icones_materiais-moveis.png" alt="moveis" class="img-responsive img-material" (click)="selectMaterial('moveis')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('moveis') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'moveis'" [checked]="materialSelected.indexOf('moveis') > -1" (click)="selectMaterial('moveis')"
+                    /> Móveis
                 </div>
 
                 <div class="col-md-2 col-sm-2 col-xs-4 text-center">
-                    <img src="assets/img/materiais/Icones_materiais-poda.png" 
-                            alt="outros" 
-                            class="img-responsive img-material" 
-                            (click)="selectMaterial('outros')"
-                            [ngClass]="{'img-selected': materialSelected.indexOf('outros') > -1 }" />
-                    <input name="material[]" 
-                            type="checkbox" 
-                            value="'outros'" 
-                            [checked]="materialSelected.indexOf('outros') > -1" 
-                            (click)="selectMaterial('outros')" />
-                    Outros
+                    <img src="assets/img/materiais/Icones_materiais-entulho.png" alt="entulho" class="img-responsive img-material" (click)="selectMaterial('entulho')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('entulho') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'entulho'" [checked]="materialSelected.indexOf('entulho') > -1" (click)="selectMaterial('entulho')"
+                    /> Entulho
+                </div>
+
+                <div class="col-md-2 col-sm-2 col-xs-4 text-center">
+                    <img src="assets/img/materiais/Icones_materiais-poda.png" alt="outros" class="img-responsive img-material" (click)="selectMaterial('outros')"
+                        [ngClass]="{'img-selected': materialSelected.indexOf('outros') > -1 }" />
+                    <input name="material[]" type="checkbox" value="'outros'" [checked]="materialSelected.indexOf('outros') > -1" (click)="selectMaterial('outros')"
+                    /> Outros
                 </div>
 
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -504,25 +321,51 @@
 
             <!--/ MATERIAIS -->
 
+            <!-- GALERIA -->
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Galeria <small style="color: #bdbbbb">Adicione aqui as fotos da cooperativa</small></label>
+                    <input type='file' class="filestyle col-md-12" data-input="false" (change)="readGalleryURL($event);" multiple/>
+                    <br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-2" *ngFor="let photo of cooperativa.photos" [hidden]="photo.delete && photo.delete == 1">
+                    <div class="thumbnail">
+                        <img [src]="getGallerySrc(photo)" class="gallery-photo">
+                        <div class="caption">
+                            <p>
+                                <a (click)="removeImageOnGallery(photo)" class="btn btn-danger" role="button">Delete</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <hr>
+                </div>
+            </div>
+            <!-- /GALERIA -->
+
+
             <!-- BUTTONS -->
 
-            <div class="row"> 
+            <div class="row">
                 <div class="col-md-12">
-                    <button type="submit" 
-                            class="btn btn-success col-md-4 col-xs-4">
+                    <button type="submit" class="btn btn-success col-md-4 col-xs-4">
                         Cadastrar
                     </button>
 
-                    <button type="button" 
-                            (click)="goHome()" 
-                            class="btn btn-primary col-md-4 col-md-offset-4 col-xs-offset-4 col-xs-4">
+                    <button type="button" (click)="goHome()" class="btn btn-primary col-md-4 col-md-offset-4 col-xs-offset-4 col-xs-4">
                         Voltar
-                    </button> 
-                </div>    
-            </div>    
+                    </button>
+                </div>
+            </div>
+            <br>
 
         </form>
 
-    </div>    
+    </div>
 
 </div>
