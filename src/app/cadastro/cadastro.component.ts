@@ -166,7 +166,6 @@ export class CadastroComponent implements OnInit {
     }
     
     nextStep() { 
-        console.log('next step');
         this.showMap = true;
     }
 

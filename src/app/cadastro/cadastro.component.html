@@ -1,376 +1,788 @@
-<form (ngSubmit)="nextStep()" #catadorForm="ngForm">
-    <div class="cont">
+    <div class="cont" *ngIf="!showMap">
         <img src="assets/img/cadastro/image1.png" class="img-responsive">
     </div>
-    <br>
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- ------------1nd col --------------------- -->
-                <div class="col-md-12 col-xs-12 col-lg-12">
-                    <!-- ---------Description and the Button--------------- -->
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <label> Com este formul&aacute;rio voc&ecirc; ir&aacute; cadastrar um novo catador no nossos aplicativo. Preencha
-                                tudo com muito carinho e aten&ccedil;&atilde;o, este perfil ser&aacute; o cart&atilde;o
-                                de visita do catador :)</label>
-                        </div>
-
-                        <div class="col-md-6" align="">
-                            <b>
-                                <input type="button" 
-                                        value="+DICAS PARA CADASTR0" 
-                                        style="width:100%" 
-                                        data-toggle="modal" 
-                                        data-target="#myModal" 
-                                        data-backdrop="false">
-                            </b>
-                        </div>
-
-
-                    </div>
-                    <!-- -------------End of row------------------------- -->
-                    <hr>
-                    <!-- -------------------hr---------------------------- -->
-
-
-
-                    <!-- -----------New Row---------- -->
-                    <div class="row">
-                        <!-- ----------Col for the form------------------- -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label align="right">DADOS PESSOAIS</label>
-                            </div>
-                            <!-- -----------End of 1stcol------- -->
-                        </div>
-                        <!-- --------------End of row-------------- -->
+        <form (ngSubmit)="nextStep()" #catadorForm="ngForm">
+            <div *ngIf="!showMap">
+                <!-- ---------Description and the Button--------------- -->
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <label> Com este formul&aacute;rio voc&ecirc; ir&aacute; cadastrar um novo catador no nossos aplicativo. Preencha
+                            tudo com muito carinho e aten&ccedil;&atilde;o, este perfil ser&aacute; o cart&atilde;o
+                            de visita do catador :)</label>
                     </div>
 
-                    <!-- -----------New Row---------- -->
-                    <div class="row">
-                        <!-- ----------Col for the form------------------- -->
-                        <div class="col-md-6">
-                            <!-- --------1st row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" id="name-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                placeholder="Nome completo" 
-                                                required 
-                                                name="name" 
-                                                id="name"
-                                                [(ngModel)]="catador.name"
-                                                maxlength="60">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------2nd row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                placeholder="Como quer ser chamado" 
-                                                required 
-                                                maxlength="128"
-                                                id="nickname" 
-                                                name="nickname"
-                                                [(ngModel)]="catador.nickname">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------3rd row of the colm--------- -->
-                            <div class="row">
-                                <!-- <div class="col-md-2 col-sm-1-col-xs-1">
-
-                                    <span class="input-group-btn">
-
-                                        <button id="fake-file-button-browse" type="button" style="width:70px;background-color:white;">
-                                            <span class="glyphicon glyphicon-camera"></span>
-                                        </button>
-                                    </span>
-                                </div> -->
-
-                                <div class="col-md-12 text-center">
-                                    <img src="" id="preview" style="display: none;"/>
-                                </div>
-
-                                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 13px;">
-                                        <input type='file' 
-                                                id="img-file" 
-                                                class="filestyle col-md-12"
-                                                placeholder="Selecionar imagem"
-                                                (change)="readURL($event);" />
-                                    <!-- <input type="file" id="files-input-upload" style="display: none;">
-                                    <input type="text" id="fake-file-input-name" disabled="disabled" placeholder="Adiconar foto" class="form-control"> -->
-
-                                </div>
-                            </div>
-                            <!-- --------4th row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" ng-app="">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                placeholder="Frase marcante" 
-                                                required
-                                                id="presentation_phrase" 
-                                                name="presentation_phrase"
-                                                required
-                                                maxlength="140"
-                                                [(ngModel)]="catador.presentation_phrase">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------5th row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12 ">
-                                    <div class="form-group">
-                                        <textarea type="text" 
-                                                class="form-control" 
-                                                placeholder="História de vida" 
-                                                style="height:130px;" 
-                                                name="minibio"
-                                                maxlength="600"
-                                                required
-                                                [(ngModel)]="catador.minibio"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- -----------End of 1stcol------- -->
-                        </div>
-
-                        <div class="col-md-1"></div>
-
-                        <!-- ----------Col 2nd for the form------------------- -->
-                        <div class="col-md-6">
-                            <!-- --------1st row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                placeholder="Telefone 1" 
-                                                id="phones0" 
-                                                name="phones0"
-                                                [textMask]="{mask: masks.number}"
-                                                [(ngModel)]="catador.phones[0].phone">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- --------2nd row of the colm--------- -->
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" style="color:grey">
-                                        Operadora:
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12" style="color:grey">
-                                    <div class="form-group">
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'V'" [(ngModel)]="catador.phones[0].mno">
-                                                Vivo
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'T'" [(ngModel)]="catador.phones[0].mno">
-                                                Tim
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'C'" [(ngModel)]="catador.phones[0].mno">
-                                                Claro
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'O'" [(ngModel)]="catador.phones[0].mno">
-                                                Oi
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'N'" [(ngModel)]="catador.phones[0].mno">
-                                                Nextel
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'P'" required [(ngModel)]="catador.phones[0].mno">
-                                                Porto
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- --------3rd row of the colm--------- -->
-                            <div class="row" style="padding-left:3%">
-                                <div class="col-md-12">
-                                    <div class="form-group" style="color:grey">
-                                        Este n&uacute;mero tem Whatsapp?
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------4th row of the colm--------- -->
-                            <div class="row" style="padding-left:3%">
-                                <div class="col-md-12" style="color:grey">
-                                    <div class="form-group">
-                                        <label class="radio-inline">
-                                            <input type="radio" 
-                                                required 
-                                                name="whatsapp0-s"
-                                                [value]="1"
-                                                [(ngModel)]="catador.phones[0].whatsapp">
-                                                Sim
-                                        </label>
-                                        <label class="radio-inline" style="margin-left:17%">
-                                            <input type="radio" 
-                                                required 
-                                                name="whatsapp0-n"
-                                                [value]="0"
-                                                [(ngModel)]="catador.phones[0].whatsapp"
-                                                ng-model="userfullName6">N&atilde;o
-                                            </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- --------5th row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                placeholder="Telefone 2(opcional)" 
-                                                id="phones1" 
-                                                [textMask]="{mask: masks.number}"
-                                                name="phones1"
-                                                [(ngModel)]="catador.phones[1].phone">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------6th row of the colm--------- -->
-
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" style="color:grey">
-                                        Operadora do telefone 2
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12" style="color:grey">
-                                    <div class="form-group">
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'V'" [(ngModel)]="catador.phones[1].mno">
-                                                Vivo
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'T'" [(ngModel)]="catador.phones[1].mno">
-                                                Tim
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'C'" [(ngModel)]="catador.phones[1].mno">
-                                                Claro
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'O'" [(ngModel)]="catador.phones[1].mno">
-                                                Oi
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'N'" [(ngModel)]="catador.phones[1].mno">
-                                                Nextel
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'P'" required [(ngModel)]="catador.phones[1].mno">
-                                                Porto
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- --------7th row of the colm--------- -->
-                            <div class="row"> 
-                                <div class="col-md-12" style="padding-left:6%">
-                                    <div class="form-group" style="color:grey">
-                                        Este número tem Whatsapp?
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------8th row of the colm--------- -->
-                            <div class="row" style="padding-left:3%">
-                                <div class="col-md-12" style="color:grey">
-                                    <div class="form-group">
-                                        <label class="radio-inline">
-                                            <input type="radio" 
-                                                required 
-                                                name="whatsapp1-s"
-                                                [value]="1"
-                                                [(ngModel)]="catador.phones[1].whatsapp">
-                                                Sim
-                                        </label>
-                                        <label class="radio-inline" style="margin-left:17%">
-                                            <input type="radio" 
-                                                required 
-                                                name="whatsapp1-n"
-                                                [value]="0"
-                                                [(ngModel)]="catador.phones[1].whatsapp"
-                                                ng-model="userfullName6">N&atilde;o
-                                            </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- -----------End of 2nd col------- -->
-                        </div>
-                        <!-- --------------End of row-------------- -->
+                    <div class="col-md-6 col-lg-6" align="">
+                        <button class="btn newbtn2 my-btn2" data-toggle="modal" data-target="#myModal" data-backdrop="true">
+                            <span>+DICAS PARA CADASTRO</span>
+                        </button>
                     </div>
-                    <br>
-                    <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                </div>
+                <!-- -------------End of row------------------------- -->
+                <hr>
+                <!-- -------------------hr---------------------------- -->
 
-                    <!-- MAP -->
-                    <!-- -----------New Row---------- -->
-                    <div class="row" *ngIf="showMap">
-                        <form class="form-group">
-                            <!-- ----------Col for the form------------------- -->
+                <!-- -----------New Row---------- -->
+                <div class="row">
+                    <!-- ----------Col for the form------------------- -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label align="right">DADOS PESSOAIS</label>
+                        </div>
+                        <!-- -----------End of 1stcol------- -->
+                    </div>
+                    <!-- --------------End of row-------------- -->
+                </div>
+
+                <!-- -----------New Row---------- -->
+                <div class="row">
+                    <!-- ----------Col for the form------------------- -->
+                    <div class="col-md-6">
+                        <!-- --------1st row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" id="name-group">
+                                    <input type="text" 
+                                            class="form-control" 
+                                            placeholder="Nome completo" 
+                                            required 
+                                            name="name" 
+                                            id="name"
+                                            [(ngModel)]="catador.name"
+                                            maxlength="60">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------2nd row of the colm--------- -->
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label align="right">LOCAL DE TRABALHO (REF.)</label>
+                                    <input type="text" 
+                                            class="form-control" 
+                                            placeholder="Como quer ser chamado" 
+                                            required 
+                                            maxlength="128"
+                                            id="nickname" 
+                                            name="nickname"
+                                            [(ngModel)]="catador.nickname">
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                        <!-- --------3rd row of the colm--------- -->
+                        <div class="row">
+                            <!-- <div class="col-md-2 col-sm-1-col-xs-1">
+
+                                <span class="input-group-btn">
+
+                                    <button id="fake-file-button-browse" type="button" style="width:70px;background-color:white;">
+                                        <span class="glyphicon glyphicon-camera"></span>
+                                    </button>
+                                </span>
+                            </div> -->
+
+                            <div class="col-md-12 text-center">
+                                <img src="" id="preview" style="display: none;"/>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 13px;">
+                                    <input type='file' 
+                                            id="img-file" 
+                                            class="filestyle col-md-12"
+                                            placeholder="Selecionar imagem"
+                                            (change)="readURL($event);" />
+                                <!-- <input type="file" id="files-input-upload" style="display: none;">
+                                <input type="text" id="fake-file-input-name" disabled="disabled" placeholder="Adiconar foto" class="form-control"> -->
+
+                            </div>
+                        </div>
+                        <!-- --------4th row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" ng-app="">
+                                    <input type="text" 
+                                            class="form-control" 
+                                            placeholder="Frase marcante" 
+                                            required
+                                            id="presentation_phrase" 
+                                            name="presentation_phrase"
+                                            required
+                                            maxlength="140"
+                                            [(ngModel)]="catador.presentation_phrase">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------5th row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="form-group">
+                                    <textarea type="text" 
+                                            class="form-control" 
+                                            placeholder="História de vida" 
+                                            style="height:130px;" 
+                                            name="minibio"
+                                            maxlength="600"
+                                            required
+                                            [(ngModel)]="catador.minibio"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -----------End of 1stcol------- -->
                     </div>
 
+                    <div class="col-md-1"></div>
+
+                    <!-- ----------Col 2nd for the form------------------- -->
+                    <div class="col-md-6">
+                        <!-- --------1st row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" 
+                                            class="form-control" 
+                                            placeholder="Telefone 1" 
+                                            id="phones0" 
+                                            name="phones0"
+                                            [textMask]="{mask: masks.number}"
+                                            [(ngModel)]="catador.phones[0].phone">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- --------2nd row of the colm--------- -->
+                        <!-- <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="color:grey">
+                                    Operadora:
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12" style="color:grey">
+                                <div class="form-group">
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno0" [value]="'V'" [(ngModel)]="catador.phones[0].mno">
+                                            Vivo
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno0" [value]="'T'" [(ngModel)]="catador.phones[0].mno">
+                                            Tim
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno0" [value]="'C'" [(ngModel)]="catador.phones[0].mno">
+                                            Claro
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno0" [value]="'O'" [(ngModel)]="catador.phones[0].mno">
+                                            Oi
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno0" [value]="'N'" [(ngModel)]="catador.phones[0].mno">
+                                            Nextel
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno0" [value]="'P'" required [(ngModel)]="catador.phones[0].mno">
+                                            Porto
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- --------3rd row of the colm--------- -->
+                        <div class="row" style="padding-left:3%">
+                            <div class="col-md-12">
+                                <div class="form-group" style="color:grey">
+                                    Este n&uacute;mero tem Whatsapp?
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------4th row of the colm--------- -->
+                        <div class="row" style="padding-left:3%">
+                            <div class="col-md-12" style="color:grey">
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" 
+                                            required 
+                                            name="whatsapp0-s"
+                                            [value]="1"
+                                            [(ngModel)]="catador.phones[0].whatsapp">
+                                            Sim
+                                    </label>
+                                    <label class="radio-inline" style="margin-left:17%">
+                                        <input type="radio" 
+                                            required 
+                                            name="whatsapp0-n"
+                                            [value]="0"
+                                            [(ngModel)]="catador.phones[0].whatsapp"
+                                            ng-model="userfullName6">N&atilde;o
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- --------5th row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" 
+                                            class="form-control" 
+                                            placeholder="Telefone 2(opcional)" 
+                                            id="phones1" 
+                                            [textMask]="{mask: masks.number}"
+                                            name="phones1"
+                                            [(ngModel)]="catador.phones[1].phone">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------6th row of the colm--------- -->
+
+                        <!-- <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="color:grey">
+                                    Operadora do telefone 2
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12" style="color:grey">
+                                <div class="form-group">
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno1" [value]="'V'" [(ngModel)]="catador.phones[1].mno">
+                                            Vivo
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno1" [value]="'T'" [(ngModel)]="catador.phones[1].mno">
+                                            Tim
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno1" [value]="'C'" [(ngModel)]="catador.phones[1].mno">
+                                            Claro
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno1" [value]="'O'" [(ngModel)]="catador.phones[1].mno">
+                                            Oi
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno1" [value]="'N'" [(ngModel)]="catador.phones[1].mno">
+                                            Nextel
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="mno1" [value]="'P'" required [(ngModel)]="catador.phones[1].mno">
+                                            Porto
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- --------7th row of the colm--------- -->
+                        <div class="row"> 
+                            <div class="col-md-12" style="padding-left:6%">
+                                <div class="form-group" style="color:grey">
+                                    Este número tem Whatsapp?
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------8th row of the colm--------- -->
+                        <div class="row" style="padding-left:3%">
+                            <div class="col-md-12" style="color:grey">
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" 
+                                            required 
+                                            name="whatsapp1-s"
+                                            [value]="1"
+                                            [(ngModel)]="catador.phones[1].whatsapp">
+                                            Sim
+                                    </label>
+                                    <label class="radio-inline" style="margin-left:17%">
+                                        <input type="radio" 
+                                            required 
+                                            name="whatsapp1-n"
+                                            [value]="0"
+                                            [(ngModel)]="catador.phones[1].whatsapp"
+                                            ng-model="userfullName6">N&atilde;o
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- -----------End of 2nd col------- -->
+                    </div>
+                    <!-- --------------End of row-------------- -->
+                </div>
+                <br>
+                <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+                <br>
+                <!-- -----------New Row---------- -->
+                <div class="row">
+                    <!-- ----------Col for the form------------------- -->
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                        <div class="form-group">
+                            <label align="left">INFORMAÇÕES DO TRABALHO</label>
+                        </div>
+                        <!-- -----------End of 1stcol------- -->
+                    </div>
+                    <!-- --------------End of row-------------- -->
+                </div>
+
+                <!-- -----------New Row---------- -->
+                <div class="row">
+                    <!-- ----------Col for the form------------------- -->
+                    <div class="col-md-6">
+                        <!-- --------1st row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-12" style="padding-left:6%">
+                                <div class="form-group" style="color:grey">
+                                    Catador(a) motorizado(a)?
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------2nd row of the colm--------- -->
+                        <div class="row" style="padding-left:3%">
+                            <div class="col-md-12" style="color:grey">
+                                <select class="form-control" 
+                                        id="has_motor_vehicle"
+                                        name="has_motor_vehicle"
+                                        [(ngModel)]="catador.has_motor_vehicle">
+                                    <option value="true">Sim</option>
+                                    <option value="false">Não</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- -----------End of 1stcol------- -->
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- --------1st row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-12" style="padding-left:6%">
+                                <div class="form-group" style="color:grey">
+                                    Carroça grafitada/pimpada?
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------2nd row of the colm--------- -->
+                        <div class="row" style="padding-left:3%">
+                            <div class="col-md-12" style="color:grey">
+                                <select class="form-control" 
+                                        id="carroca_pimpada"
+                                        name="carroca_pimpada"
+                                        [(ngModel)]="catador.carroca_pimpada">
+                                    <option value="true">Sim</option>
+                                    <option value="false">Não</option>
+                                </select>
+                                
+                                <!-- <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" 
+                                                required 
+                                                [value]="true"
+                                                id="carroca_pimpada"
+                                                name="carroca_pimpada"
+                                                [(ngModel)]="catador.carroca_pimpada">Sim</label>
+                                    <label class="radio-inline" style="margin-left:17%">
+                                        <input type="radio" 
+                                                required 
+                                                [value]="false"
+                                                id="carroca_pimpada"
+                                                name="carroca_pimpada"
+                                                [(ngModel)]="catador.carroca_pimpada">N&atilde;o</label>
+                                </div> -->
+                            </div>
+                        </div>
+                        <!-- -----------End of 2nd col------- -->
+                    </div>
+                    <!-- --------------End of row-------------- -->
+                </div>
+                <br>
+                <div class="row">
+                    <!-- ----------Col for the form------------------- -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label align="right">MATERIAIS QUE COLETA</label>
+                        </div>
+                        <!-- -----------End of 1stcol------- -->
+                    </div>
+                    <!-- --------------End of row-------------- -->
+                </div>
+
+                <!-- -----------New Row---------- -->
+                <div class="row">
+                    <!-- ----------Col for the form------------------- -->
+                    <div class="col-md-6">
+                        <!-- --------1st row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-4  col-sm-4  col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon 1.png" 
+                                            class="img-responsive img-material"
+                                            (click)="selectMaterial('misturado')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('misturado') > -1 }" >
+                                </p>
+                                <label class="radio-inline" style="padding-left:20%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'misturado'" 
+                                            [checked]="materialSelected.indexOf('misturado') > -1" 
+                                            (click)="selectMaterial('misturado')" >
+                                        Misturado
+                                </label>
+                            </div>
+
+                            <!-- ----------2nd colm------------- -->
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon2.png" 
+                                            class="img-responsive img-material"
+                                            (click)="selectMaterial('lata')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('lata') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:20%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'lata'" 
+                                            [checked]="materialSelected.indexOf('lata') > -1" 
+                                            (click)="selectMaterial('lata')">Lata</label>
+                            </div>
+
+                            <!-- -----------3rd colm-------------------- -->
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon3.png" 
+                                            class="img-responsive img-material"
+                                            (click)="selectMaterial('vidro')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('vidro') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:28%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'vidro'" 
+                                            [checked]="materialSelected.indexOf('vidro') > -1" 
+                                            (click)="selectMaterial('vidro')" >
+                                        Vidro
+                                </label>
+                            </div>
+                        </div>
+
+
+
+                        <!-- --------2nd row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-4  col-sm-4  col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon4.png" 
+                                            class="img-responsive img-material" 
+                                            (click)="selectMaterial('papel')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('papel') > -1 }" >
+                                </p>
+                                <label class="radio-inline" style="padding-left:20%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'papel'" 
+                                            [checked]="materialSelected.indexOf('papel') > -1" 
+                                            (click)="selectMaterial('papel')">Papel</label>
+                            </div>
+
+                            <!-- ----------2nd colm------------- -->
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon5.png" 
+                                            class="img-responsive img-material" 
+                                            (click)="selectMaterial('plastico')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('plastico') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:20%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'plastico'" 
+                                            [checked]="materialSelected.indexOf('plastico') > -1" 
+                                            (click)="selectMaterial('plastico')">
+                                        Plástico
+                                </label>
+                            </div>
+
+                            <!-- -----------3rd colm-------------------- -->
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon6.png" 
+                                            class="img-responsive img-material" 
+                                            (click)="selectMaterial('metal')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('metal') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:28%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'metal'" 
+                                            [checked]="materialSelected.indexOf('metal') > -1" 
+                                            (click)="selectMaterial('metal')">
+                                        Metal
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- -----------End of 1stcol------- -->
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- --------1st row of the colm--------- -->
+                        <!-- --------1st row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-4  col-sm-4  col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon7.png" 
+                                            class="img-responsive img-material" 
+                                            (click)="selectMaterial('oleo')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('oleo') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:20%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'oleo'" 
+                                            [checked]="materialSelected.indexOf('oleo') > -1" 
+                                            (click)="selectMaterial('oleo')">
+                                        Óleo
+                                </label>
+                            </div>
+
+                            <!-- ----------2nd colm------------- -->
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon8.png" 
+                                            class="img-responsive img-material" 
+                                            (click)="selectMaterial('eletronico')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('eletronico') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:10%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'eletronico'" 
+                                            [checked]="materialSelected.indexOf('eletronico') > -1" 
+                                            (click)="selectMaterial('eletronico')">
+                                        Eletrônico
+                                </label>
+                            </div>
+
+                            <!-- -----------3rd colm-------------------- -->
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon9.png" 
+                                            class="img-responsive img-material" 
+                                            (click)="selectMaterial('bateria')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('bateria') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:28%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'bateria'" 
+                                            [checked]="materialSelected.indexOf('bateria') > -1" 
+                                            (click)="selectMaterial('bateria')">Baterias</label>
+                            </div>
+                        </div>
+
+
+
+                        <!-- --------2nd row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-4  col-sm-4  col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon10.png" 
+                                            class="img-responsive img-material" 
+                                            (click)="selectMaterial('moveis')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('moveis') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:20%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'moveis'" 
+                                            [checked]="materialSelected.indexOf('moveis') > -1" 
+                                            (click)="selectMaterial('moveis')">Móveis</label>
+                            </div>
+
+                            <!-- ----------2nd colm------------- -->
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon11.png" 
+                                            class="img-responsive img-material" 
+                                            (click)="selectMaterial('entulho')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('entulho') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:20%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'entulho'" 
+                                            [checked]="materialSelected.indexOf('entulho') > -1" 
+                                            (click)="selectMaterial('entulho')">Entulho</label>
+                            </div>
+
+                            <!-- -----------3rd colm-------------------- -->
+                            <div class="col-md-4  col-sm-4 col-xs-4">
+                                <p>
+                                    <img src="assets/img/cadastro/icon12.png" 
+                                            class="img-responsive img-material" 
+                                            (click)="selectMaterial('outros')"
+                                            [ngClass]="{'img-selected': materialSelected.indexOf('outros') > -1 }">
+                                </p>
+                                <label class="radio-inline" style="padding-left:28%">
+                                    <input type="radio" 
+                                            class="inline" 
+                                            value="'outros'" 
+                                            [checked]="materialSelected.indexOf('outros') > -1" 
+                                            (click)="selectMaterial('outros')">Outros</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- --------------End of row-------------- -->
+                </div>
+                <br>
+                <br>
+
+                <!-- -----------New Row---------- -->
+                <div class="row">
+                    <!-- ----------Col for the form------------------- -->
+                    <div class="col-md-6">
+                        <!-- --------1st row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="color:grey">
+                                    <label>Quem está cadastrando?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- --------2nd row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-6 col-xs-5 col-sm-6" style="color:grey">
+                                <div class="form-group" align="left">
+                                    <label class="radio-inline">
+                                        <input type="radio" 
+                                                id="registered_by_another_user"
+                                                [value]="false"
+                                                name="registered_by_another_user"
+                                                [(ngModel)]="catador.registered_by_another_user">Eu, catador(a)</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-7 col-sm-6" style="color:grey">
+                                <div class="form-group" align="center" id="radio">
+                                    <label class="radio-inline">
+                                        <input type="radio" 
+                                                id="registered_by_another_user"
+                                                [value]="true"
+                                                name="registered_by_another_user"
+                                                [(ngModel)]="catador.registered_by_another_user">Outra pessoa</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- -----------End of 1stcol------- -->
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <!-- --------2nd row of the colm--------- -->
+                        <div class="row">
+                            <div class="col-md-12" style="color:grey" id="left-arrow">
+
+                                <div id="color">
+                                    <form>
+                                        <br>
+                                        <p>
+                                            <input type="text" 
+                                                    class="form-control frm" 
+                                                    placeholder="Nome"
+                                                    name="name21" 
+                                                    maxlength="200"
+                                                    [(ngModel)]="catador.another_user_name">
+                                        </p>
+                                        <p>
+                                            <input type="text" 
+                                                    class="form-control frm" 
+                                                    placeholder="E-mail"
+                                                    name="name22" 
+                                                    maxlength="200"
+                                                    [(ngModel)]="catador.another_user_email">
+                                        </p>
+                                        <p>
+                                            <input type="text" 
+                                                    class="form-control frm" 
+                                                    placeholder="Whatsapp"
+                                                    name="name23"
+                                                    [textMask]="{mask: masks.number}"
+                                                    [(ngModel)]="catador.another_user_whatsapp">
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- -----------End of 1stcol------- -->
+                    </div>
+                    <!-- --------------End of row-------------- -->
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-4">
+                        <!-- <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success">CADASTRAR</button> -->
+                        <button type="button" (click)="nextStep()" value="AVANÇAR" id="name-group" class="primary-button btn btn-success">AVANÇAR</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MAP -->
+            <div *ngIf="showMap">
+                    <div class="row">
+                        <div class="col-lg-12 map-title-container">
+                            <h4>LOCAL DE TRABALHO</h4>
+                        </div>
+                    </div>
                     <!-- -----------New Row---------- -->
-                    <div class="row" *ngIf="showMap">
+                    <div class="row">
+
+                        <!-- ----------Col 2nd for the form------------------- -->
+                        <div class="col-lg-6 map-container">
+                            <agm-map [latitude]="mapLatitude" 
+                                [longitude]="mapLongitude"
+                                [zoom]="zoom"
+                                (mapClick)="onClickMap($event)"
+                                style="height: 330px">
+                            
+                                <agm-marker [latitude]="markLat" 
+                                        [longitude]="markLng" 
+                                        [markerDraggable]="true"
+                                        (dragEnd)="onMoveMark($event)"></agm-marker>
+    
+                            </agm-map>
+                            <!-- -----------End of 2nd col------- -->
+                        </div>
+
                         <!-- ----------Col 1nd for the form------------------- -->
                         <div class="col-md-6">
                             <!-- --------1st row of the colm--------- -->
                             <div class="row">
-                                <div class="col-md-12">
+                                <div style="width: 69%; float: left; margin-right: 2%;">
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
@@ -383,10 +795,7 @@
                                                 maxlength="500">
                                     </div>
                                 </div>
-                            </div>
-                            <!-- --------2nd row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div style="width: 29%; float: left;">
                                     <div class="form-group">
                                         <input type="number" 
                                                 class="form-control" 
@@ -397,9 +806,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- --------3rd row of the colm--------- -->
+
+                            <!-- --------2rd row of the colm--------- -->
                             <div class="row">
-                                <div class="col-md-12">
+                                <div>
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
@@ -412,9 +822,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- --------4th row of the colm--------- -->
+                            <!-- --------3th row of the colm--------- -->
                             <div class="row">
-                                <div class="col-md-12">
+                                <div style="width: 69%; float: left; margin-right: 2%;">
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
@@ -427,10 +837,7 @@
                                                 maxlength="64">
                                     </div>
                                 </div>
-                            </div>
-                            <!-- --------5th row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12">
+                                <div style="width: 29%; float: left;">
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
@@ -442,9 +849,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- --------6th row of the colm--------- -->
+                            <!-- --------5th row of the colm--------- -->
                             <div class="row">
-                                <div class="col-md-12 ">
+                                <div>
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
@@ -457,10 +864,10 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- --------7th row of the colm--------- -->
+    
+                            <!-- --------6th row of the colm--------- -->
                             <div class="row">
-                                <div class="col-md-12 ">
+                                <div>
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
@@ -471,493 +878,66 @@
                                     </div>
                                 </div>
                             </div>
-
-
+    
+    
                             <!-- -----------End of 1stcol------- -->
                         </div>
-
-
-                        <!-- ----------Col 2nd for the form------------------- -->
-                        <div class="col-lg-6">
-                            <agm-map [latitude]="mapLatitude" 
-                                [longitude]="mapLongitude"
-                                [zoom]="zoom"
-                                (mapClick)="onClickMap($event)"
-                                style="height: 330px">
-                            
-                                <agm-marker [latitude]="markLat" 
-                                        [longitude]="markLng" 
-                                        [markerDraggable]="true"
-                                        (dragEnd)="onMoveMark($event)"></agm-marker>
-
-                            </agm-map>
-                            <!-- -----------End of 2nd col------- -->
-                        </div>
-
-
                         <!-- --------------End of row-------------- -->
                     </div>
-                    <!-- #EOF MAP -->
-
-                    <br>
-                    <!-- -----------New Row---------- -->
                     <div class="row">
-                        <!-- ----------Col for the form------------------- -->
-                        <div class="col-md-12 col-xs-12 col-sm-12">
-                            <div class="form-group">
-                                <label align="left">INFORMAÇÕES DO TRABALHO</label>
-                            </div>
-                            <!-- -----------End of 1stcol------- -->
-                        </div>
-                        <!-- --------------End of row-------------- -->
-                    </div>
 
-                    <!-- -----------New Row---------- -->
-                    <div class="row">
-                        <!-- ----------Col for the form------------------- -->
-                        <div class="col-md-6">
-                            <!-- --------1st row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12" style="padding-left:6%">
-                                    <div class="form-group" style="color:grey">
-                                        Catador(a) motorizado(a)?
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------2nd row of the colm--------- -->
-                            <div class="row" style="padding-left:3%">
-                                <div class="col-md-12" style="color:grey">
-                                    <select class="form-control" 
-                                            id="has_motor_vehicle"
-                                            name="has_motor_vehicle"
-                                            [(ngModel)]="catador.has_motor_vehicle">
-                                        <option value="true">Sim</option>
-                                        <option value="false">Não</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- -----------End of 1stcol------- -->
+                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+                            <!-- <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success">CADASTRAR</button> -->
+                            <button type="button" value="CANCELAR" id="name-group" class="cancel-button btn">CANCELAR</button>
                         </div>
 
-                        <div class="col-md-6">
-                            <!-- --------1st row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12" style="padding-left:6%">
-                                    <div class="form-group" style="color:grey">
-                                        Carroça grafitada/pimpada?
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------2nd row of the colm--------- -->
-                            <div class="row" style="padding-left:3%">
-                                <div class="col-md-12" style="color:grey">
-                                    <select class="form-control" 
-                                            id="carroca_pimpada"
-                                            name="carroca_pimpada"
-                                            [(ngModel)]="catador.carroca_pimpada">
-                                        <option value="true">Sim</option>
-                                        <option value="false">Não</option>
-                                    </select>
-                                    
-                                    <!-- <div class="form-group">
-                                        <label class="radio-inline">
-                                            <input type="radio" 
-                                                    required 
-                                                    [value]="true"
-                                                    id="carroca_pimpada"
-                                                    name="carroca_pimpada"
-                                                    [(ngModel)]="catador.carroca_pimpada">Sim</label>
-                                        <label class="radio-inline" style="margin-left:17%">
-                                            <input type="radio" 
-                                                    required 
-                                                    [value]="false"
-                                                    id="carroca_pimpada"
-                                                    name="carroca_pimpada"
-                                                    [(ngModel)]="catador.carroca_pimpada">N&atilde;o</label>
-                                    </div> -->
-                                </div>
-                            </div>
-                            <!-- -----------End of 2nd col------- -->
-                        </div>
-                        <!-- --------------End of row-------------- -->
-                    </div>
-                    <br>
-
-                    <div class="row">
-                        <!-- ----------Col for the form------------------- -->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label align="right">MATERIAIS QUE COLETA</label>
-                            </div>
-                            <!-- -----------End of 1stcol------- -->
-                        </div>
-                        <!-- --------------End of row-------------- -->
-                    </div>
-
-
-                    <!-- -----------New Row---------- -->
-                    <div class="row">
-                        <!-- ----------Col for the form------------------- -->
-                        <div class="col-md-6">
-                            <!-- --------1st row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-4  col-sm-4  col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon 1.png" 
-                                                class="img-responsive img-material"
-                                                (click)="selectMaterial('misturado')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('misturado') > -1 }" >
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:20%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'misturado'" 
-                                                [checked]="materialSelected.indexOf('misturado') > -1" 
-                                                (click)="selectMaterial('misturado')" >
-                                            Misturado
-                                    </label>
-                                </div>
-
-                                <!-- ----------2nd colm------------- -->
-                                <div class="col-md-4  col-sm-4 col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon2.png" 
-                                                class="img-responsive img-material"
-                                                (click)="selectMaterial('lata')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('lata') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:20%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'lata'" 
-                                                [checked]="materialSelected.indexOf('lata') > -1" 
-                                                (click)="selectMaterial('lata')">Lata</label>
-                                </div>
-
-                                <!-- -----------3rd colm-------------------- -->
-                                <div class="col-md-4  col-sm-4 col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon3.png" 
-                                                class="img-responsive img-material"
-                                                (click)="selectMaterial('vidro')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('vidro') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:28%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'vidro'" 
-                                                [checked]="materialSelected.indexOf('vidro') > -1" 
-                                                (click)="selectMaterial('vidro')" >
-                                            Vidro
-                                    </label>
-                                </div>
-                            </div>
-
-
-
-                            <!-- --------2nd row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-4  col-sm-4  col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon4.png" 
-                                                class="img-responsive img-material" 
-                                                (click)="selectMaterial('papel')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('papel') > -1 }" >
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:20%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'papel'" 
-                                                [checked]="materialSelected.indexOf('papel') > -1" 
-                                                (click)="selectMaterial('papel')">Papel</label>
-                                </div>
-
-                                <!-- ----------2nd colm------------- -->
-                                <div class="col-md-4  col-sm-4 col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon5.png" 
-                                                class="img-responsive img-material" 
-                                                (click)="selectMaterial('plastico')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('plastico') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:20%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'plastico'" 
-                                                [checked]="materialSelected.indexOf('plastico') > -1" 
-                                                (click)="selectMaterial('plastico')">
-                                            Plástico
-                                    </label>
-                                </div>
-
-                                <!-- -----------3rd colm-------------------- -->
-                                <div class="col-md-4  col-sm-4 col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon6.png" 
-                                                class="img-responsive img-material" 
-                                                (click)="selectMaterial('metal')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('metal') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:28%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'metal'" 
-                                                [checked]="materialSelected.indexOf('metal') > -1" 
-                                                (click)="selectMaterial('metal')">
-                                            Metal
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- -----------End of 1stcol------- -->
-                        </div>
-
-                        <div class="col-md-6">
-                            <!-- --------1st row of the colm--------- -->
-                            <!-- --------1st row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-4  col-sm-4  col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon7.png" 
-                                                class="img-responsive img-material" 
-                                                (click)="selectMaterial('oleo')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('oleo') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:20%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'oleo'" 
-                                                [checked]="materialSelected.indexOf('oleo') > -1" 
-                                                (click)="selectMaterial('oleo')">
-                                            Óleo
-                                    </label>
-                                </div>
-
-                                <!-- ----------2nd colm------------- -->
-                                <div class="col-md-4  col-sm-4 col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon8.png" 
-                                                class="img-responsive img-material" 
-                                                (click)="selectMaterial('eletronico')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('eletronico') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:10%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'eletronico'" 
-                                                [checked]="materialSelected.indexOf('eletronico') > -1" 
-                                                (click)="selectMaterial('eletronico')">
-                                            Eletrônico
-                                    </label>
-                                </div>
-
-                                <!-- -----------3rd colm-------------------- -->
-                                <div class="col-md-4  col-sm-4 col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon9.png" 
-                                                class="img-responsive img-material" 
-                                                (click)="selectMaterial('bateria')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('bateria') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:28%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'bateria'" 
-                                                [checked]="materialSelected.indexOf('bateria') > -1" 
-                                                (click)="selectMaterial('bateria')">Baterias</label>
-                                </div>
-                            </div>
-
-
-
-                            <!-- --------2nd row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-4  col-sm-4  col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon10.png" 
-                                                class="img-responsive img-material" 
-                                                (click)="selectMaterial('moveis')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('moveis') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:20%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'moveis'" 
-                                                [checked]="materialSelected.indexOf('moveis') > -1" 
-                                                (click)="selectMaterial('moveis')">Móveis</label>
-                                </div>
-
-                                <!-- ----------2nd colm------------- -->
-                                <div class="col-md-4  col-sm-4 col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon11.png" 
-                                                class="img-responsive img-material" 
-                                                (click)="selectMaterial('entulho')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('entulho') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:20%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'entulho'" 
-                                                [checked]="materialSelected.indexOf('entulho') > -1" 
-                                                (click)="selectMaterial('entulho')">Entulho</label>
-                                </div>
-
-                                <!-- -----------3rd colm-------------------- -->
-                                <div class="col-md-4  col-sm-4 col-xs-4">
-                                    <p>
-                                        <img src="assets/img/cadastro/icon12.png" 
-                                                class="img-responsive img-material" 
-                                                (click)="selectMaterial('outros')"
-                                                [ngClass]="{'img-selected': materialSelected.indexOf('outros') > -1 }">
-                                    </p>
-                                    <label class="radio-inline" style="padding-left:28%">
-                                        <input type="radio" 
-                                                class="inline" 
-                                                value="'outros'" 
-                                                [checked]="materialSelected.indexOf('outros') > -1" 
-                                                (click)="selectMaterial('outros')">Outros</label>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- --------------End of row-------------- -->
-                    </div>
-                    <br>
-                    <br>
-
-                    <!-- -----------New Row---------- -->
-                    <div class="row">
-                        <!-- ----------Col for the form------------------- -->
-                        <div class="col-md-6">
-                            <!-- --------1st row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" style="color:grey">
-                                        <label>Quem está cadastrando?</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------2nd row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-6 col-xs-5 col-sm-6" style="color:grey">
-                                    <div class="form-group" align="left">
-                                        <label class="radio-inline">
-                                            <input type="radio" 
-                                                    id="registered_by_another_user"
-                                                    [value]="false"
-                                                    name="registered_by_another_user"
-                                                    [(ngModel)]="catador.registered_by_another_user">Eu, catador(a)</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-xs-7 col-sm-6" style="color:grey">
-                                    <div class="form-group" align="center" id="radio">
-                                        <label class="radio-inline">
-                                            <input type="radio" 
-                                                    id="registered_by_another_user"
-                                                    [value]="true"
-                                                    name="registered_by_another_user"
-                                                    [(ngModel)]="catador.registered_by_another_user">Outra pessoa</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- -----------End of 1stcol------- -->
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <!-- --------2nd row of the colm--------- -->
-                            <div class="row">
-                                <div class="col-md-12" style="color:grey" id="left-arrow">
-
-                                    <div id="color">
-                                        <form>
-                                            <br>
-                                            <p>
-                                                <input type="text" 
-                                                        class="form-control frm" 
-                                                        placeholder="Nome"
-                                                        name="name21" 
-                                                        maxlength="200"
-                                                        [(ngModel)]="catador.another_user_name">
-                                            </p>
-                                            <p>
-                                                <input type="text" 
-                                                        class="form-control frm" 
-                                                        placeholder="E-mail"
-                                                        name="name22" 
-                                                        maxlength="200"
-                                                        [(ngModel)]="catador.another_user_email">
-                                            </p>
-                                            <p>
-                                                <input type="text" 
-                                                        class="form-control frm" 
-                                                        placeholder="Whatsapp"
-                                                        name="name23"
-                                                        [textMask]="{mask: masks.number}"
-                                                        [(ngModel)]="catador.another_user_whatsapp">
-                                            </p>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- -----------End of 1stcol------- -->
-                        </div>
-                        <!-- --------------End of row-------------- -->
-                    </div>
-                    <br>
-
-                    <div>
-                        <div class="row">
-                            <div class="col-md-12 col-xs-12 col-sm-12">
-                                <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success">CADASTRAR</button>
-                            </div>
+                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+                            <!-- <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success">CADASTRAR</button> -->
+                            <button type="button" (click)="finalStep()" value="AVANÇAR" id="name-group" class="primary-button btn btn-success">AVANÇAR</button>
                         </div>
                     </div>
                 </div>
-                <!-- ----------------End of the main col---------------------------------- -->
-            </div>
-        </div>
+                <!-- #EOF MAP -->
+
+        </form>
     </div>
-</form>
+
 
 
 <!-- Modal1 -->
 <div class="mod1">
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+    <div class="modal fade" id="myModal" role="dialog" tabindex="-1" aria-labelledby="Dicas para cadastro">
+        <div class="modal-dialog modal-lg" role="content">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                <h4 class="modal-title main-head">DICAS PARA CADASTRO</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title main-head">DICAS PARA CADASTRO</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">&times;</button>
                 </div>
-                <ul class="newli">
-                <li >
-                    Comece mostrando nosso vídeo para o catador/a, é a forma mais simples de explicar;
-                </li>
-                <li>
-                    Você estará criando um perfil profissional, tenha isso em mente;
-                </li>
-                <li class="">
-                    Queremos respeitar e divulgar a imagem dos catadores, por isso, capriche na foto. Ela precisa ser clara e positiva, é o cartão de visita do catador;
-                </li>
-                <li class="">
-                    Para "História de vida", algumas perguntas boas para disparar são: como começou o trabalho, quais são seus sonhos, quem é a sua família...;
-                </li>
-                <li class="">
-                    Para "Frase marcante", você pode buscar uma frase que o catador goste, ou algo que está escrito na carroça, uma letra de música, algo marcante e bonito;
-                </li>
-                <li class="">
-                    Deixe claro que esse é um convite profissional, que o catador será chamado para realizar trabalhos e que a equipe do Cataki estará acompanhando o processo.
-                </li>
-                <li class="">
-                    Estamos caminhando para a cooperativa digital! Ao longo de 2018 isso irá acontecer e os cadastrados poderão participar.
-                </li>
+                <ul>
+                    <li >
+                        Comece mostrando nosso vídeo para o catador/a, é a forma mais simples de explicar;
+                    </li>
+                    <li>
+                        Você estará criando um perfil profissional, tenha isso em mente;
+                    </li>
+                    <li class="">
+                        Queremos respeitar e divulgar a imagem dos catadores, por isso, capriche na foto. Ela precisa ser clara e positiva, é o cartão de visita do catador;
+                    </li>
+                    <li class="">
+                        Para "História de vida", algumas perguntas boas para disparar são: como começou o trabalho, quais são seus sonhos, quem é a sua família...;
+                    </li>
+                    <li class="">
+                        Para "Frase marcante", você pode buscar uma frase que o catador goste, ou algo que está escrito na carroça, uma letra de música, algo marcante e bonito;
+                    </li>
+                    <li class="">
+                        Deixe claro que esse é um convite profissional, que o catador será chamado para realizar trabalhos e que a equipe do Cataki estará acompanhando o processo.
+                    </li>
+                    <li class="">
+                        Estamos caminhando para a cooperativa digital! Ao longo de 2018 isso irá acontecer e os cadastrados poderão participar.
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
-</div>
+    </div>

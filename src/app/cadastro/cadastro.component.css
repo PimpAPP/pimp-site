@@ -1,23 +1,31 @@
 button[type="button"] {
     border-color: white;
     height: 40px;
-    font-size: 15px
+    font-size: 15px;
 }
 
-button[type="submit"] {
+.primary-button {
     outline: black;
     height: 40px;
-    /* width: 40%; */
+    width: 100%;
+    font-size: 14px;
+    border-radius: 20px;
+}
+
+.cancel-button {
+    outline: black;
+    height: 40px;
+    width: 100%;
     font-size: 14px;
     border-radius: 20px;
 }
 
 .close {
-    font-size: 100px !important;
+    font-size: 40px !important;
 }
 
-input[type="button"] {
-    outline: black;
+.btn.newbtn2.my-btn2 {
+    border: 1px solid black;
     height: 40px;
     width: 100%;
     color: #fff;
@@ -26,6 +34,7 @@ input[type="button"] {
     color: black;
     cursor: pointer;
     border-radius: 20px;
+    margin: 15px 0 0 0;
 }
 
 hr {
@@ -53,19 +62,7 @@ span.glyphicon-camera {
     border-radius: 8px;
 }
 
-#left-arrow:after {
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -40px;
-    content: '';
-    display: block;
-    width: 0%;
-    height: 0;
-    border-top: 15px solid transparent;
-    border-right: 30px solid lightgrey;
-    border-bottom: 15px solid transparent;
-}
+
 
 #style {
     margin-left: -15px;
@@ -185,4 +182,12 @@ span.glyphicon-camera {
         border-left: 15px solid transparent;
         border-right: 15px solid transparent;
     }
+}
+
+.map-container {
+    margin: 0 0 30px 0;
+}
+
+.map-title-container {
+    padding-top: 20px;
 }
