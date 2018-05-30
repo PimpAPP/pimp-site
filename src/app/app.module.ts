@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { LocalStorageModule } from '@ngx-pwa/local-storage';
 
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { UserDataService } from 'app/services/user-data.service';
         HttpModule,
         routing,
         TextMaskModule,
+        LocalStorageModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyDS7AxBMmoeRanMxs4-VJJ87I9hMKp-d1E',
             libraries: ["places"]

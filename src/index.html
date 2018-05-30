@@ -36,6 +36,18 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script>
+        var NGXSTORE_CONFIG = {
+            prefix: 'ngx_cataki_', // default: 'ngx_'
+            clearType: 'prefix', // default: 'prefix'
+            mutateObjects: true, // default: true
+            debugMode: false,    // you can enable debug logs if you ever meet any bug to localize its source
+            cookiesScope: '',    // what you pass here will actually prepend base domain
+            cookiesCheckInterval: 0, // number in ms describing how often cookies should be checked for changes
+            previousPrefix: 'angular2ws_', // you have to set it only if you were using custom prefix in old version ('angular2ws_' is a default value)
+        };
+    </script>
 </head>
 
 <body>

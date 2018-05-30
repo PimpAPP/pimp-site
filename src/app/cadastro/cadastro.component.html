@@ -62,6 +62,7 @@
                                         <input type="text" 
                                                 class="form-control" 
                                                 placeholder="Nome completo" 
+                                                on-focusout="onFocusOut()"
                                                 required 
                                                 name="name" 
                                                 id="name"
@@ -79,6 +80,7 @@
                                                 placeholder="Como quer ser chamado" 
                                                 required 
                                                 maxlength="128"
+                                                on-focusout="onFocusOut()"
                                                 id="nickname" 
                                                 name="nickname"
                                                 [(ngModel)]="catador.nickname">
@@ -87,15 +89,6 @@
                             </div>
                             <!-- --------3rd row of the colm--------- -->
                             <div class="row">
-                                <!-- <div class="col-md-2 col-sm-1-col-xs-1">
-
-                                    <span class="input-group-btn">
-
-                                        <button id="fake-file-button-browse" type="button" style="width:70px;background-color:white;">
-                                            <span class="glyphicon glyphicon-camera"></span>
-                                        </button>
-                                    </span>
-                                </div> -->
 
                                 <div class="col-md-12 text-center">
                                     <img src="" id="preview" style="display: none;"/>
@@ -107,8 +100,6 @@
                                                 class="filestyle col-md-12"
                                                 placeholder="Selecionar imagem"
                                                 (change)="readURL($event);" />
-                                    <!-- <input type="file" id="files-input-upload" style="display: none;">
-                                    <input type="text" id="fake-file-input-name" disabled="disabled" placeholder="Adiconar foto" class="form-control"> -->
 
                                 </div>
                             </div>
@@ -120,6 +111,7 @@
                                                 class="form-control" 
                                                 placeholder="Frase marcante" 
                                                 required
+                                                on-focusout="onFocusOut()"
                                                 id="presentation_phrase" 
                                                 name="presentation_phrase"
                                                 required
@@ -135,6 +127,7 @@
                                         <textarea type="text" 
                                                 class="form-control" 
                                                 placeholder="História de vida" 
+                                                on-focusout="onFocusOut()"
                                                 style="height:130px;" 
                                                 name="minibio"
                                                 maxlength="600"
@@ -159,63 +152,12 @@
                                                 placeholder="Telefone 1" 
                                                 id="phones0" 
                                                 name="phones0"
+                                                on-focusout="onFocusOut()"
                                                 [textMask]="{mask: masks.number}"
                                                 [(ngModel)]="catador.phones[0].phone">
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- --------2nd row of the colm--------- -->
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" style="color:grey">
-                                        Operadora:
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12" style="color:grey">
-                                    <div class="form-group">
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'V'" [(ngModel)]="catador.phones[0].mno">
-                                                Vivo
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'T'" [(ngModel)]="catador.phones[0].mno">
-                                                Tim
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'C'" [(ngModel)]="catador.phones[0].mno">
-                                                Claro
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'O'" [(ngModel)]="catador.phones[0].mno">
-                                                Oi
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'N'" [(ngModel)]="catador.phones[0].mno">
-                                                Nextel
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno0" [value]="'P'" required [(ngModel)]="catador.phones[0].mno">
-                                                Porto
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
 
                             <!-- --------3rd row of the colm--------- -->
                             <div class="row" style="padding-left:3%">
@@ -259,63 +201,11 @@
                                                 id="phones1" 
                                                 [textMask]="{mask: masks.number}"
                                                 name="phones1"
+                                                on-focusout="onFocusOut()"
                                                 [(ngModel)]="catador.phones[1].phone">
                                     </div>
                                 </div>
                             </div>
-                            <!-- --------6th row of the colm--------- -->
-
-                            <!-- <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group" style="color:grey">
-                                        Operadora do telefone 2
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12" style="color:grey">
-                                    <div class="form-group">
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'V'" [(ngModel)]="catador.phones[1].mno">
-                                                Vivo
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'T'" [(ngModel)]="catador.phones[1].mno">
-                                                Tim
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'C'" [(ngModel)]="catador.phones[1].mno">
-                                                Claro
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'O'" [(ngModel)]="catador.phones[1].mno">
-                                                Oi
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'N'" [(ngModel)]="catador.phones[1].mno">
-                                                Nextel
-                                            </label>
-                                        </div>
-                                        <div class="radio-inline">
-                                            <label>
-                                                <input type="radio" name="mno1" [value]="'P'" required [(ngModel)]="catador.phones[1].mno">
-                                                Porto
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
                             <!-- --------7th row of the colm--------- -->
                             <div class="row"> 
                                 <div class="col-md-12" style="padding-left:6%">
@@ -379,6 +269,7 @@
                                                 required
                                                 id="address_base" 
                                                 name="address_base"
+                                                on-focusout="onFocusOut()"
                                                 [(ngModel)]="catador.address_base"
                                                 (focusout)="addressFocusOut()"
                                                 maxlength="500">
@@ -394,6 +285,7 @@
                                                 placeholder="Número"
                                                 id="number" 
                                                 name="number"
+                                                on-focusout="onFocusOut()"
                                                 [(ngModel)]="catador.number">
                                     </div>
                                 </div>
@@ -407,6 +299,7 @@
                                                 placeholder="Bairro" 
                                                 id="address_region" 
                                                 name="address_region"
+                                                on-focusout="onFocusOut()"
                                                 [(ngModel)]="catador.address_region"
                                                 (focusout)="addressFocusOut()"
                                                 maxlength="128">
@@ -424,6 +317,7 @@
                                                 name="city"
                                                 [(ngModel)]="catador.city"
                                                 required
+                                                on-focusout="onFocusOut()"
                                                 (focusout)="addressFocusOut()"
                                                 maxlength="64">
                                     </div>
@@ -436,6 +330,7 @@
                                         <input type="text" 
                                                 class="form-control" 
                                                 name="state"
+                                                on-focusout="onFocusOut()"
                                                 placeholder="Estado" 
                                                 [(ngModel)]="catador.state"
                                                 (focusout)="addressFocusOut()"
@@ -451,6 +346,7 @@
                                                 class="form-control" 
                                                 placeholder="País" 
                                                 id="country" 
+                                                on-focusout="onFocusOut()"
                                                 name="country"
                                                 (focusout)="addressFocusOut()"
                                                 [(ngModel)]="catador.country"
@@ -465,6 +361,7 @@
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
+                                                on-focusout="onFocusOut()"
                                                 placeholder="Outros bairros que coleta" 
                                                 name="region"
                                                 maxlength="128"
@@ -879,6 +776,7 @@
                                                         placeholder="Nome"
                                                         name="name21" 
                                                         maxlength="200"
+                                                        on-focusout="onFocusOut()"
                                                         [(ngModel)]="catador.another_user_name">
                                             </p>
                                             <p>
@@ -887,6 +785,7 @@
                                                         placeholder="E-mail"
                                                         name="name22" 
                                                         maxlength="200"
+                                                        on-focusout="onFocusOut()"
                                                         [(ngModel)]="catador.another_user_email">
                                             </p>
                                             <p>
@@ -894,6 +793,7 @@
                                                         class="form-control frm" 
                                                         placeholder="Whatsapp"
                                                         name="name23"
+                                                        on-focusout="onFocusOut()"
                                                         [textMask]="{mask: masks.number}"
                                                         [(ngModel)]="catador.another_user_whatsapp">
                                             </p>

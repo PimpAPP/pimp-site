@@ -14,6 +14,7 @@ import * as _ from 'underscore';
 import { Observable } from "rxjs/Rx";
 import { Response } from '@angular/http/src/static_response';
 import { setTimeout } from 'timers';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 // declare var $: any;
 // declare var window: any;
@@ -29,7 +30,8 @@ export class CadastroComponent implements OnInit {
     public loading: boolean = false;
     public isEditing: boolean = false;
 
-    public catador: Catador = new Catador();
+    public catador: any = {}
+
     public user: User;
     public materialRecover: MaterialRecover = new MaterialRecover();
     public materialSelected = [];
@@ -53,9 +55,10 @@ export class CadastroComponent implements OnInit {
         public catadorDataService: CatadorDataService,
         public userDataService: UserDataService,
         public http: Http, public gMaps: GoogleMapsAPIWrapper,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute, 
+        protected localStorage: LocalStorage) {
 
-        this.catador = new Catador();
+        // this.catador = new Catador();
         this.catador.materials_collected = [];
         this.user = new User();
         this.masks = {
@@ -71,8 +74,9 @@ export class CadastroComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.catador = new Catador();
-        this.user = new User();        
+        // this.catador = new Catador();
+        this.user = new User();
+
         this.setCurrentPosition();        
         $(":file")['filestyle']({
             input: true,
@@ -89,16 +93,6 @@ export class CadastroComponent implements OnInit {
             changeYear: true,
             dateFormat: 'dd/mm/yy'
         });
-
-        // document.getElementById('fake-file-button-browse').addEventListener('click', function () {
-        //     document.getElementById('img-file').click();
-        // });
-
-        // document.getElementById('files-input-upload').addEventListener('change', function () {
-        //     document.getElementById('fake-file-input-name').value = this.value;
-
-        //     document.getElementById('fake-file-button-upload').removeAttribute('disabled');
-        // });
     }
 
     /**
@@ -214,7 +208,8 @@ export class CadastroComponent implements OnInit {
         if (!this.isEditing) {
             this.catadorDataService.save(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
                 this.loading = false;
-                alert('Cadastro realizado com sucesso!');
+                this.catador.clear();
+                alert('Cadastro realizado com sucesso!');                
                 location.href = "/";
             }, error => {
                 this.showError(error);
@@ -224,6 +219,7 @@ export class CadastroComponent implements OnInit {
             this.user['id'] = parseInt(this.catador['user']);
             this.catadorDataService.edit(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
                 this.loading = false;
+                this.catador.clear();
                 alert('Alteração realizada com sucesso!');
                 location.href = "/";
             }, error => {
@@ -475,4 +471,9 @@ export class CadastroComponent implements OnInit {
 
         return date.getFullYear() + '-' + m + '-' + d;
     }
+
+    onFocusOut() {
+        this.catador.save();
+    }
+
 }
