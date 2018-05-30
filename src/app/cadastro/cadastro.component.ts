@@ -30,7 +30,7 @@ export class CadastroComponent implements OnInit {
     public loading: boolean = false;
     public isEditing: boolean = false;
 
-    public catador: any = {}
+    public catador: Catador = new Catador();
 
     public user: User;
     public materialRecover: MaterialRecover = new MaterialRecover();
@@ -58,19 +58,27 @@ export class CadastroComponent implements OnInit {
         private route: ActivatedRoute, 
         protected localStorage: LocalStorage) {
 
-        // this.catador = new Catador();
-        this.catador.materials_collected = [];
-        this.user = new User();
         this.masks = {
             number: ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
             date: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]
         };
 
+        this.user = new User();
         var catadorId = route.snapshot.params['catadorId'];
-        if (catadorId)
-            this.fillData(catadorId);
 
-        //this.geocoder = new google.maps.Geocoder();
+        // If is Editing
+        if (catadorId) {
+            this.fillData(catadorId);
+        } else {
+            this.localStorage.getItem<Catador>('cataki-catador').subscribe((catador) => {
+                if (catador != null) {
+                    this.catador = Object.assign(this.catador, catador);
+                } else {
+                    this.catador = new Catador();
+                    this.catador.materials_collected = [];
+                }
+            })
+        }
     }
 
     ngOnInit() {
@@ -208,7 +216,7 @@ export class CadastroComponent implements OnInit {
         if (!this.isEditing) {
             this.catadorDataService.save(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
                 this.loading = false;
-                this.catador.clear();
+                this.localStorage.removeItem('cataki-catador').subscribe(() => {});
                 alert('Cadastro realizado com sucesso!');                
                 location.href = "/";
             }, error => {
@@ -219,7 +227,7 @@ export class CadastroComponent implements OnInit {
             this.user['id'] = parseInt(this.catador['user']);
             this.catadorDataService.edit(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
                 this.loading = false;
-                this.catador.clear();
+                this.localStorage.removeItem('cataki-catador').subscribe(() => {});
                 alert('Alteração realizada com sucesso!');
                 location.href = "/";
             }, error => {
@@ -473,7 +481,7 @@ export class CadastroComponent implements OnInit {
     }
 
     onFocusOut() {
-        this.catador.save();
+        this.localStorage.setItem('cataki-catador', this.catador).subscribe(() => {});
     }
 
 }
