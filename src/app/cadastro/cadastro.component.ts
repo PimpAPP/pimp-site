@@ -75,7 +75,7 @@ export class CadastroComponent implements OnInit {
         this.catador = new Catador();
         this.user = new User();        
         this.setCurrentPosition();        
-        $(":file")['filestyle']({
+        /*$(":file")['filestyle']({
             input: true,
             buttonText: '',
             //buttonName: 'btn btn-primary',
@@ -83,13 +83,16 @@ export class CadastroComponent implements OnInit {
             iconName: "glyphicon glyphicon-camera",
             buttonBefore: true,
             placeholder: "Selecionar imagem"
-        });
+        }); */
 
         (<any>$("#datepicker")).datepicker({
             changeMonth: true,
             changeYear: true,
             dateFormat: 'dd/mm/yy'
         });
+
+        // TODO: call jquery custom input
+        
 
         // document.getElementById('fake-file-button-browse').addEventListener('click', function () {
         //     document.getElementById('img-file').click();

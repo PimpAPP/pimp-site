@@ -1,20 +1,20 @@
     <div class="cont" *ngIf="!showMap">
         <img src="assets/img/cadastro/image1.png" class="img-responsive">
     </div>
-    <div class="container">
+    <div class="container container-extra-padding">
         <form (ngSubmit)="save()" #catadorForm="ngForm">
             <div *ngIf="!showMap">
                 <!-- ---------Description and the Button--------------- -->
                 <div class="row">
                     <div class="col-md-6 col-lg-6">
-                        <label> Com este formul&aacute;rio voc&ecirc; ir&aacute; cadastrar um novo catador no nossos aplicativo. Preencha
+                        <label> Com este formul&aacute;rio voc&ecirc; ir&aacute; cadastrar um novo catador no nosso aplicativo. Preencha
                             tudo com muito carinho e aten&ccedil;&atilde;o, este perfil ser&aacute; o cart&atilde;o
                             de visita do catador :)</label>
                     </div>
 
                     <div class="col-md-6 col-lg-6" align="">
                         <a class="btn newbtn2 my-btn2" data-toggle="modal" data-target="#myModal" data-backdrop="true">
-                            <span>+DICAS PARA CADASTRO</span>
+                            +DICAS PARA CADASTRO
                         </a>
                     </div>
                 </div>
@@ -64,15 +64,21 @@
                         </div>
 
                         <div class="" style="margin-bottom: 13px;">
+                                <label class="button-upload">
+                                    <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+                                    <strong>Adicionar foto</strong>
                                 <input type='file' 
                                         id="img-file" 
                                         data-buttonBefore="true"
                                         data-placeholder="…"
                                         data-buttonText="Adicionar foto"
                                         data-iconName="glyphicon glyphicon-camera"
+                                        required 
                                         class="filestyle"
                                         placeholder="Adicionar foto"
-                                        (change)="readURL($event);" />
+                                        (change)="readURL($event);"
+                                        hidden />
+                                </label>
                         </div>
 
                         <!-- --------4th row of the colm--------- -->
@@ -110,12 +116,13 @@
                                     placeholder="Telefone 1" 
                                     id="phones0" 
                                     name="phones0"
+                                    required 
                                     [textMask]="{mask: masks.number}"
                                     [(ngModel)]="catador.phones[0].phone">
                         </div>
                         <!-- --------3rd row of the colm--------- -->
-                        <div class="form-group" style="color: #a0a0a0;">
-                            Este n&uacute;mero tem Whatsapp?
+                        <div class="form-group">
+                            <label>Este n&uacute;mero tem Whatsapp?</label>
                         </div>
                         <!-- --------4th row of the colm--------- -->
                         <div class="form-group">
@@ -144,11 +151,12 @@
                                     id="phones1" 
                                     [textMask]="{mask: masks.number}"
                                     name="phones1"
+                                    required 
                                     [(ngModel)]="catador.phones[1].phone">
                         </div>
                         <!-- --------6th row of the colm--------- -->
-                        <div class="form-group" style="color: #a0a0a0;">
-                            Este número tem Whatsapp?
+                        <div class="form-group">
+                            <label>Este n&uacute;mero tem Whatsapp?</label>
                         </div>
                         <!-- --------7th row of the colm--------- -->
                         <div class="form-group">
@@ -173,9 +181,9 @@
                     </div>
                     <!-- --------------End of row-------------- -->
                 </div>
-                <br>
                 <!-- -------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-                <br>
+                <hr>
+                <!-- -------------------hr---------------------------- -->
                 <!-- -----------New Row---------- -->
                 <div class="row">
                     <!-- ----------Col for the form------------------- -->
@@ -192,31 +200,53 @@
                 <div class="row">
                     <!-- ----------Col for the form------------------- -->
                     <div class="col-md-6">
-                        <div class="form-group" style="color: #a0a0a0;">
-                            Catador(a) motorizado(a)?
-                            <select class="form-control" 
-                                    id="has_motor_vehicle"
-                                    name="has_motor_vehicle"
+                        <div class="form-group">
+                            <label for="has_motor_vehicle">Catador(a) motorizado(a)?</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="radio-inline" style="color: #a0a0a0;">
+                                <input type="radio" 
+                                    required 
+                                    name="has-motor-s"
+                                    [value]="true"
                                     [(ngModel)]="catador.has_motor_vehicle">
-                                <option value="true">Sim</option>
-                                <option value="false">Não</option>
-                            </select>
+                                    Sim
+                            </label>
+                            <label class="radio-inline" style="margin-left:17%; color: #a0a0a0;">
+                            <input type="radio" 
+                                required 
+                                name="has-motor-n"
+                                [value]="false"
+                                [(ngModel)]="catador.has_motor_vehicle">
+                                N&atilde;o
+                            </label>
                         </div>
                     </div>
 
                     <div class="col-md-6">
-                        <!-- --------1st row of the colm--------- -->
-                        <div class="form-group" style="color: #a0a0a0;">
-                            Carroça grafitada/pimpada?
-                            <select class="form-control" 
-                            id="carroca_pimpada"
-                            name="carroca_pimpada"
-                            [(ngModel)]="catador.carroca_pimpada">
-                                <option value="true">Sim</option>
-                                <option value="false">Não</option>
-                            </select>                            
+                        <div class="form-group">
+                            <label for="has_motor_vehicle">Carroça grafitada/pimpada?</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="radio-inline" style="color: #a0a0a0;">
+                                <input type="radio" 
+                                    required 
+                                    name="pimped-s"
+                                    [value]="true"
+                                    [(ngModel)]="catador.carroca_pimpada">
+                                    Sim
+                            </label>
+                            <label class="radio-inline" style="margin-left:17%; color: #a0a0a0;">
+                                <input type="radio" 
+                                    required 
+                                    name="pimped-n"
+                                    [value]="false"
+                                    [(ngModel)]="catador.carroca_pimpada">
+                                    N&atilde;o
+                            </label>
                         </div>
                     </div>
+
                     <!-- --------------End of row-------------- -->
                 </div>
                 <br>
@@ -236,7 +266,7 @@
                     <!-- ----------Col for the form------------------- -->
                     <div class="col-md-6">
                         <!-- --------1st row of the colm--------- -->
-                        <div class="row">
+                        <div class="row row-bottom-margin">
                             <div class="col-md-4  col-sm-4  col-xs-4">
                                 <p>
                                     <img src="assets/img/cadastro/icon 1.png" 
@@ -292,7 +322,7 @@
 
 
                         <!-- --------2nd row of the colm--------- -->
-                        <div class="row">
+                        <div class="row row-bottom-margin">
                             <div class="col-md-4  col-sm-4  col-xs-4">
                                 <p>
                                     <img src="assets/img/cadastro/icon4.png" 
@@ -351,7 +381,7 @@
                     <div class="col-md-6">
                         <!-- --------1st row of the colm--------- -->
                         <!-- --------1st row of the colm--------- -->
-                        <div class="row">
+                        <div class="row row-bottom-margin">
                             <div class="col-md-4  col-sm-4  col-xs-4">
                                 <p>
                                     <img src="assets/img/cadastro/icon7.png" 
@@ -407,7 +437,7 @@
 
 
                         <!-- --------2nd row of the colm--------- -->
-                        <div class="row">
+                        <div class="row row-bottom-margin">
                             <div class="col-md-4  col-sm-4  col-xs-4">
                                 <p>
                                     <img src="assets/img/cadastro/icon10.png" 
@@ -556,12 +586,16 @@
                             <agm-map [latitude]="mapLatitude" 
                                 [longitude]="mapLongitude"
                                 [zoom]="zoom"
+                                [streetViewControl]="false"
+                                [scrollwheel]="false"
                                 (mapClick)="onClickMap($event)"
-                                style="height: 330px">
+                                
+                                style="height: 240px">
                             
                                 <agm-marker [latitude]="markLat" 
                                         [longitude]="markLng" 
                                         [markerDraggable]="true"
+                                        [iconUrl]=""
                                         (dragEnd)="onMoveMark($event)"></agm-marker>
     
                             </agm-map>
@@ -599,7 +633,7 @@
 
                             <!-- --------2rd row of the colm--------- -->
                             <div class="row">
-                                <div>
+                                <div style="width: 40%; float: left; margin-right: 2%;">
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
@@ -611,10 +645,7 @@
                                                 maxlength="128">
                                     </div>
                                 </div>
-                            </div>
-                            <!-- --------3th row of the colm--------- -->
-                            <div class="row">
-                                <div style="width: 69%; float: left; margin-right: 2%;">
+                                <div style="width: 28%; float: left; margin-right: 2%;">
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
@@ -627,7 +658,7 @@
                                                 maxlength="64">
                                     </div>
                                 </div>
-                                <div style="width: 29%; float: left;">
+                                <div style="width: 28%; float: left;">
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
@@ -636,13 +667,8 @@
                                                 [(ngModel)]="catador.state"
                                                 (focusout)="addressFocusOut()"
                                                 maxlength="128">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- --------5th row of the colm--------- -->
-                            <div class="row">
-                                <div>
-                                    <div class="form-group">
+                                    </div> 
+                                    <!--<div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
                                                 placeholder="País" 
@@ -651,11 +677,12 @@
                                                 (focusout)="addressFocusOut()"
                                                 [(ngModel)]="catador.country"
                                                 maxlength="64" />
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
+
     
-                            <!-- --------6th row of the colm--------- -->
+                            <!-- --------6th row of the colm---------
                             <div class="row">
                                 <div>
                                     <div class="form-group">
@@ -667,7 +694,7 @@
                                                 [(ngModel)]="catador.region"/>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
     
     
                             <!-- -----------End of 1stcol------- -->

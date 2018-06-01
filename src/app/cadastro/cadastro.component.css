@@ -1,14 +1,53 @@
 button[type="button"] {
     border-color: white;
     height: 40px;
-    font-size: 15px;
+    font-size: 18px;
+}
+/* https://stackoverflow.com/questions/11235206/twitter-bootstrap-form-file-element-upload-button */
+[hidden] {
+    display: none !important;
+  }
+
+label {
+    font-size: 18px;
+}
+
+label.button-upload {
+    font-size: 14px;
+}
+
+label.button-upload span {
+    float: left;
+    margin-right: 15px;
+    margin-top: 5px;
+    color: #b4b4b4;
+}
+
+label.button-upload strong {
+    background-color: #b4b4b4;
+    color: white;
+    display: block;
+    padding: 10px 14px;
+    border-radius: 25px;
+    float: left;
+    font-size: 18px;
+    min-width: 250px;
+}
+
+
+.container-extra-padding {
+    padding: 10px 15px 10px 15px;
+}
+
+.row-bottom-margin {
+    margin-bottom: 20px;
 }
 
 .primary-button {
     outline: black;
     height: 40px;
     width: 100%;
-    font-size: 14px;
+    font-size: 18px;
     border-radius: 20px;
 }
 
@@ -16,7 +55,7 @@ button[type="button"] {
     outline: black;
     height: 40px;
     width: 100%;
-    font-size: 14px;
+    font-size: 18px;
     border-radius: 20px;
 }
 
@@ -29,7 +68,8 @@ button[type="button"] {
     height: 40px;
     width: 100%;
     color: #fff;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 30px;
     background: white;
     color: black;
     cursor: pointer;
@@ -249,3 +289,30 @@ span.glyphicon-camera {
 .text-grey {
     color: #ededed;
 }
+
+.container-extra-padding {
+    
+}
+
+.agm-map-container-inner {
+    width: inherit;
+    height: inherit;
+}
+
+.agm-map-content {
+
+}
+
+.form-control {
+    border: 2px solid #ccc;
+    font-size: 18px;
+    min-height: 45px;
+    line-height: 31px;
+}
+
+
+/* remove default form validation style */
+.ng-invalid:not(form), .ng-valid[required], .ng-valid.required {
+    border-left: 2px solid #ccc;
+}
+
