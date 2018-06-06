@@ -63,7 +63,7 @@
                             <img src="" id="preview" style="display: none;"/>
                         </div>
 
-                        <div class="" style="margin-bottom: 13px;">
+                        <div class="" style="margin-bottom: 4px;">
                                 <label class="button-upload">
                                     <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
                                     <strong>Adicionar foto</strong>
@@ -122,11 +122,8 @@
                         </div>
                         <!-- --------3rd row of the colm--------- -->
                         <div class="form-group">
-                            <label>Este n&uacute;mero tem Whatsapp?</label>
-                        </div>
-                        <!-- --------4th row of the colm--------- -->
-                        <div class="form-group">
-                            <label class="radio-inline" style="color: #a0a0a0;">
+                            <label class="label-left-margin">Este n&uacute;mero tem Whatsapp?</label><br />
+                            <label class="radio-inline label-left-margin" style="color: #a0a0a0;">
                                 <input type="radio" 
                                     required 
                                     name="whatsapp0-s"
@@ -147,7 +144,7 @@
                         <div class="form-group">
                             <input type="text" 
                                     class="form-control" 
-                                    placeholder="Telefone 2(opcional)" 
+                                    placeholder="Telefone 2 (opcional)" 
                                     id="phones1" 
                                     [textMask]="{mask: masks.number}"
                                     name="phones1"
@@ -156,11 +153,8 @@
                         </div>
                         <!-- --------6th row of the colm--------- -->
                         <div class="form-group">
-                            <label>Este n&uacute;mero tem Whatsapp?</label>
-                        </div>
-                        <!-- --------7th row of the colm--------- -->
-                        <div class="form-group">
-                            <label class="radio-inline" style="color: #a0a0a0;">
+                            <label class="label-left-margin">Este n&uacute;mero tem Whatsapp?</label><br />
+                            <label class="radio-inline label-left-margin" style="color: #a0a0a0;">
                                 <input type="radio" 
                                     required 
                                     name="whatsapp1-s"
@@ -201,10 +195,8 @@
                     <!-- ----------Col for the form------------------- -->
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="has_motor_vehicle">Catador(a) motorizado(a)?</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="radio-inline" style="color: #a0a0a0;">
+                            <label for="has_motor_vehicle" class="label-left-margin">Catador(a) motorizado(a)?</label><br />
+                            <label class="radio-inline label-left-margin" style="color: #a0a0a0;">
                                 <input type="radio" 
                                     required 
                                     name="has-motor-s"
@@ -225,10 +217,8 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="has_motor_vehicle">Carroça grafitada/pimpada?</label>
-                        </div>
-                        <div class="form-group">
-                            <label class="radio-inline" style="color: #a0a0a0;">
+                            <label for="has_motor_vehicle" class="label-left-margin">Carroça grafitada/pimpada?</label><br />
+                            <label class="radio-inline label-left-margin" style="color: #a0a0a0;">
                                 <input type="radio" 
                                     required 
                                     name="pimped-s"
@@ -488,41 +478,26 @@
                     </div>
                     <!-- --------------End of row-------------- -->
                 </div>
-                <br>
-                <br>
-
+                <br />
                 <!-- -----------New Row---------- -->
                 <div class="row">
                     <!-- ----------Col for the form------------------- -->
                     <div class="col-md-6">
-                        <!-- --------1st row of the colm--------- -->
-                        <div class="form-group" style="color: #a0a0a0;">
-                            <label style="color: #a0a0a0;">Quem está cadastrando?</label>
+                        <div class="form-group" align="left">
+                                <label style="color: #a0a0a0;" class="label-left-margin">Quem está cadastrando?</label><br />
+                            <label class="radio-inline label-left-margin" style="color: #a0a0a0;">
+                                <input type="radio" 
+                                        id="registered_by_another_user"
+                                        [value]="false"
+                                        name="registered_by_another_user"
+                                        [(ngModel)]="catador.registered_by_another_user">Eu, catador(a)</label>
+                            <label class="radio-inline label-left-margin" style="color: #a0a0a0;">  
+                                <input type="radio" 
+                                        id="registered_by_another_user"
+                                        [value]="true"
+                                        name="registered_by_another_user"
+                                        [(ngModel)]="catador.registered_by_another_user">Outra pessoa</label>
                         </div>
-                        <!-- --------2nd row of the colm--------- -->
-                        <div class="row">
-                            <div class="col-md-6 col-xs-5 col-sm-6" style="color: #a0a0a0">
-                                <div class="form-group" align="left">
-                                    <label class="radio-inline">
-                                        <input type="radio" 
-                                                id="registered_by_another_user"
-                                                [value]="false"
-                                                name="registered_by_another_user"
-                                                [(ngModel)]="catador.registered_by_another_user">Eu, catador(a)</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xs-7 col-sm-6" style="color: #a0a0a0;">
-                                <div class="form-group" align="center" id="radio">
-                                    <label class="radio-inline">
-                                        <input type="radio" 
-                                                id="registered_by_another_user"
-                                                [value]="true"
-                                                name="registered_by_another_user"
-                                                [(ngModel)]="catador.registered_by_another_user">Outra pessoa</label>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- -----------End of 1stcol------- -->
                     </div>
 
@@ -564,9 +539,9 @@
                 </div>
                 <br>
                 <div class="row buttons-wrapper">
-                    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-4">
+                    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-4 col-lg-offset-4">
                         <!-- <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success">CADASTRAR</button> -->
-                        <button type="button" (click)="nextStep()" value="AVANÇAR" id="name-group" class="primary-button btn btn-success">AVANÇAR</button>
+                        <button type="button" (click)="toggleMap()" value="AVANÇAR" id="name-group" class="primary-button btn btn-success">AVANÇAR</button>
                     </div>
                 </div>
             </div>
@@ -582,7 +557,7 @@
                     <div class="row">
 
                         <!-- ----------Col 2nd for the form------------------- -->
-                        <div class="col-lg-6 map-container">
+                        <div class="col-lg-12 map-container">
                             <agm-map [latitude]="mapLatitude" 
                                 [longitude]="mapLongitude"
                                 [zoom]="zoom"
@@ -590,7 +565,7 @@
                                 [scrollwheel]="false"
                                 (mapClick)="onClickMap($event)"
                                 
-                                style="height: 240px">
+                                style="height: 315px">
                             
                                 <agm-marker [latitude]="markLat" 
                                         [longitude]="markLng" 
@@ -603,7 +578,7 @@
                         </div>
 
                         <!-- ----------Col 1nd for the form------------------- -->
-                        <div class="col-md-6">
+                        <div class="col-lg-12">
                             <!-- --------1st row of the colm--------- -->
                             <div class="row">
                                 <div class="input-col-left">
@@ -623,7 +598,7 @@
                                     <div class="form-group">
                                         <input type="number" 
                                                 class="form-control" 
-                                                placeholder="Número"
+                                                placeholder="nº"
                                                 id="number" 
                                                 name="number"
                                                 [(ngModel)]="catador.number">
@@ -702,11 +677,11 @@
                         <!-- --------------End of row-------------- -->
                     </div>
                     <div class="row buttons-wrapper">
-                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
-                            <button type="button" value="CANCELA" id="name-group" class="cancel-button btn-danger btn">CANCELA</button>
+                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-4 col-lg-offset-2">
+                            <button type="button" (click)="toggleMap()" value="CANCELA" id="name-group" class="cancel-button btn-danger btn">CANCELA</button>
                         </div>
 
-                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-4">
                             <button type="submit" id="name-group" class="primary-button btn btn-success" value="CONFIRMA">CONFIRMA</button>
                         </div>
                     </div>

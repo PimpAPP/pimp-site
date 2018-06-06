@@ -8,12 +8,27 @@ button[type="button"] {
     display: none !important;
   }
 
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }  
+
+hr {
+    margin-bottom: 20px;
+    margin-top: 15px;
+}  
+
 label {
     font-size: 18px;
 }
 
 label.button-upload {
     font-size: 14px;
+}
+
+label.label-left-margin {
+    margin-left: 15px;
 }
 
 label.button-upload span {
@@ -32,6 +47,8 @@ label.button-upload strong {
     float: left;
     font-size: 18px;
     min-width: 250px;
+    text-align: center;
+    line-height: 27px;
 }
 
 
@@ -233,7 +250,7 @@ span.glyphicon-camera {
 }
 
 .buttons-wrapper {
-    padding: 10px 0 20px 0;
+    padding: 0px 0 20px 0;
 }
 
 .input-col-left {

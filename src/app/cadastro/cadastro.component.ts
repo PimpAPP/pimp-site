@@ -124,7 +124,7 @@ export class CadastroComponent implements OnInit {
                 }
             })
 
-            console.log(this.catador);
+            // console.log(this.catador);
 
             if (!this.catador.phones) {
                 this.catador.phones = [];
@@ -168,9 +168,9 @@ export class CadastroComponent implements OnInit {
         this.router.navigateByUrl('/');
     }
     
-    nextStep() { 
-        this.showMap = true;
-    }
+    toggleMap() { 
+        this.showMap = !this.showMap;
+    }  
 
     save() { 
         var valid: any = this.catador.valid();
