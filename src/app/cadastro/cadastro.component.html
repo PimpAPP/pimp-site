@@ -413,19 +413,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- --------4th row of the colm--------- -->
+                            <!-- --------4th row of the colm--------- -->                            
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                placeholder="Cidade" 
-                                                id="city" 
-                                                name="city"
-                                                [(ngModel)]="catador.city"
-                                                required
-                                                (focusout)="addressFocusOut()"
-                                                maxlength="64">
+                                        <select class="form-control" 
+                                                id="state"
+                                                name="state"
+                                                [(ngModel)]="catador.state">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -433,17 +429,15 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                name="state"
-                                                placeholder="Estado" 
-                                                [(ngModel)]="catador.state"
-                                                (focusout)="addressFocusOut()"
-                                                maxlength="128">
+                                        <select class="form-control" 
+                                                id="city" 
+                                                name="city"
+                                                [(ngModel)]="catador.city">
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            <!-- --------6th row of the colm--------- -->
+                            <!-- --------6th row of the colm--------- -->                        
                             <div class="row">
                                 <div class="col-md-12 ">
                                     <div class="form-group">

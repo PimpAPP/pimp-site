@@ -1,8 +1,8 @@
+import { Catador } from './../models/catador';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 
-import { Catador } from '../models/catador';
 import { User } from '../models/user';
 import { Phone } from '../models/phone';
 import { CatadorDataService } from '../services/catador-data.service';
@@ -46,9 +46,6 @@ export class CadastroComponent implements OnInit {
 
     public checkboxValue;
 
-    //private geocoder: google.maps.Geocoder;
-
-
     constructor(private router: Router,
         public catadorDataService: CatadorDataService,
         public userDataService: UserDataService,
@@ -90,15 +87,51 @@ export class CadastroComponent implements OnInit {
             dateFormat: 'dd/mm/yy'
         });
 
-        // document.getElementById('fake-file-button-browse').addEventListener('click', function () {
-        //     document.getElementById('img-file').click();
-        // });
+        this.startCityAndStateSelect();
+    }
 
-        // document.getElementById('files-input-upload').addEventListener('change', function () {
-        //     document.getElementById('fake-file-input-name').value = this.value;
+    startCityAndStateSelect() {
+        $(document).ready(function () {
+			$.getJSON('/assets/json/estados_cidades.json', function (data) {
+				var items = [];
+				var options = '<option value="">Escolha um estado</option>';	
 
-        //     document.getElementById('fake-file-button-upload').removeAttribute('disabled');
-        // });
+				$.each(data, function (key, val) {
+					options += '<option value="' + val.nome + '">' + val.nome + '</option>';
+				});					
+				$("#state").html(options);				
+				
+				$("#state").change(function () {				
+					var options_cidades = '';
+					var str = "";					
+					
+					$("#state option:selected").each(function () {
+						str += $(this).text();
+					});
+					
+					$.each(data, function (key, val) {
+						if(val.nome == str) {							
+							$.each(val.cidades, function (key_city, val_city) {
+								options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+							});							
+						}
+					});
+
+					$("#city").html(options_cidades);
+					
+                }).change();
+			});		
+        });
+    }
+
+    forceUpdateStateCitySelect(state, city) {
+        if (state && city) {
+            setTimeout(() => {
+                $('#state').val(state);
+                $('#state').change();
+                $('#city').val(city);
+            }, 500);
+        }
     }
 
     /**
@@ -143,14 +176,7 @@ export class CadastroComponent implements OnInit {
             previewEl.css('margin-bottom', '10px');
             previewEl.css('display', 'unset');
 
-            // if (this.catador.year_of_birth) {
-            //     var a = this.catador.year_of_birth.split('-');
-            //     var date = a[2] + '/' + a[1] + '/' + a[0];
-
-            //     setTimeout(function() {
-            //         (<any>$("#datepicker")).datepicker("setDate", date);
-            //     }, 500);
-            // }
+            this.forceUpdateStateCitySelect(this.catador.state, this.catador.city);
             
             this.loading = false;
         }, (error) => {
@@ -340,6 +366,8 @@ export class CadastroComponent implements OnInit {
                 }
             }
 
+            this.forceUpdateStateCitySelect(this.catador.state, this.catador.city);
+
         }, err => {
             console.log(err);
         });
@@ -401,6 +429,8 @@ export class CadastroComponent implements OnInit {
 
                 this.updateAddress();
             });
+        } else {
+            console.log("Geolocation is not supported by this browser.");
         }
     }
 
