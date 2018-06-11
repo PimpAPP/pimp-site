@@ -237,6 +237,11 @@ export class CadastroComponent implements OnInit {
         }    
     }
 
+    cancel() {
+        this.localStorage.removeItem('cataki-catador').subscribe(() => {});
+        location.href = "/";
+    }
+
     showError(error) {
         this.loading = false;
         this.sendError(error);

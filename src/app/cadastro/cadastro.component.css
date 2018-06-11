@@ -4,14 +4,13 @@ button[type="button"] {
     font-size: 15px
 }
 
-button[type="submit"] {
+.action-btn {
     outline: black;
     height: 40px;
     /* width: 40%; */
     font-size: 14px;
     border-radius: 20px;
 }
-
 .close {
     font-size: 100px !important;
 }
