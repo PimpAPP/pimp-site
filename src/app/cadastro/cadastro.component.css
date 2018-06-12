@@ -51,6 +51,9 @@ label.button-upload strong {
     line-height: 27px;
 }
 
+.container {
+    max-width: 900px;
+}
 
 .container-extra-padding {
     padding: 10px 15px 10px 15px;
@@ -141,14 +144,6 @@ span.glyphicon-camera {
 
 #preview {
     max-height: 148px;
-}
-
-@media (max-width: 320px) {
-
-    .container {
-        padding: 3px !important;
-    }
-
 }
 
 
@@ -290,7 +285,7 @@ span.glyphicon-camera {
 .arrow-up-styles {
     position: absolute;
     margin-top: -40px;
-    right: 30%;
+    left: 5%;
 }
 
 .arrow-left-styles {
@@ -314,6 +309,7 @@ span.glyphicon-camera {
 .agm-map-container-inner {
     width: inherit;
     height: inherit;
+    padding: 0;
 }
 
 .agm-map-content {

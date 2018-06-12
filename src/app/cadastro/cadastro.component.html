@@ -37,7 +37,7 @@
                 <!-- -----------New Row---------- -->
                 <div class="row">
                     <!-- ----------Col for the form------------------- -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group" id="name-group">
                             <input type="text" 
                                     class="form-control" 
@@ -108,7 +108,7 @@
                     </div>
 
                     <!-- ----------Col 2nd for the form------------------- -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <!-- --------1st row of the colm--------- -->
                         <div class="form-group">
                             <input type="text" 
@@ -482,7 +482,7 @@
                 <!-- -----------New Row---------- -->
                 <div class="row">
                     <!-- ----------Col for the form------------------- -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group" align="left">
                                 <label style="color: #a0a0a0;" class="label-left-margin">Quem está cadastrando?</label><br />
                             <label class="radio-inline label-left-margin" style="color: #a0a0a0;">
@@ -501,11 +501,10 @@
                         <!-- -----------End of 1stcol------- -->
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <!-- --------2nd row of the colm--------- -->
                         <div class="who-is-registering-wrapper">
-                            <div class="arrow-up arrow-up-styles hidden-lg hidden-md"></div>
-                            <div class="arrow-left arrow-left-styles hidden-xs hidden-sm"></div>
+                            <div class="arrow-up arrow-up-styles"></div>
                             <div class="form-group">
                                 <input type="text" 
                                         class="form-control" 
@@ -539,7 +538,10 @@
                 </div>
                 <br>
                 <div class="row buttons-wrapper">
-                    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-4 col-lg-offset-4">
+                    <div class="col-md-6">
+                        <button type="button" (click)="goHome()" value="CANCELA" id="name-group" class="cancel-button btn-danger btn">CANCELAR</button>
+                    </div>
+                    <div class="col-lg-6">
                         <!-- <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success">CADASTRAR</button> -->
                         <button type="button" (click)="toggleMap()" value="AVANÇAR" id="name-group" class="primary-button btn btn-success">AVANÇAR</button>
                     </div>
@@ -555,7 +557,6 @@
                     </div>
                     <!-- -----------New Row---------- -->
                     <div class="row">
-
                         <!-- ----------Col 2nd for the form------------------- -->
                         <div class="col-lg-12 map-container">
                             <agm-map [latitude]="mapLatitude" 
@@ -580,7 +581,46 @@
                         <!-- ----------Col 1nd for the form------------------- -->
                         <div class="col-lg-12">
                             <!-- --------1st row of the colm--------- -->
-                            <div class="row">
+                            <div>
+                                <div style="width: 28%; float: left; margin-right: 2%;">
+                                        <div class="form-group">
+                                            <input type="text" 
+                                                    class="form-control" 
+                                                    name="state"
+                                                    placeholder="Estado" 
+                                                    [(ngModel)]="catador.state"
+                                                    (focusout)="addressFocusOut()"
+                                                    maxlength="128">
+                                        </div> 
+                                    </div>    
+                                <div style="width: 28%; float: left; margin-right: 2%;">
+                                        <div class="form-group">
+                                            <input type="text" 
+                                                    class="form-control" 
+                                                    placeholder="Cidade" 
+                                                    id="city" 
+                                                    name="city"
+                                                    [(ngModel)]="catador.city"
+                                                    required
+                                                    (focusout)="addressFocusOut()"
+                                                    maxlength="64">
+                                        </div>
+                                    </div>
+                                <div style="width: 40%; float: left">
+                                    <div class="form-group">
+                                        <input type="text" 
+                                                class="form-control" 
+                                                placeholder="Bairro" 
+                                                id="address_region" 
+                                                name="address_region"
+                                                [(ngModel)]="catador.address_region"
+                                                (focusout)="addressFocusOut()"
+                                                maxlength="128">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- --------2rd row of the colm--------- -->
+                            <div>
                                 <div class="input-col-left">
                                     <div class="form-group">
                                         <input type="text" 
@@ -605,57 +645,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- --------2rd row of the colm--------- -->
-                            <div class="row">
-                                <div style="width: 40%; float: left; margin-right: 2%;">
-                                    <div class="form-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                placeholder="Bairro" 
-                                                id="address_region" 
-                                                name="address_region"
-                                                [(ngModel)]="catador.address_region"
-                                                (focusout)="addressFocusOut()"
-                                                maxlength="128">
-                                    </div>
-                                </div>
-                                <div style="width: 28%; float: left; margin-right: 2%;">
-                                    <div class="form-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                placeholder="Cidade" 
-                                                id="city" 
-                                                name="city"
-                                                [(ngModel)]="catador.city"
-                                                required
-                                                (focusout)="addressFocusOut()"
-                                                maxlength="64">
-                                    </div>
-                                </div>
-                                <div style="width: 28%; float: left;">
-                                    <div class="form-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                name="state"
-                                                placeholder="Estado" 
-                                                [(ngModel)]="catador.state"
-                                                (focusout)="addressFocusOut()"
-                                                maxlength="128">
-                                    </div> 
-                                    <!--<div class="form-group">
-                                        <input type="text" 
-                                                class="form-control" 
-                                                placeholder="País" 
-                                                id="country" 
-                                                name="country"
-                                                (focusout)="addressFocusOut()"
-                                                [(ngModel)]="catador.country"
-                                                maxlength="64" />
-                                    </div> -->
-                                </div>
-                            </div>
-
+    
     
                             <!-- --------6th row of the colm---------
                             <div class="row">
@@ -677,12 +667,12 @@
                         <!-- --------------End of row-------------- -->
                     </div>
                     <div class="row buttons-wrapper">
-                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-4 col-lg-offset-2">
-                            <button type="button" (click)="toggleMap()" value="CANCELA" id="name-group" class="cancel-button btn-danger btn">CANCELA</button>
+                        <div class="col-md-6 col-xs-6 col-sm-6">
+                            <button type="button" (click)="toggleMap()" value="CANCELA" id="name-group" class="cancel-button btn-danger btn">CANCELAR</button>
                         </div>
 
-                        <div class="col-md-6 col-xs-6 col-sm-6 col-lg-4">
-                            <button type="submit" id="name-group" class="primary-button btn btn-success" value="CONFIRMA">CONFIRMA</button>
+                        <div class="col-md-6 col-xs-6 col-sm-6">
+                            <button type="submit" id="name-group" class="primary-button btn btn-success" value="CONFIRMA">CONFIRMAR</button>
                         </div>
                     </div>
                 </div>
