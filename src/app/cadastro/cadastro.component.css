@@ -248,8 +248,11 @@ span.glyphicon-camera {
 }
 
 /* media queries */
-@media only screen and (min-width: 320px) and (max-width: 640px) {
 
+@media only screen and (min-width: 320px) and (max-width: 640px) {
+    .map-title-container {
+        padding-top: 0px;
+    }
     .sign-form-header-image {
         background-image: url("/assets/img/cadastro/image1.png");
         background-size: 100%;
@@ -289,6 +292,10 @@ span.glyphicon-camera {
 
 @media only screen and (min-width: 412px) and (max-width: 732px) {
 
+    .map-title-container {
+        padding-top: 0px;
+    }
+
     #style {
         margin-left: -45px;
         width: 330%;
@@ -320,6 +327,10 @@ span.glyphicon-camera {
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 768px) {
+
+    .map-title-container {
+        padding-top: 0px;
+    }
 
     .sign-form-header-image {
         background-image: url("/assets/img/cadastro/image1.png");
