@@ -114,6 +114,14 @@ span.glyphicon-camera {
     color: grey;
 }
 
+.sign-form-header-image {
+    background-image: url("/assets/img/cadastro/image1.png");
+    background-size: 80%;
+    height: 300px;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
 #left-arrow {
     display: inline-block;
     position: relative;
@@ -144,96 +152,6 @@ span.glyphicon-camera {
 
 #preview {
     max-height: 148px;
-}
-
-
-@media only screen and (max-width: 640px) and (min-width: 360px) {
-    
-    #left-arrow {
-        margin-top: 2%;
-        display: inline-block;
-        position: relative;
-        background: lightgrey;
-        width: 90%;
-        margin-left: 5%;
-        color: lightgrey;
-        text-decoration: none;
-        padding: 20px;
-    }
-    #left-arrow:after {
-        content: '';
-        display: block;
-        position: absolute;
-        right: 40px;
-        top: 0%;
-        width: 0;
-        height: 0;
-        border-bottom: 30px solid lightgrey;
-        border-top: 15px solid transparent;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-    }
-}
-
-@media only screen and (max-width: 732px) and (min-width: 412px) {
-    #style {
-        margin-left: -45px;
-        width: 330%;
-        margin-top: -2px;
-    }
-    #left-arrow {
-        margin-top: 2%;
-        /* width: ; */
-        display: inline-block;
-        position: relative;
-        background: lightgrey;
-        color: lightgrey;
-        text-decoration: none;
-        padding: 20px;
-    }
-    #left-arrow:after {
-        content: '';
-        display: block;
-        position: absolute;
-        right: 40px;
-        top: 0%;
-        width: 0;
-        height: 0;
-        border-bottom: 30px solid lightgrey;
-        border-top: 15px solid transparent;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-    }
-}
-
-@media only screen and (max-width: 1024px) and (min-width: 768px) {
-    #style {
-        margin-left: -45px;
-        width: 255%;
-        margin-top: -2px;
-    }
-    #left-arrow {
-        margin-top: 2%;
-        display: inline-block;
-        position: relative;
-        background: lightgrey;
-        color: lightgrey;
-        text-decoration: none;
-        padding: 20px;
-    }
-    #left-arrow:after {
-        content: '';
-        display: block;
-        position: absolute;
-        right: 80px;
-        top: 0%;
-        width: 0;
-        height: 0;
-        border-bottom: 30px solid lightgrey;
-        border-top: 15px solid transparent;
-        border-left: 15px solid transparent;
-        border-right: 15px solid transparent;
-    }
 }
 
 .map-container {
@@ -285,7 +203,7 @@ span.glyphicon-camera {
 .arrow-up-styles {
     position: absolute;
     margin-top: -40px;
-    left: 5%;
+    left: 30%;
 }
 
 .arrow-left-styles {
@@ -327,5 +245,115 @@ span.glyphicon-camera {
 /* remove default form validation style */
 .ng-invalid:not(form), .ng-valid[required], .ng-valid.required {
     border-left: 2px solid #ccc;
+}
+
+/* media queries */
+@media only screen and (min-width: 320px) and (max-width: 640px) {
+
+    .sign-form-header-image {
+        background-image: url("/assets/img/cadastro/image1.png");
+        background-size: 100%;
+        height: 100px;
+        background-position: bottom center;
+    }
+    
+    .arrow-up-styles {
+        left: 60%;
+    }
+
+    #left-arrow {
+        margin-top: 2%;
+        display: inline-block;
+        position: relative;
+        background: lightgrey;
+        width: 90%;
+        margin-left: 5%;
+        color: lightgrey;
+        text-decoration: none;
+        padding: 20px;
+    }
+    #left-arrow:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 40px;
+        top: 0%;
+        width: 0;
+        height: 0;
+        border-bottom: 30px solid lightgrey;
+        border-top: 15px solid transparent;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+}
+
+@media only screen and (min-width: 412px) and (max-width: 732px) {
+
+    #style {
+        margin-left: -45px;
+        width: 330%;
+        margin-top: -2px;
+    }
+    #left-arrow {
+        margin-top: 2%;
+        /* width: ; */
+        display: inline-block;
+        position: relative;
+        background: lightgrey;
+        color: lightgrey;
+        text-decoration: none;
+        padding: 20px;
+    }
+    #left-arrow:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 40px;
+        top: 0%;
+        width: 0;
+        height: 0;
+        border-bottom: 30px solid lightgrey;
+        border-top: 15px solid transparent;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 768px) {
+
+    .sign-form-header-image {
+        background-image: url("/assets/img/cadastro/image1.png");
+        background-size: 100%;
+        height: 200px;
+        background-position: bottom center;
+    }
+
+    #style {
+        margin-left: -45px;
+        width: 255%;
+        margin-top: -2px;
+    }
+    #left-arrow {
+        margin-top: 2%;
+        display: inline-block;
+        position: relative;
+        background: lightgrey;
+        color: lightgrey;
+        text-decoration: none;
+        padding: 20px;
+    }
+    #left-arrow:after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: 80px;
+        top: 0%;
+        width: 0;
+        height: 0;
+        border-bottom: 30px solid lightgrey;
+        border-top: 15px solid transparent;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+    }
 }
 

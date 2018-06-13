@@ -1,6 +1,5 @@
-    <div class="cont" *ngIf="!showMap">
-        <img src="assets/img/cadastro/image1.png" class="img-responsive">
-    </div>
+    <header class="sign-form-header-image" *ngIf="!showMap"></header>
+    
     <div class="container container-extra-padding">
         <form (ngSubmit)="save()" #catadorForm="ngForm">
             <div *ngIf="!showMap">
@@ -10,7 +9,7 @@
                         <label> Com este formul&aacute;rio voc&ecirc; ir&aacute; cadastrar um novo catador no nosso aplicativo. Preencha
                             tudo com muito carinho e aten&ccedil;&atilde;o, este perfil ser&aacute; o cart&atilde;o
                             de visita do catador :)</label>
-                    </div>
+                    </div>  
 
                     <div class="col-md-6 col-lg-6" align="">
                         <a class="btn newbtn2 my-btn2" data-toggle="modal" data-target="#myModal" data-backdrop="true">
@@ -501,10 +500,9 @@
                         <!-- -----------End of 1stcol------- -->
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-12" *ngIf="catador.registered_by_another_user">
                         <!-- --------2nd row of the colm--------- -->
                         <div class="who-is-registering-wrapper">
-                            <div class="arrow-up arrow-up-styles"></div>
                             <div class="form-group">
                                 <input type="text" 
                                         class="form-control" 
@@ -538,10 +536,10 @@
                 </div>
                 <br>
                 <div class="row buttons-wrapper">
-                    <div class="col-md-6">
+                    <div class="col-xs-6">
                         <button type="button" (click)="goHome()" value="CANCELA" id="name-group" class="cancel-button btn-danger btn">CANCELAR</button>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-xs-6">
                         <!-- <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success">CADASTRAR</button> -->
                         <button type="button" (click)="toggleMap()" value="AVANÇAR" id="name-group" class="primary-button btn btn-success">AVANÇAR</button>
                     </div>
@@ -625,7 +623,7 @@
                                     <div class="form-group">
                                         <input type="text" 
                                                 class="form-control" 
-                                                placeholder="Endereço de trabalho" 
+                                                placeholder="Rua" 
                                                 required
                                                 id="address_base" 
                                                 name="address_base"
