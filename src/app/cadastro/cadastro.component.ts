@@ -174,6 +174,7 @@ export class CadastroComponent implements OnInit {
 
     save() { 
         var valid: any = this.catador.valid();
+        
         if (valid !== true) {
             alert('Por favor preencha todos os campos obrigatórios.');
             document.getElementById(valid).focus();
