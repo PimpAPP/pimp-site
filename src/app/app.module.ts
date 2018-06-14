@@ -16,6 +16,7 @@ import { AgmCoreModule, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
 import { CooperativaComponent } from './cooperativa/cooperativa.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { UserDataService } from 'app/services/user-data.service';
+import { UtilDataService } from 'app/services/util-data.service';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { UserDataService } from 'app/services/user-data.service';
         CatadorDataService,
         CooperativaDataService,
         UserDataService,
+        UtilDataService,
         ApiProvider,
         MarkerManager,
         GoogleMapsAPIWrapper

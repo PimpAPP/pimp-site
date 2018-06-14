@@ -6,6 +6,7 @@ import { Http } from '@angular/http';
 import { User } from '../models/user';
 import { Phone } from '../models/phone';
 import { CatadorDataService } from '../services/catador-data.service';
+import { UtilDataService } from '../services/util-data.service';
 import { UserDataService } from '../services/user-data.service';
 import { MaterialRecover } from '../models/MaterialRecover';
 import { MapsAPILoader } from '@agm/core';
@@ -46,10 +47,12 @@ export class CadastroComponent implements OnInit {
     public loadingMessage: string = '';
 
     public checkboxValue;
+    public stateCityList: any;
 
     constructor(private router: Router,
         public catadorDataService: CatadorDataService,
         public userDataService: UserDataService,
+        public utilDataService: UtilDataService,
         public http: Http, public gMaps: GoogleMapsAPIWrapper,
         private route: ActivatedRoute) {
 
@@ -88,7 +91,7 @@ export class CadastroComponent implements OnInit {
             dateFormat: 'dd/mm/yy'
         });
 
-        this.startCityAndStateSelect();
+        this.getStateCityList();
     
         // TODO: call jquery custom input
         
@@ -98,38 +101,42 @@ export class CadastroComponent implements OnInit {
         // });
     }
 
+    getStateCityList() {
+        this.utilDataService.getStateAndCityList().subscribe((res) => {
+            this.stateCityList = res.json();
+        })
+    }
+
     startCityAndStateSelect() {
-        $(document).ready(function () {
-			$.getJSON('/assets/json/estados_cidades.json', function (data) {
-				var items = [];
-				var options = '<option value="">Escolha um estado</option>';	
+        var data = this.stateCityList;
+        var options = '<option value="">Escolha um estado</option>';
+        
+        $.each(data, function (key, val) {
+            options += '<option value="' + val.nome + '">' + val.nome + '</option>';
+        });		
 
-				$.each(data, function (key, val) {
-					options += '<option value="' + val.nome + '">' + val.nome + '</option>';
-				});					
-				$("#state").html(options);				
-				
-				$("#state").change(function () {				
-					var options_cidades = '';
-					var str = "";					
-					
-					$("#state option:selected").each(function () {
-						str += $(this).text();
-					});
-					
-					$.each(data, function (key, val) {
-						if(val.nome == str) {							
-							$.each(val.cidades, function (key_city, val_city) {
-								options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
-							});							
-						}
-					});
+        $("#state").html(options);				
+        $("#state").change(function () {				
+            var options_cidades = '';
+            var str = "";					
+            
+            $("#state option:selected").each(function () {
+                str += $(this).text();
+            });
+            
+            $.each(data, function (key, val) {
+                if(val.nome == str) {							
+                    $.each(val.cidades, function (key_city, val_city) {
+                        options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+                    });							
+                }
+            });
 
-					$("#city").html(options_cidades);
-					
-                }).change();
-			});		
-        });
+            $("#city").html(options_cidades);
+            
+        }).change();
+
+        this.forceUpdateStateCitySelect(this.catador.state, this.catador.city);
     }
 
     forceUpdateStateCitySelect(state, city) {
@@ -200,6 +207,12 @@ export class CadastroComponent implements OnInit {
     
     toggleMap() { 
         this.showMap = !this.showMap;
+        
+        if (this.showMap) {
+            setTimeout(() => {
+                this.startCityAndStateSelect();
+            }, 500);
+        }
     }  
 
     save() { 
