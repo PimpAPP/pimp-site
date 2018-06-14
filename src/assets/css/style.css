@@ -492,32 +492,32 @@ li::before {
     margin-top: 0;
 }
 
-.mod1 .modal-dialog {
-    margin: 100px auto !important;
-    max-width: 1000px !important;
-    border-radius: 50px !important;
-}
+/* modal: Dicas de Cadastro */
 
 .mod1 .modal-header {
     border-bottom: 1px solid transparent;
     color: #000;
-    font-size: 50px !important;
 }
 
 .mod1 .modal-title {
     font-weight: bolder;
-    font-size: 45px;
+    font-size: 35px;
     margin-top: 15px;
     padding-left: 25px;
 }
 
 .mod1 ul {
-    list-style: none;
+    /*  list-style: none; */
     color: #000;
     font-size: 22px;
-    text-align: justify;
-    text-justify: inter-word;
+    /*text-align: justify;
+    text-justify: inter-word; */
     padding-right: 40px;
+}
+
+.mod1 ul li {
+    /*  list-style: none; */
+    margin-bottom: 15px;
 }
 
 .header8 {
@@ -642,8 +642,8 @@ li::before {
 }
 
 .mod3 .modal-dialog {
-    margin: 60px auto !important;
-    max-width: 523px !important;
+   /* margin: 60px auto !important;
+    max-width: 523px !important; */
 }
 
 .mod3 .modal-header {
@@ -653,7 +653,7 @@ li::before {
 
 .mod3 .modal-title {
     font-weight: bolder;
-    font-size: 36px;
+    font-size: 35px;
 }
 
 .mod3 p {
@@ -663,7 +663,7 @@ li::before {
 }
 
 .mod3 .modal-content {
-    margin-left: 15px;
+/*    margin-left: 15px;
     margin-right: 15px;
     position: fixed;
     overflow-x: auto;
@@ -672,8 +672,8 @@ li::before {
     left: 0;
     right: 0;
     top: 0;
-    /* z-index: 9999; */
-    min-height: 350px;
+    /* z-index: 9999; 
+    min-height: 350px;*/
 }
 
 
@@ -684,9 +684,10 @@ li::before {
 
 /*modal 3 css ends*/
 
-.close {
-    font-size: 2em;
-    margin-right: 0.2em;
+.modal-header .close {
+   font-size: 2em;
+    margin-top: 20px;
+    margin-right: 20px;
     position: absolute;
     right: 0;
     top: -1px;
@@ -696,9 +697,9 @@ li::before {
 /*responsive header starts*/
 
 @media screen and (max-width: 768px) and (min-width: 350px) {
-    .close {
+    /*.close {
         font-size: 5em;
-    }
+    } */
     .lead {
         font-size: 19px;
         font-family: overpassregular;
@@ -757,9 +758,9 @@ li::before {
 }
 
 @media screen and (max-width: 991px) and (min-width: 769px) {
-    .close {
+    /*.close {
         font-size: 4em;
-    }
+    } */
     .header .newbtn2 {
         padding: 10px 33px;
     }
@@ -1737,8 +1738,8 @@ li::before {
     }
     /*responsive carousel ends*/
     /*responsive modal*/
-    @media screen and (max-width: 768px) and (min-width: 350px) {
-        .mod1 .modal-content {
+    @media screen and (max-width: 768px) and (min-width: 300px) {
+       /* .mod1 .modal-content {
             margin-left: 15px;
             margin-right: 15px;
             position: fixed;
@@ -1748,7 +1749,6 @@ li::before {
             left: 0;
             right: 0;
             top: 0;
-            /*z-index: 9999;*/
             min-height: 560px;
             padding-top: 50px;
         }
@@ -1761,7 +1761,15 @@ li::before {
         .mod1 ul {
             font-size: 21px;
             margin-top: 50px;
+        } */
+
+        .mod1 .modal-title {
+            font-weight: bolder;
+            font-size: 28px;
+            margin-top: 15px;
+            padding-left: 25px;
         }
+
         .mod2 .modal-content {
             margin-left: 15px;
             margin-right: 15px;

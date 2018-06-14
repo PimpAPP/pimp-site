@@ -28,6 +28,7 @@ export class CadastroComponent implements OnInit {
 
     public loading: boolean = false;
     public isEditing: boolean = false;
+    public showMap: boolean = false;
 
     public catador: Catador = new Catador();
     public user: User;
@@ -74,7 +75,7 @@ export class CadastroComponent implements OnInit {
         this.catador = new Catador();
         this.user = new User();        
         this.setCurrentPosition();        
-        $(":file")['filestyle']({
+        /*$(":file")['filestyle']({
             input: true,
             buttonText: '',
             //buttonName: 'btn btn-primary',
@@ -82,13 +83,16 @@ export class CadastroComponent implements OnInit {
             iconName: "glyphicon glyphicon-camera",
             buttonBefore: true,
             placeholder: "Selecionar imagem"
-        });
+        }); */
 
         (<any>$("#datepicker")).datepicker({
             changeMonth: true,
             changeYear: true,
             dateFormat: 'dd/mm/yy'
         });
+
+        // TODO: call jquery custom input
+        
 
         // document.getElementById('fake-file-button-browse').addEventListener('click', function () {
         //     document.getElementById('img-file').click();
@@ -120,7 +124,7 @@ export class CadastroComponent implements OnInit {
                 }
             })
 
-            console.log(this.catador);
+            // console.log(this.catador);
 
             if (!this.catador.phones) {
                 this.catador.phones = [];
@@ -164,6 +168,10 @@ export class CadastroComponent implements OnInit {
         this.router.navigateByUrl('/');
     }
     
+    toggleMap() { 
+        this.showMap = !this.showMap;
+    }  
+
     save() { 
         var valid: any = this.catador.valid();
         if (valid !== true) {
