@@ -1,31 +1,100 @@
 button[type="button"] {
     border-color: white;
     height: 40px;
-    font-size: 15px
+    font-size: 18px;
+}
+/* https://stackoverflow.com/questions/11235206/twitter-bootstrap-form-file-element-upload-button */
+[hidden] {
+    display: none !important;
+  }
+
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }  
+
+hr {
+    margin-bottom: 20px;
+    margin-top: 15px;
+}  
+
+label {
+    font-size: 18px;
 }
 
-button[type="submit"] {
+label.button-upload {
+    font-size: 14px;
+}
+
+label.label-left-margin {
+    margin-left: 15px;
+}
+
+label.button-upload span {
+    float: left;
+    margin-right: 15px;
+    margin-top: 5px;
+    color: #b4b4b4;
+}
+
+label.button-upload strong {
+    background-color: #b4b4b4;
+    color: white;
+    display: block;
+    padding: 10px 14px;
+    border-radius: 25px;
+    float: left;
+    font-size: 18px;
+    min-width: 250px;
+    text-align: center;
+    line-height: 27px;
+}
+
+.container {
+    max-width: 900px;
+}
+
+.container-extra-padding {
+    padding: 10px 15px 10px 15px;
+}
+
+.row-bottom-margin {
+    margin-bottom: 20px;
+}
+
+.primary-button {
     outline: black;
     height: 40px;
-    /* width: 40%; */
-    font-size: 14px;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 20px;
+}
+
+.cancel-button {
+    outline: black;
+    height: 40px;
+    width: 100%;
+    font-size: 18px;
     border-radius: 20px;
 }
 
 .close {
-    font-size: 100px !important;
+    font-size: 40px !important;
 }
 
-input[type="button"] {
-    outline: black;
+.btn.newbtn2.my-btn2 {
+    border: 1px solid black;
     height: 40px;
     width: 100%;
     color: #fff;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 30px;
     background: white;
     color: black;
     cursor: pointer;
     border-radius: 20px;
+    margin: 15px 0 0 0;
 }
 
 hr {
@@ -45,6 +114,14 @@ span.glyphicon-camera {
     color: grey;
 }
 
+.sign-form-header-image {
+    background-image: url("/assets/img/cadastro/image1.png");
+    background-size: 80%;
+    height: 300px;
+    background-position: bottom center;
+    background-repeat: no-repeat;
+}
+
 #left-arrow {
     display: inline-block;
     position: relative;
@@ -53,19 +130,7 @@ span.glyphicon-camera {
     border-radius: 8px;
 }
 
-#left-arrow:after {
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    margin-top: -40px;
-    content: '';
-    display: block;
-    width: 0%;
-    height: 0;
-    border-top: 15px solid transparent;
-    border-right: 30px solid lightgrey;
-    border-bottom: 15px solid transparent;
-}
+
 
 #style {
     margin-left: -15px;
@@ -89,17 +154,116 @@ span.glyphicon-camera {
     max-height: 148px;
 }
 
-@media (max-width: 320px) {
+.map-container {
+    margin: 0 0 30px 0;
+}
 
-    .container {
-        padding: 3px !important;
-    }
+.map-title-container {
+    padding-top: 20px;
+}
+
+.buttons-wrapper {
+    padding: 0px 0 20px 0;
+}
+
+.input-col-left {
+    width: 69%;
+    float: left;
+    margin-right: 2%
+}
+
+.input-col-right {
+    width: 29%;
+    float: left;
+}
+
+.who-is-registering-wrapper {
+    background-color: #ededed;
+    padding: 25px 10px 10px 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid #ededed;
+}
+
+.arrow-left {
+    width: 0; 
+    height: 0; 
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent; 
+    border-right:15px solid #ededed;
+  }
+
+.arrow-up-styles {
+    position: absolute;
+    margin-top: -40px;
+    left: 30%;
+}
+
+.arrow-left-styles {
+    position: absolute;
+    margin-left: -40px;
+    left: 40px;
+}
+
+.sign-title {
+    color: black;
+}
+
+.text-grey {
+    color: #ededed;
+}
+
+.container-extra-padding {
+    
+}
+
+.agm-map-container-inner {
+    width: inherit;
+    height: inherit;
+    padding: 0;
+}
+
+.agm-map-content {
 
 }
 
+.form-control {
+    border: 2px solid #ccc;
+    font-size: 18px;
+    min-height: 45px;
+    line-height: 31px;
+}
 
-@media only screen and (max-width: 640px) and (min-width: 360px) {
+
+/* remove default form validation style */
+.ng-invalid:not(form), .ng-valid[required], .ng-valid.required {
+    border-left: 2px solid #ccc;
+}
+
+/* media queries */
+
+@media only screen and (min-width: 320px) and (max-width: 640px) {
+    .map-title-container {
+        padding-top: 0px;
+    }
+    .sign-form-header-image {
+        background-image: url("/assets/img/cadastro/image1.png");
+        background-size: 100%;
+        height: 100px;
+        background-position: bottom center;
+    }
     
+    .arrow-up-styles {
+        left: 60%;
+    }
+
     #left-arrow {
         margin-top: 2%;
         display: inline-block;
@@ -126,7 +290,12 @@ span.glyphicon-camera {
     }
 }
 
-@media only screen and (max-width: 732px) and (min-width: 412px) {
+@media only screen and (min-width: 412px) and (max-width: 732px) {
+
+    .map-title-container {
+        padding-top: 0px;
+    }
+
     #style {
         margin-left: -45px;
         width: 330%;
@@ -158,6 +327,18 @@ span.glyphicon-camera {
 }
 
 @media only screen and (max-width: 1024px) and (min-width: 768px) {
+
+    .map-title-container {
+        padding-top: 0px;
+    }
+
+    .sign-form-header-image {
+        background-image: url("/assets/img/cadastro/image1.png");
+        background-size: 100%;
+        height: 200px;
+        background-position: bottom center;
+    }
+
     #style {
         margin-left: -45px;
         width: 255%;
@@ -186,3 +367,4 @@ span.glyphicon-camera {
         border-right: 15px solid transparent;
     }
 }
+

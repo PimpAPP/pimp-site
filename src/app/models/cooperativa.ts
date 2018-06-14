@@ -26,6 +26,8 @@ export class Cooperativa {
     public materials_collected: Array<any> = new Array<any>();
     public phones: Array<Phone> = new Array<Phone>();
     public founded_in: any;
+    public photos: any = [];
+    public partners: any = [];
 
     constructor() {
         this.phones[0] = new Phone();
