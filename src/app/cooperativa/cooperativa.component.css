@@ -17,3 +17,12 @@ agm-map {
 #preview {
     max-height: 148px;
 }
+
+.gallery-photo {
+    width: 100px;
+    height: 100px;
+}
+
+.bootstrap-filestyle input {
+    display: none;
+}

@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
     constructor(private router: Router) { }
 
     ngOnInit() {
+        $("body").removeClass("modal-open");
     }
 
     openCatadorPage() {
