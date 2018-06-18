@@ -17,7 +17,7 @@ describe('Cataki - New Catador - Test Suite', () => {
 		})
 
 		it('Must save', () => {
-			page.btnSaveClick();			
+			page.btnSaveClick('Cadastro realizado com sucesso!');
 		})
 		
 	})
@@ -36,13 +36,11 @@ describe('Cataki - Edit Catador - Test Suite', () => {
 		});
 		
 		it('Must allow edit fields', () => {
-			var catador = page.fillCatadorExample();
 			page.editCatador(newCatador);
 		})
 
 		it('Must save', () => {
-			browser.sleep(5000);
-			page.btnSaveClick();
+			page.btnSaveClick('Alteração realizada com sucesso!');
 		})
 		
 		it('Check data after update', () => {

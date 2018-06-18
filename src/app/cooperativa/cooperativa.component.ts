@@ -415,7 +415,7 @@ export class CooperativaComponent implements OnInit {
         }
     }
 
-    readGalleryURL(event, name) {
+    readGalleryURL(event) {
         // this.cooperativa.photos = [];
         if(event.target.files && event.target.files.length > 0) {
             let files = event.target.files;
@@ -502,7 +502,7 @@ export class CooperativaComponent implements OnInit {
         }
     }
 
-    readPartnerURL(event, name) {
+    readPartnerURL(event) {
         this.partnerLoading = true;
         if(event.target.files && event.target.files.length > 0) {
             let file = event.target.files[0];

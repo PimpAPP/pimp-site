@@ -1,8 +1,8 @@
-    <header class="sign-form-header-image" *ngIf="!showMap"></header>
+    <header class="sign-form-header-image" [hidden]="showMap"></header>
     
     <div class="container container-extra-padding">
         <form (ngSubmit)="save()" #catadorForm="ngForm">
-            <div *ngIf="!showMap">
+            <div [hidden]="showMap">
                 <!-- ---------Description and the Button--------------- -->
                 <div class="row">
                     <div class="col-md-6 col-lg-6">
@@ -99,6 +99,7 @@
                                     placeholder="História de vida" 
                                     style="height:130px;" 
                                     name="minibio"
+                                    id="minibio"
                                     maxlength="600"
                                     required
                                     [(ngModel)]="catador.minibio"></textarea>
@@ -127,7 +128,7 @@
                                     required 
                                     name="whatsapp0-s"
                                     [value]="1"
-                                    [(ngModel)]="catador.phones[0].whatsapp">
+                                    [(ngModel)]="catador.phones[0].has_whatsapp">
                                     Sim
                             </label>
                             <label class="radio-inline" style="margin-left:17%; color: #a0a0a0;">
@@ -135,7 +136,7 @@
                                     required 
                                     name="whatsapp0-n"
                                     [value]="0"
-                                    [(ngModel)]="catador.phones[0].whatsapp"
+                                    [(ngModel)]="catador.phones[0].has_whatsapp"
                                     ng-model="userfullName6">N&atilde;o
                                 </label>
                         </div>
@@ -158,7 +159,7 @@
                                     required 
                                     name="whatsapp1-s"
                                     [value]="1"
-                                    [(ngModel)]="catador.phones[1].whatsapp">
+                                    [(ngModel)]="catador.phones[1].has_whatsapp">
                                     Sim
                             </label>
                             <label class="radio-inline" style="margin-left:17%; color: #a0a0a0;">
@@ -166,7 +167,7 @@
                                     required 
                                     name="whatsapp1-n"
                                     [value]="0"
-                                    [(ngModel)]="catador.phones[1].whatsapp"
+                                    [(ngModel)]="catador.phones[1].has_whatsapp"
                                     ng-model="userfullName6">N&atilde;o
                                 </label>
                         </div>
@@ -301,6 +302,7 @@
                                     <input type="radio" 
                                             class="inline" 
                                             value="'vidro'" 
+                                            id="material-vidro-id"
                                             [checked]="materialSelected.indexOf('vidro') > -1" 
                                             (click)="selectMaterial('vidro')" >
                                         Vidro
@@ -541,13 +543,13 @@
                     </div>
                     <div class="col-xs-6">
                         <!-- <button type="submit" value="CADASTRAR" id="name-group" class="btn btn-success">CADASTRAR</button> -->
-                        <button type="button" (click)="toggleMap()" value="AVANÇAR" id="name-group" class="primary-button btn btn-success">AVANÇAR</button>
+                        <button type="button" (click)="toggleMap()" value="AVANÇAR" id="btn-avancar" class="primary-button btn btn-success">AVANÇAR</button>
                     </div>
                 </div>
             </div>
 
             <!-- MAP -->
-            <div *ngIf="showMap">
+            <div [hidden]="!showMap">
                     <div class="row">
                         <div class="col-lg-12 map-title-container">
                             <h4>LOCAL DE TRABALHO</h4>
@@ -689,7 +691,7 @@
                         </div>
 
                         <div class="col-md-6 col-xs-6 col-sm-6">
-                            <button type="submit" id="name-group" class="primary-button btn btn-success" value="CONFIRMA">CONFIRMAR</button>
+                            <button type="submit" id="btn-confirmar" class="primary-button btn btn-success" value="CONFIRMA">CONFIRMAR</button>
                         </div>
                     </div>
                 </div>

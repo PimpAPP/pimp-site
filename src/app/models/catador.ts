@@ -17,26 +17,9 @@ export class Catador {
     public address_base: string = '';
     public number: string = '';
     public address_region: string = '';
-    public region: string = '';
     public city: string = '';
     public state: string = '';
-    public country: string = '';
-    public kg_day: number;
-    public how_many_days_work_week: number;
-    public how_many_years_work: number;
-    public belongsCooperative: boolean = false;
-    public cooperative_name: string = '';
-    public iron_work: string = '';
     public materials_collected: Array<any> = new Array<any>();
-    public safety_kit: boolean = false;
-    public has_motor_vehicle: boolean = false;
-    public has_smartphone_with_internet: boolean = false;
-    public safety_kit_boot: boolean = false;
-    public safety_kit_gloves: boolean = false;
-    public safety_kit_brakes: boolean = false;
-    public safety_kit_reflective_tapes: boolean = false;
-    public safety_kit_rearview: boolean = false;
-    public carroca_pimpada: boolean = false;
     public registered_by_another_user: boolean = false;
     public another_user_name: string = '';
     public another_user_email: string = '';
@@ -44,6 +27,23 @@ export class Catador {
     public image: string = '';
     public year_of_birth: any;
     public user: string = '';
+    public has_motor_vehicle: boolean = false;
+    public carroca_pimpada: boolean = false;
+
+    // public kg_day: number;
+    // public how_many_days_work_week: number;
+    // public how_many_years_work: number;
+    // public belongsCooperative: boolean = false;
+    // public iron_work: string = '';
+    // public safety_kit: boolean = false;    
+    // public has_smartphone_with_internet: boolean = false;
+    // public safety_kit_boot: boolean = false;
+    // public safety_kit_gloves: boolean = false;
+    // public safety_kit_brakes: boolean = false;
+    // public safety_kit_reflective_tapes: boolean = false;
+    // public safety_kit_rearview: boolean = false;
+    // public country: string = '';
+    
 
     constructor() {
         this.phones[0] = new Phone();
@@ -66,19 +66,14 @@ export class Catador {
                 'number',
                 'address_region',
                 'city',
-                'state',
-                'country',
-                'cooperative_name',
-                'kg_day',
-                'how_many_days_work_week',
-                'how_many_years_work',
-                'region'
+                'state'
             ];
 
         var errors = [];
         for (var x=0; x<fields.length; x++) {
             var res = this.isFill(fields[x]);
 
+            // true or field name
             if (res == true) {
                 continue;
             } else {
@@ -91,13 +86,17 @@ export class Catador {
         return (errors.length > 0) ? errors[0] : true;
     }
 
-    isFill(field) {
-        if (field == 'phones0')
-            if (!this.phones[0].phone || this.phones[0].phone.length == 0)
-                return field;
 
-        else if (!this[field] || this[field].length == 0)
+
+    isFill(field) {
+        if (field == 'phones0') {
+            if (!this.phones[0].phone || this.phones[0].phone.length == 0) {
+                alert(this.phones[0].phone);
+                return field;
+            }
+        } else if (!this[field] || this[field].length == 0) {
             return field;
+        }
 
         return true;
     }

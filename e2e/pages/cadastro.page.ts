@@ -1,33 +1,46 @@
 import { protractor, element, browser, by, Key } from 'protractor';
 import { Catador } from '../../src/app/models/catador';
 var path = require('path');
+var base64Img = require('base64-img');
 
 
 export class CadastroPage {
         
 	getPage() {
-		return browser.get('/#/cadastro');
+		return browser.get('/cadastro');
     }
     
     getEditPage() {
-		return browser.get('/#/cadastro/1');
+		return browser.get('/cadastro/1');
 	}
 
 	fillPage(catador) {
-        this.fillCatadorExample();
         browser.waitForAngularEnabled(false);
         element(by.id('name')).sendKeys(catador.name);
         element(by.id('nickname')).sendKeys(catador.nickname);
         element(by.id('presentation_phrase')).sendKeys(catador.presentation_phrase);
         element(by.id('minibio')).sendKeys(catador.minibio);
 
+        // Phones
+        element(by.id('phones0')).sendKeys(catador.phones[0].phone);
+
+        // Materials
+        element(by.id('material-vidro-id')).click();
+        
+        // Image        
+        var fileToUpload = '../test-image.png';
+        var absolutePath = path.resolve(__dirname, fileToUpload);
+        var data = base64Img.base64Sync(absolutePath);
+        var previewElem = element(by.id('preview'));
+        browser.executeScript("arguments[0].setAttribute('src', '" + data +"')", previewElem);
+
+        this.btnNextClick();
+		browser.sleep(500);
+
         // Address
-        element(by.id('country')).sendKeys(catador.country);
-
-        element(by.id('state')).clear()
         element(by.id('state')).sendKeys(catador.state);
+        browser.sleep(1000);
 
-        element(by.id('city')).clear()
         element(by.id('city')).sendKeys(catador.city);
 
         element(by.id('address_region')).clear()
@@ -38,30 +51,14 @@ export class CadastroPage {
 
         element(by.id('number')).clear()
         element(by.id('number')).sendKeys(catador.number);
-
-        // Phones
-        element(by.id('phones0')).sendKeys(catador.phones[0].phone);
-
-        // Materials
-        element(by.id('selectMaterial-id')).click();
-        
-        // Image        
-        var fileToUpload = '../test-image.png';
-        var absolutePath = path.resolve(__dirname, fileToUpload);
-        // element(by.id('img-file')).sendKeys(absolutePath);
-        // Find the file input element
-        var fileElem = element(by.id('img-file'));
-        
-        var remote = require('selenium-webdriver/remote');
-        browser.setFileDetector(new remote.FileDetector());
-
-        fileElem.sendKeys(absolutePath);
     }
 
     editCatador(catador) {
         element(by.id('name')).clear();
         element(by.id('name')).sendKeys(catador.name);
         element(by.id('phones0')).sendKeys(catador.phones[0].phone);
+        this.btnNextClick();
+		browser.sleep(500);
     }
 
     checkCatadorAfterUpdate(catador: Catador) {
@@ -71,13 +68,22 @@ export class CadastroPage {
         // expect(element(by.id('phones0'))).toEqual(catador.phones[0].phone);
     }
 
-    btnSaveClick() {
-        // Click button
-        element(by.id('btn-cadastrar')).click();
+    btnNextClick() {
+        element(by.id('btn-avancar')).click();
+    }
 
-        var EC = protractor.ExpectedConditions;
-        browser.wait(EC.alertIsPresent(), 5000, "Cadastro realizado com sucesso!");
-        browser.switchTo().alert().accept();
+    btnSaveClick(msg) {
+        browser.sleep(500);
+        // Click button
+        var saveBtn = element(by.id('btn-confirmar'));
+        saveBtn.click();
+
+        browser.sleep(5000);
+
+        var alertDialog = browser.switchTo().alert();
+        expect(alertDialog.getText()).toEqual(msg);
+        alertDialog.accept();
+        browser.sleep(500);
     }
     
     fillCatadorExample() {
@@ -93,7 +99,6 @@ export class CadastroPage {
         catador.address_region = 'Vila Guilhermina';
         catador.city = 'Montes Claros';
         catador.state = 'Minas Gerais';
-        catador.country = 'Brasil';
 
         catador.phones[0].phone = '(99) 99999-9999';
         catador.phones[0].has_whatsapp = true;

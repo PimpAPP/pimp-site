@@ -219,7 +219,7 @@ export class CadastroComponent implements OnInit {
         var valid: any = this.catador.valid();
         
         if (valid !== true) {
-            alert('Por favor preencha todos os campos obrigatórios.');
+            alert('Por favor preencha todos os campos obrigatórios. ' + valid);
             document.getElementById(valid).focus();
             return;
         }
@@ -359,7 +359,6 @@ export class CadastroComponent implements OnInit {
         this.catador.address_region = '';
         this.catador.city = '';
         this.catador.state = '';
-        this.catador.country = '';
     }
 
     updateAddress() {
@@ -387,8 +386,6 @@ export class CadastroComponent implements OnInit {
                 } else if (item.types.indexOf('administrative_area_level_1') >= 0) {
                     this.catador.state = item.long_name;
                     //this.catador.state = item.formatted_address;
-                } else if (item.types.indexOf('country') >= 0) {
-                    this.catador.country = item.long_name;
                 }
             }
 
@@ -409,9 +406,6 @@ export class CadastroComponent implements OnInit {
 
         if (this.catador.state)
             address += (address) ? ', ' + this.catador.state : this.catador.state;
-
-        if (this.catador.country)
-            address += (address) ? ', ' + this.catador.country : this.catador.country;
         
         this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
             var res = JSON.parse(data['_body']);

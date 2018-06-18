@@ -282,7 +282,6 @@ export class CatadorComponent implements OnInit {
         this.catador.address_region = '';
         this.catador.city = '';
         this.catador.state = '';
-        this.catador.country = '';
     }
 
     updateAddress() {
@@ -310,8 +309,6 @@ export class CatadorComponent implements OnInit {
                 } else if (item.types.indexOf('administrative_area_level_1') >= 0) {
                     this.catador.state = item.long_name;
                     //this.catador.state = item.formatted_address;
-                } else if (item.types.indexOf('country') >= 0) {
-                    this.catador.country = item.long_name;
                 }
             }
 
@@ -330,9 +327,6 @@ export class CatadorComponent implements OnInit {
 
         if (this.catador.state)
             address += (address) ? ', ' + this.catador.state : this.catador.state;
-
-        if (this.catador.country)
-            address += (address) ? ', ' + this.catador.country : this.catador.country;
         
         this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
             var res = JSON.parse(data['_body']);
