@@ -420,6 +420,8 @@ export class CadastroComponent implements OnInit {
 
         if (this.catador.state)
             address += (address) ? ', ' + this.catador.state : this.catador.state;
+
+        if (!address) return;
         
         this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
             var res = JSON.parse(data['_body']);

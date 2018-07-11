@@ -112,6 +112,7 @@ export class CooperativaComponent implements OnInit {
             var data = res.json();
             this.cooperativa = Object.assign(new Cooperativa, data);
 
+            console.log(this.cooperativa);
             this.cooperativa.phones.forEach((phone) => {
                 if (phone['has_whatsapp']) {
                     phone['whatsapp'] = 1;
@@ -119,6 +120,11 @@ export class CooperativaComponent implements OnInit {
                     phone['whatsapp'] = 0;
                 }
             })
+
+            if (this.cooperativa.founded_in && this.cooperativa.founded_in.indexOf('-') >= 0) {
+                var parts = this.cooperativa.founded_in.split('-');
+                this.cooperativa.founded_in = parts[2] + '/' + parts[1] + '/' + parts[0];
+            }
 
             if (!this.cooperativa.phones || this.cooperativa.phones.length == 0) {
                 this.cooperativa.phones = [];
@@ -376,8 +382,10 @@ export class CooperativaComponent implements OnInit {
             var results = res.results;
             if (!results) return;
 
-            var location = results[0]['geometry']['location'];
-            this.updateMap(location);
+            if (results[0] && results[0]['geometry'] && results[0]['geometry']['location']) {
+                var location = results[0]['geometry']['location'];
+                this.updateMap(location);
+            }
         });
     }
 
@@ -475,8 +483,12 @@ export class CooperativaComponent implements OnInit {
     }
 
     addPartner(partner) {
-        this.cooperativa.partners.push(partner);
-        this.cleanPartner();
+        if (partner.name && partner.image) {
+            this.cooperativa.partners.push(partner);
+            this.cleanPartner();
+        } else {
+            alert('Por favor preencha o nome e selecione uma nova imagem para o parceiro.');
+        }
     }
 
     removePartner(partner) {
