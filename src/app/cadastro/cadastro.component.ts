@@ -206,6 +206,20 @@ export class CadastroComponent implements OnInit {
     }
     
     toggleMap() { 
+        var valid: any = this.catador.valid([
+            'name',
+            'nickname',
+            'presentation_phrase',
+            'minibio',
+            'phones0'
+        ]);
+        
+        if (valid !== true) {
+            alert('Por favor preencha todos os campos obrigatórios. ');
+            document.getElementById(valid).focus();
+            return;
+        }
+        
         this.showMap = !this.showMap;
         
         if (this.showMap) {
@@ -219,7 +233,7 @@ export class CadastroComponent implements OnInit {
         var valid: any = this.catador.valid();
         
         if (valid !== true) {
-            alert('Por favor preencha todos os campos obrigatórios. ' + valid);
+            alert('Por favor preencha todos os campos obrigatórios. ');
             document.getElementById(valid).focus();
             return;
         }
