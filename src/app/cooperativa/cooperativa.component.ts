@@ -1,3 +1,4 @@
+import { ApiProvider } from './../providers/ApiProvider';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
@@ -39,6 +40,11 @@ export class CooperativaComponent implements OnInit {
     public zoom: number = 4;
     public markLat: number;
     public markLng: number;
+    public partnerLoading: Boolean = false;
+    public parceiro = {
+        name: '',
+        image: ''
+    }
 
     constructor(public http: Http, 
             public gMaps: GoogleMapsAPIWrapper,
@@ -106,6 +112,7 @@ export class CooperativaComponent implements OnInit {
             var data = res.json();
             this.cooperativa = Object.assign(new Cooperativa, data);
 
+            console.log(this.cooperativa);
             this.cooperativa.phones.forEach((phone) => {
                 if (phone['has_whatsapp']) {
                     phone['whatsapp'] = 1;
@@ -114,7 +121,10 @@ export class CooperativaComponent implements OnInit {
                 }
             })
 
-            console.log(this.cooperativa);
+            if (this.cooperativa.founded_in && this.cooperativa.founded_in.indexOf('-') >= 0) {
+                var parts = this.cooperativa.founded_in.split('-');
+                this.cooperativa.founded_in = parts[2] + '/' + parts[1] + '/' + parts[0];
+            }
 
             if (!this.cooperativa.phones || this.cooperativa.phones.length == 0) {
                 this.cooperativa.phones = [];
@@ -247,6 +257,7 @@ export class CooperativaComponent implements OnInit {
     showError(error) {
         this.loading = false;
         this.sendError(error);
+        console.log(this.cooperativa);
 
         try {            
             var error = error.json();
@@ -274,10 +285,10 @@ export class CooperativaComponent implements OnInit {
             } else {
                 if (Object.keys(error).length > 0) {
                     alert(error);
-                    location.href = "/";
+                    // location.href = "/";
                 } else {
                     alert('Erro ao cadastrar. Por favor tente novamente mais tarde.');
-                    location.href = "/";
+                    // location.href = "/";
                 }    
             }
             
@@ -371,8 +382,10 @@ export class CooperativaComponent implements OnInit {
             var results = res.results;
             if (!results) return;
 
-            var location = results[0]['geometry']['location'];
-            this.updateMap(location);
+            if (results[0] && results[0]['geometry'] && results[0]['geometry']['location']) {
+                var location = results[0]['geometry']['location'];
+                this.updateMap(location);
+            }
         });
     }
 
@@ -394,51 +407,67 @@ export class CooperativaComponent implements OnInit {
         return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
     } 
 
-    readURL(fileInput) {
+    readLogoURL(fileInput) {
         if (fileInput.target.files && fileInput.target.files[0]) {
             var reader = new FileReader();
             reader.onload = this.updateAvatarPreview;
+
+            var img = document.createElement("img");
+            var reader = new FileReader();  
+            reader.onload = (e: any) => {
+                var dataUrl = this.resizeImage(e.target.result);
+                $('#preview').attr('src', dataUrl);
+            }
+    
             reader.readAsDataURL(fileInput.target.files[0]);
-            this.resizeImage(fileInput.target.files[0]);
+        }
+    }
+
+    readGalleryURL(event) {
+        // this.cooperativa.photos = [];
+        if(event.target.files && event.target.files.length > 0) {
+            let files = event.target.files;
+            for (var x=0; x<files.length; x++) {
+                var reader = new FileReader();
+                reader.onload = (e: any) => {
+                    var dataUrl = this.resizeImage(e.target.result);
+                    this.addImageOnGallery(dataUrl);
+                };
+
+                reader.readAsDataURL(files[x]);
+            }
+        }
+    }
+
+    addImageOnGallery(url) {
+        this.cooperativa.photos.push(url);
+    }
+
+    removeImageOnGallery(photo) {
+        if (typeof photo == 'string') {
+            for (var x=0; x<this.cooperativa.photos.length; x++) {
+                if (typeof this.cooperativa.photos[x] == 'string') {
+                    if (this.cooperativa.photos[x] == photo) {
+                        this.cooperativa.photos.splice(x, 1);
+                    }
+                }
+            }
+        } else {
+            photo.delete = true;
+        }
+    }
+
+    getGallerySrc(photo) {
+        if (typeof photo == 'string') {
+            return photo;
+        } else {
+            var apiUrl = this.userDataService.apiProvider.url;
+            return apiUrl.substring(0, apiUrl.length - 1) + photo['full_photo'];
         }
     }
 
     updateAvatarPreview(e: any) {
         $('#preview').attr('src', e.target.result);
-    }
-
-    resizeImage(file) {
-        var img = document.createElement("img");
-        var reader = new FileReader();  
-        reader.onload = function(e) {
-            img.src = e.target['result']          
-            
-            var canvas = document.createElement("canvas");
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-    
-            var MAX_WIDTH = 800;
-            var MAX_HEIGHT = 600;
-            var width = img.width;
-            var height = img.height;
-    
-            if (width <= MAX_WIDTH && height <= MAX_HEIGHT)
-                return;
-
-            var ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);            
-            width = width*ratio; 
-            height = height*ratio;
-            
-            canvas.width = width;
-            canvas.height = height;
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-    
-            var dataurl = canvas.toDataURL("image/png");
-            $('#preview').attr('src', dataurl);     
-        }
-
-        reader.readAsDataURL(file);
     }
 
     getFormatDate(date: any) {
@@ -451,5 +480,84 @@ export class CooperativaComponent implements OnInit {
             d = '0' + d;
 
         return date.getFullYear() + '-' + m + '-' + d;
+    }
+
+    addPartner(partner) {
+        if (partner.name && partner.image) {
+            this.cooperativa.partners.push(partner);
+            this.cleanPartner();
+        } else {
+            alert('Por favor preencha o nome e selecione uma nova imagem para o parceiro.');
+        }
+    }
+
+    removePartner(partner) {
+        partner.delete = true;
+    }
+
+    cleanPartner() {
+        this.parceiro = {
+            name: '',
+            image: ''
+        }
+
+        var file = document.getElementById('parceiro-image-input');
+        file['value'] = '';
+    }
+
+    getPartnerSrc(partner) {
+        if (partner.image.startsWith('/media/')) {
+            var apiUrl = this.userDataService.apiProvider.url;
+            return apiUrl.substring(0, apiUrl.length - 1) + partner.image;
+        } else {
+            return partner.image;
+        }
+    }
+
+    readPartnerURL(event) {
+        this.partnerLoading = true;
+        if(event.target.files && event.target.files.length > 0) {
+            let file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = (e: any) => {
+                var dataUrl = this.resizeImage(e.target.result);
+                this.addImageOnPartner(dataUrl)
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+
+    addImageOnPartner(src){
+        this.parceiro.image = src;
+        this.partnerLoading = false;
+    }
+
+    resizeImage(file) {
+        var img = document.createElement("img");
+        var canvas = document.createElement("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+
+        var MAX_WIDTH = 800;
+        var MAX_HEIGHT = 600;
+        var width = img.width;
+        var height = img.height;
+
+        if (width <= MAX_WIDTH && height <= MAX_HEIGHT) {
+            return file;
+        }
+
+        var ratio = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);            
+        width = width*ratio; 
+        height = height*ratio;
+        
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        var dataurl = canvas.toDataURL("image/png");
+        return dataurl;
     }
 }

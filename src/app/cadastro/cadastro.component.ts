@@ -1,11 +1,12 @@
+import { Catador } from './../models/catador';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Http } from '@angular/http';
 
-import { Catador } from '../models/catador';
 import { User } from '../models/user';
 import { Phone } from '../models/phone';
 import { CatadorDataService } from '../services/catador-data.service';
+import { UtilDataService } from '../services/util-data.service';
 import { UserDataService } from '../services/user-data.service';
 import { MaterialRecover } from '../models/MaterialRecover';
 import { MapsAPILoader } from '@agm/core';
@@ -29,6 +30,7 @@ export class CadastroComponent implements OnInit {
 
     public loading: boolean = false;
     public isEditing: boolean = false;
+    public showMap: boolean = false;
 
     public catador: Catador = new Catador();
 
@@ -47,13 +49,12 @@ export class CadastroComponent implements OnInit {
     public loadingMessage: string = '';
 
     public checkboxValue;
-
-    //private geocoder: google.maps.Geocoder;
-
+    public stateCityList: any;
 
     constructor(private router: Router,
         public catadorDataService: CatadorDataService,
         public userDataService: UserDataService,
+        public utilDataService: UtilDataService,
         public http: Http, public gMaps: GoogleMapsAPIWrapper,
         private route: ActivatedRoute, 
         protected localStorage: LocalStorage) {
@@ -86,7 +87,7 @@ export class CadastroComponent implements OnInit {
         this.user = new User();
 
         this.setCurrentPosition();        
-        $(":file")['filestyle']({
+        /*$(":file")['filestyle']({
             input: true,
             buttonText: '',
             //buttonName: 'btn btn-primary',
@@ -94,13 +95,70 @@ export class CadastroComponent implements OnInit {
             iconName: "glyphicon glyphicon-camera",
             buttonBefore: true,
             placeholder: "Selecionar imagem"
-        });
+        }); */
 
         (<any>$("#datepicker")).datepicker({
             changeMonth: true,
             changeYear: true,
             dateFormat: 'dd/mm/yy'
         });
+
+        this.getStateCityList();
+    
+        // TODO: call jquery custom input
+        
+
+        // document.getElementById('fake-file-button-browse').addEventListener('click', function () {
+        //     document.getElementById('img-file').click();
+        // });
+    }
+
+    getStateCityList() {
+        this.utilDataService.getStateAndCityList().subscribe((res) => {
+            this.stateCityList = res.json();
+        })
+    }
+
+    startCityAndStateSelect() {
+        var data = this.stateCityList;
+        var options = '<option value="">Escolha um estado</option>';
+        
+        $.each(data, function (key, val) {
+            options += '<option value="' + val.nome + '">' + val.nome + '</option>';
+        });		
+
+        $("#state").html(options);				
+        $("#state").change(function () {				
+            var options_cidades = '';
+            var str = "";					
+            
+            $("#state option:selected").each(function () {
+                str += $(this).text();
+            });
+            
+            $.each(data, function (key, val) {
+                if(val.nome == str) {							
+                    $.each(val.cidades, function (key_city, val_city) {
+                        options_cidades += '<option value="' + val_city + '">' + val_city + '</option>';
+                    });							
+                }
+            });
+
+            $("#city").html(options_cidades);
+            
+        }).change();
+
+        this.forceUpdateStateCitySelect(this.catador.state, this.catador.city);
+    }
+
+    forceUpdateStateCitySelect(state, city) {
+        if (state && city) {
+            setTimeout(() => {
+                $('#state').val(state);
+                $('#state').change();
+                $('#city').val(city);
+            }, 500);
+        }
     }
 
     /**
@@ -122,7 +180,7 @@ export class CadastroComponent implements OnInit {
                 }
             })
 
-            console.log(this.catador);
+            // console.log(this.catador);
 
             if (!this.catador.phones) {
                 this.catador.phones = [];
@@ -145,14 +203,7 @@ export class CadastroComponent implements OnInit {
             previewEl.css('margin-bottom', '10px');
             previewEl.css('display', 'unset');
 
-            // if (this.catador.year_of_birth) {
-            //     var a = this.catador.year_of_birth.split('-');
-            //     var date = a[2] + '/' + a[1] + '/' + a[0];
-
-            //     setTimeout(function() {
-            //         (<any>$("#datepicker")).datepicker("setDate", date);
-            //     }, 500);
-            // }
+            this.forceUpdateStateCitySelect(this.catador.state, this.catador.city);
             
             this.loading = false;
         }, (error) => {
@@ -166,10 +217,35 @@ export class CadastroComponent implements OnInit {
         this.router.navigateByUrl('/');
     }
     
+    toggleMap() { 
+        var valid: any = this.catador.valid([
+            'name',
+            'nickname',
+            'presentation_phrase',
+            'minibio',
+            'phones0'
+        ]);
+        
+        if (valid !== true) {
+            alert('Por favor preencha todos os campos obrigatórios. ');
+            document.getElementById(valid).focus();
+            return;
+        }
+        
+        this.showMap = !this.showMap;
+        
+        if (this.showMap) {
+            setTimeout(() => {
+                this.startCityAndStateSelect();
+            }, 500);
+        }
+    }  
+
     save() { 
         var valid: any = this.catador.valid();
+        
         if (valid !== true) {
-            alert('Por favor preencha todos os campos obrigatórios.');
+            alert('Por favor preencha todos os campos obrigatórios. ');
             document.getElementById(valid).focus();
             return;
         }
@@ -316,7 +392,6 @@ export class CadastroComponent implements OnInit {
         this.catador.address_region = '';
         this.catador.city = '';
         this.catador.state = '';
-        this.catador.country = '';
     }
 
     updateAddress() {
@@ -344,10 +419,10 @@ export class CadastroComponent implements OnInit {
                 } else if (item.types.indexOf('administrative_area_level_1') >= 0) {
                     this.catador.state = item.long_name;
                     //this.catador.state = item.formatted_address;
-                } else if (item.types.indexOf('country') >= 0) {
-                    this.catador.country = item.long_name;
                 }
             }
+
+            this.forceUpdateStateCitySelect(this.catador.state, this.catador.city);
 
         }, err => {
             console.log(err);
@@ -365,8 +440,7 @@ export class CadastroComponent implements OnInit {
         if (this.catador.state)
             address += (address) ? ', ' + this.catador.state : this.catador.state;
 
-        if (this.catador.country)
-            address += (address) ? ', ' + this.catador.country : this.catador.country;
+        if (!address) return;
         
         this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
             var res = JSON.parse(data['_body']);
@@ -410,6 +484,8 @@ export class CadastroComponent implements OnInit {
 
                 this.updateAddress();
             });
+        } else {
+            console.log("Geolocation is not supported by this browser.");
         }
     }
 

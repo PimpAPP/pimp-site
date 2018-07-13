@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { CatadorComponent } from '../catador/catador.component';
-
-
 
 @Component({
     selector: 'app-home',
@@ -15,6 +12,7 @@ export class HomeComponent implements OnInit {
     constructor(private router: Router) { }
 
     ngOnInit() {
+        $("body").removeClass("modal-open");
     }
 
     openCatadorPage() {

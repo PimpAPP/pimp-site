@@ -2,7 +2,6 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { CatadorComponent } from './catador/catador.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { CooperativaComponent } from './cooperativa/cooperativa.component';
 
