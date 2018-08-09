@@ -471,6 +471,9 @@ export class CooperativaComponent implements OnInit {
     }
 
     getFormatDate(date: any) {
+        if (!date)
+            return '';
+
         var m = (date.getMonth() + 1) + '';
         if (m.length == 1)
             m = '0' + m;
