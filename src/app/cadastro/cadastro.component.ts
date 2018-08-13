@@ -83,6 +83,7 @@ export class CadastroComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.scrollToTop();
         // this.catador = new Catador();
         this.user = new User();
 
@@ -113,6 +114,11 @@ export class CadastroComponent implements OnInit {
         // });
     }
 
+    scrollToTop() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+    
     getStateCityList() {
         this.utilDataService.getStateAndCityList().subscribe((res) => {
             this.stateCityList = res.json();

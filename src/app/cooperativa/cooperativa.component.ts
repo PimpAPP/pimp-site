@@ -15,6 +15,7 @@ import { Response } from '@angular/http/src/static_response';
 import { Phone } from '../models/phone';
 
 declare var jQuery: any;
+declare var document: any;
 
 
 @Component({
@@ -67,6 +68,8 @@ export class CooperativaComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.scrollToTop();
+        
         this.cooperativa = new Cooperativa();
         this.setCurrentPosition();        
         $(":file")['filestyle']({
@@ -85,6 +88,11 @@ export class CooperativaComponent implements OnInit {
         setTimeout(()=>{
             this.updateMap({lat: this.mapLatitude, lng: this.mapLongitude});
         }, 500);
+    }
+
+    scrollToTop() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     }
 
     private setCurrentPosition() {
