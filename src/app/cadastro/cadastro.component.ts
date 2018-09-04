@@ -73,7 +73,13 @@ export class CadastroComponent implements OnInit {
         } else {
             this.localStorage.getItem<Catador>('cataki-catador').subscribe((catador) => {
                 if (catador != null) {
-                    this.catador = Object.assign(this.catador, catador);
+                    var r = confirm("Deseja restaurar o cadastro anterior?");
+                    if (r == true) {
+                        this.catador = Object.assign(this.catador, catador);
+                    } else {
+                        this.catador = new Catador();
+                        this.catador.materials_collected = [];
+                    }
                 } else {
                     this.catador = new Catador();
                     this.catador.materials_collected = [];
