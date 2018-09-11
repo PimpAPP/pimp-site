@@ -17,7 +17,7 @@ import { Response } from '@angular/http/src/static_response';
 import { setTimeout } from 'timers';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 
-// declare var $: any;
+declare var $: any;
 // declare var window: any;
 declare var document: any;
 
@@ -33,6 +33,9 @@ export class CadastroComponent implements OnInit {
     public showMap: boolean = false;
 
     public catador: Catador = new Catador();
+
+    // Preenchido após o cadastro para validação dos dados
+    public catadorFicha: Catador = new Catador();
 
     public user: User;
     public materialRecover: MaterialRecover = new MaterialRecover();
@@ -305,8 +308,10 @@ export class CadastroComponent implements OnInit {
             this.catadorDataService.save(this.catador, this.user, this.avatar, position, this.catador.phones).subscribe(res => {
                 this.loading = false;
                 this.localStorage.removeItem('cataki-catador').subscribe(() => {});
-                alert('Cadastro realizado com sucesso!');                
-                location.href = "/";
+
+                // Apresentar ficha do catador após o cadastro
+                var data = res.json();
+                this.showCatadorModal(data['catador_pk']);
             }, error => {
                 this.showError(error);
                 this.loading = false;
@@ -323,6 +328,25 @@ export class CadastroComponent implements OnInit {
                 this.loading = false;
             });
         }    
+    }
+
+    finishAfterModal() {
+        location.href = "/";
+    }
+
+    showCatadorModal(catadorId) {
+        alert('Cadastro realizado com sucesso!');
+
+        this.catadorDataService.getCatador(catadorId).subscribe((res: Response) => {
+            var data = res.json();
+            this.catadorFicha = Object.assign(new Catador, data);
+            $("#modalFichaCadastro").modal();
+        });
+    }
+
+    getMaterialName(material_id) {
+        let materialSelected = this.materialRecover.findMaterialId(material_id);
+        return materialSelected.name;
     }
 
     cancel() {

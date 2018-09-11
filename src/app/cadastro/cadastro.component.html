@@ -637,29 +637,6 @@
                                 </div>
                             </div>
                         </div>
-                                                
-                        <!-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <select class="form-control" 
-                                            id="state"
-                                            name="state"
-                                            [(ngModel)]="catador.state">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <select class="form-control" 
-                                            id="city" 
-                                            name="city"
-                                            [(ngModel)]="catador.city">
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
 
                         <div class="row">
                             <div class="col-md-12 ">
@@ -708,40 +685,124 @@
 
 
 
-<!-- Modal1 -->
+<!-- Modal Dicas -->
 <div class="mod1">
-<div class="modal fade" id="myModal" role="dialog" tabindex="-1" aria-labelledby="Dicas para cadastro">
-    <div class="modal-dialog modal-lg" role="content">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title main-head">DICAS PARA CADASTRO</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">&times;</button>
+    <div class="modal fade" id="myModal" role="dialog" tabindex="-1" aria-labelledby="Dicas para cadastro">
+        <div class="modal-dialog modal-lg" role="content">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title main-head">DICAS PARA CADASTRO</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">&times;</button>
+                </div>
+                <ul>
+                    <li >
+                        Comece mostrando nosso vídeo para o catador/a, é a forma mais simples de explicar;
+                    </li>
+                    <li>
+                        Você estará criando um perfil profissional, tenha isso em mente;
+                    </li>
+                    <li class="">
+                        Queremos respeitar e divulgar a imagem dos catadores, por isso, capriche na foto. Ela precisa ser clara e positiva, é o cartão de visita do catador;
+                    </li>
+                    <li class="">
+                        Para "História de vida", algumas perguntas boas para disparar são: como começou o trabalho, quais são seus sonhos, quem é a sua família...;
+                    </li>
+                    <li class="">
+                        Para "Frase marcante", você pode buscar uma frase que o catador goste, ou algo que está escrito na carroça, uma letra de música, algo marcante e bonito;
+                    </li>
+                    <li class="">
+                        Deixe claro que esse é um convite profissional, que o catador será chamado para realizar trabalhos e que a equipe do Cataki estará acompanhando o processo.
+                    </li>
+                    <li class="">
+                        Estamos caminhando para a cooperativa digital! Ao longo de 2018 isso irá acontecer e os cadastrados poderão participar.
+                    </li>
+                </ul>
             </div>
-            <ul>
-                <li >
-                    Comece mostrando nosso vídeo para o catador/a, é a forma mais simples de explicar;
-                </li>
-                <li>
-                    Você estará criando um perfil profissional, tenha isso em mente;
-                </li>
-                <li class="">
-                    Queremos respeitar e divulgar a imagem dos catadores, por isso, capriche na foto. Ela precisa ser clara e positiva, é o cartão de visita do catador;
-                </li>
-                <li class="">
-                    Para "História de vida", algumas perguntas boas para disparar são: como começou o trabalho, quais são seus sonhos, quem é a sua família...;
-                </li>
-                <li class="">
-                    Para "Frase marcante", você pode buscar uma frase que o catador goste, ou algo que está escrito na carroça, uma letra de música, algo marcante e bonito;
-                </li>
-                <li class="">
-                    Deixe claro que esse é um convite profissional, que o catador será chamado para realizar trabalhos e que a equipe do Cataki estará acompanhando o processo.
-                </li>
-                <li class="">
-                    Estamos caminhando para a cooperativa digital! Ao longo de 2018 isso irá acontecer e os cadastrados poderão participar.
-                </li>
-            </ul>
         </div>
     </div>
 </div>
+
+<!-- Modal Ficha cadastro -->
+<div class="mod1">
+    <div class="modal fade" id="modalFichaCadastro" role="dialog" tabindex="-1" aria-labelledby="Ficha do Catador">
+        <div class="modal-dialog modal-lg" role="content">
+            <!-- Modal content-->
+            <div class="modal-content modal-ficha-cadastro">
+                <div class="modal-header">
+                    <h4 class="modal-title main-head">Ficha do Catador</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar" (click)="finishAfterModal()">&times;</button>
+                </div>
+                <ul>
+                    <li>
+                        <b>Nome:</b> {{ catadorFicha.name }}
+                    </li>
+                    <li>
+                        <b>História de vida:</b> {{ catadorFicha.minibio }}
+                    </li>
+                    <li>
+                        <b>Telefone 1:</b> {{ catadorFicha.phones[0]?.phone }} - 
+                            <b>Whatsapp?</b> 
+                                <span [hidden]="!catadorFicha.phones[0]?.has_whatsapp">Sim</span>
+                                <span [hidden]="catadorFicha.phones[0]?.has_whatsapp">Não</span>
+                    </li>
+                    <li [hidden]="!catadorFicha.phones[1]?.phone">
+                        <b>Telefone 2 (opcional):</b> {{ catadorFicha.phones[1]?.phone }} - 
+                        <b>Whatsapp?</b>
+                            <span [hidden]="!catadorFicha.phones[1]?.has_whatsapp">Sim</span>
+                            <span [hidden]="catadorFicha.phones[1]?.has_whatsapp">Não</span>
+                    </li>
+                    <li>
+                        <b>Catador(a) motorizado(a)?</b> 
+                            <span [hidden]="!catadorFicha.has_motor_vehicle">Sim</span>
+                            <span [hidden]="catadorFicha.has_motor_vehicle">Não</span>
+                    </li>
+                    <li>
+                        <b>Carroça grafitada/pimpada?</b> 
+                            <span [hidden]="!catadorFicha.carroca_pimpada">Sim</span>
+                            <span [hidden]="catadorFicha.carroca_pimpada">Não</span>
+                    </li>
+                    <li>
+                        <b>Materiais que coleta:</b> 
+                        <span *ngFor="let id of catadorFicha.materials_collected">
+                            {{ getMaterialName(id) }}, 
+                        </span>
+                    </li>
+                    <li>
+                        <b>Quem está cadastrando?</b> 
+                            <span [hidden]="!catadorFicha.registered_by_another_user">Sim</span>
+                            <span [hidden]="catadorFicha.registered_by_another_user">Próprio usuário</span>
+                        <span [hidden]="!catadorFicha.registered_by_another_user">
+                            <b>Nome:</b>  {{ catadorFicha.another_user_name }} - 
+                            <b>E-mail: </b> {{ catadorFicha.another_user_email }} - 
+                            <b>Whatsapp: </b> 
+                                <span [hidden]="!catadorFicha.another_user_whatsapp">Sim</span>
+                                <span [hidden]="catadorFicha.another_user_whatsapp">Não</span>
+                        </span>
+                    </li>
+                    <li>
+                        <b>Estado:</b> {{ catadorFicha.state }}
+                    </li>
+                    <li>
+                        <b>Cidade:</b> {{ catadorFicha.city }}
+                    </li>
+                    <li>
+                        <b>Bairro:</b> {{ catadorFicha.address_region }}
+                    </li>
+                    <li>
+                        <b>Rua:</b> {{ catadorFicha.address_base }}
+                    </li>
+                    <li>
+                        <b>Nº:</b> {{ catadorFicha.number }}
+                    </li>
+                </ul>
+
+                <div class="box-ficha-btn">
+                    <a class="btn ficha-btn" (click)="finishAfterModal()">
+                        Concluir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
