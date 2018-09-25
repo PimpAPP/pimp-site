@@ -313,7 +313,6 @@ export class CooperativaComponent implements OnInit {
         };
         this.userDataService.sendError(detail, obj).subscribe();
     }
-    
 
     selectMaterial(material) {
         let materialSelected = this.materialRecover.findMaterial(material);
@@ -385,6 +384,7 @@ export class CooperativaComponent implements OnInit {
         
         if (!address) return;
         
+        // Falta add api key
         this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
             var res = JSON.parse(data['_body']);
             var results = res.results;

@@ -17,6 +17,7 @@ import { CooperativaComponent } from './cooperativa/cooperativa.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { UserDataService } from 'app/services/user-data.service';
 import { UtilDataService } from 'app/services/util-data.service';
+import { CadastroCooperativaComponent } from './cadastro-cooperativa/cadastro-cooperativa.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { UtilDataService } from 'app/services/util-data.service';
         AppComponent,
         HomeComponent,
         CooperativaComponent,
-        CadastroComponent
+        CadastroComponent,
+        CadastroCooperativaComponent,
     ],
     imports: [
         BrowserModule,
