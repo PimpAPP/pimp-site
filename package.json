@@ -1,5 +1,5 @@
 {
-  "name": "site",
+  "name": "cataki",
   "version": "0.0.0",
   "license": "MIT",
   "angular-cli": {},
@@ -10,22 +10,23 @@
     "test": "ng test",
     "pree2e": "webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor",
-    "postinstall": "ng build --aot -prod"
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.3",
-    "@angular/animations": "^5.0.0",
-    "@angular/common": "^5.0.0",
-    "@angular/compiler": "^5.0.0",
-    "@angular/compiler-cli": "^5.0.0",
-    "@angular/core": "^5.0.0",
-    "@angular/forms": "^5.0.0",
-    "@angular/http": "^5.0.0",
-    "@angular/platform-browser": "^5.0.0",
-    "@angular/platform-browser-dynamic": "^5.0.0",
-    "@angular/platform-server": "^5.0.0",
-    "@angular/router": "^5.0.0",
+    "@angular-devkit/build-angular": "^0.8.4",
+    "@angular/animations": "6.1.9",
+    "@angular/common": "6.1.9",
+    "@angular/compiler": "6.1.9",
+    "@angular/compiler-cli": "6.1.9",
+    "@angular/core": "6.1.9",
+    "@angular/forms": "6.1.9",
+    "@angular/http": "6.1.9",
+    "@angular/platform-browser": "6.1.9",
+    "@angular/platform-browser-dynamic": "6.1.9",
+    "@angular/platform-server": "6.1.9",
+    "@angular/router": "6.1.9",
     "@ngx-pwa/local-storage": "^5.3.0",
     "@types/jquery": "^3.2.11",
     "@types/underscore": "^1.8.1",
@@ -33,15 +34,16 @@
     "core-js": "^2.4.1",
     "moment": "^2.20.1",
     "require-path": "^0.3.0",
-    "rxjs": "^5.0.1",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
     "ts-helpers": "^1.1.1",
     "underscore": "^1.8.3",
-    "webpack": "^3.11.0",
-    "zone.js": "^0.8.14"
+    "webpack": "^4.3.0",
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular/cli": "^1.7.4",
-    "@angular/compiler-cli": "^2.3.1",
+    "@angular/cli": "^6.2.4",
+    "@angular/compiler-cli": "6.1.9",
     "@types/googlemaps": "^3.26.17",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.42",
@@ -57,6 +59,6 @@
     "protractor": "^5.3.1",
     "ts-node": "3.3.0",
     "tslint": "^4.0.2",
-    "typescript": "^2.3.4"
+    "typescript": "^2.9.2"
   }
 }

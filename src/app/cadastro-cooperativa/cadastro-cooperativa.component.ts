@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { GoogleMapsAPIWrapper } from '@agm/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CooperativaDataService } from '../services/cooperativa-data.service';
@@ -45,7 +45,7 @@ export class CadastroCooperativaComponent implements OnInit {
    
     public stateCityList: any;
 
-    constructor(public http: Http, 
+    constructor(public http: HttpClient, 
             public gMaps: GoogleMapsAPIWrapper,
             private router: Router, 
             public cooperativaDataService: CooperativaDataService,
@@ -157,7 +157,7 @@ export class CadastroCooperativaComponent implements OnInit {
 
     getStateCityList() {
         this.utilDataService.getStateAndCityList().subscribe((res) => {
-            this.stateCityList = res.json();
+            this.stateCityList = res;
             var data = this.stateCityList;
             var options = '<option value="">Escolha um estado</option>';
             
@@ -247,11 +247,13 @@ export class CadastroCooperativaComponent implements OnInit {
     }
 
     updateAddress() {
-        let url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.markLat + ',' + this.markLng;
+        let url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + 
+                this.markLat + ',' + this.markLng +
+                '&key=' + this.utilDataService.MAP_API_KEY;
 
         this.http.get(url).subscribe(data => {
-            var res = JSON.parse(data['_body']);
-            var results = res.results;
+            var res = data;
+            var results = res['results'];
 
             if (!results || !results[0])
                 return;
@@ -297,10 +299,10 @@ export class CadastroCooperativaComponent implements OnInit {
         
         if (!address) return;
         
-        // Falta add api key
-        this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
-            var res = JSON.parse(data['_body']);
-            var results = res.results;
+        var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + this.utilDataService.MAP_API_KEY;
+        this.http.get(url).subscribe(data => {
+            var res = data;
+            var results = res['results'];
             if (!results) return;
 
             if (results[0] && results[0]['geometry'] && results[0]['geometry']['location']) {
@@ -317,7 +319,7 @@ export class CadastroCooperativaComponent implements OnInit {
         this.loading = true;
         this.isEditing = true;
         this.cooperativaDataService.get(catadorId).subscribe( res => {
-            var data = res.json();
+            var data = res;
             this.cooperativa = Object.assign(new Cooperativa, data);
 
             console.log(this.cooperativa);

@@ -1,0 +1,25 @@
+
+<input type="text" name="search" 
+        [(ngModel)]="search" 
+        class="search-country-nav" 
+        placeholder="Country" 
+        id="search-country-nav-{{ customId }}"
+        autocomplete="off"
+        (focus)="isFocused = true;" 
+        (focusout)="focusOut();" 
+        (ngModelChange)="onChange($event)"/>
+
+<div class="search-autocomplete-box"
+        [hidden]="!showBox">
+    <div class="item" 
+            *ngFor="let item of suggestedItems; let i = index"
+            (click)="onSelect(item)">
+        <span class="item-suggested" [hidden]="!item.suggested">
+            {{ item.suggested }}
+        </span>
+        <span class="item-original" [hidden]="!item.original || (item.original == item.suggested)"> 
+            ({{ item.original }})
+        </span>
+    </div>
+
+</div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiProvider } from './../providers/ApiProvider';
 import { User } from '../models/user';
 
@@ -9,23 +9,23 @@ export class UserDataService {
 
     public url = this.apiProvider.url + 'api/users/';
     public urlLogin = this.apiProvider.url + 'api/api-token-auth/';
-    public headers = new Headers();
+    public headers = new HttpHeaders();
     public isLogged: boolean = false;
     public userToken: string = '';
 
-    constructor(public http: Http, public apiProvider: ApiProvider) {
+    constructor(public http: HttpClient, public apiProvider: ApiProvider) {
         this.headers.append('Content-Type', 'application/json');
     }
 
     saveUser(user: User) {
         return this.http.post(this.url, user, {
             headers: this.headers
-        }).timeout(1500);
+        });
     }    
 
     addAvatar(data, userId) {        
         let url = this.url + userId + '/photos/';
-        return this.http.post(url, data, {headers: this.headers}).timeout(1000000)
+        return this.http.post(url, data, {headers: this.headers});
     }
 
     login(email, password) {

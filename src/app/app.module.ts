@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { LocalStorageModule } from '@ngx-pwa/local-storage';
 import { PathLocationStrategy, LocationStrategy } from '@angular/common';
 
@@ -15,9 +15,10 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { AgmCoreModule, MarkerManager, GoogleMapsAPIWrapper } from '@agm/core';
 import { CooperativaComponent } from './cooperativa/cooperativa.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
-import { UserDataService } from 'app/services/user-data.service';
-import { UtilDataService } from 'app/services/util-data.service';
 import { CadastroCooperativaComponent } from './cadastro-cooperativa/cadastro-cooperativa.component';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { UserDataService } from './services/user-data.service';
+import { UtilDataService } from './services/util-data.service';
 
 
 @NgModule({
@@ -27,11 +28,12 @@ import { CadastroCooperativaComponent } from './cadastro-cooperativa/cadastro-co
         CooperativaComponent,
         CadastroComponent,
         CadastroCooperativaComponent,
+        AutocompleteComponent
     ],
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         routing,
         TextMaskModule,
         LocalStorageModule,

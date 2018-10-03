@@ -1,7 +1,7 @@
 import { Catador } from './../models/catador';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http'
 
 import { User } from '../models/user';
 import { Phone } from '../models/phone';
@@ -14,7 +14,7 @@ import { GoogleMapsAPIWrapper } from '@agm/core';
 import * as _ from 'underscore';
 import { Observable } from "rxjs/Rx";
 import { Response } from '@angular/http/src/static_response';
-import { setTimeout } from 'timers';
+// import { setTimeout } from 'timers';
 import { LocalStorage } from '@ngx-pwa/local-storage';
 
 declare var $: any;
@@ -58,7 +58,7 @@ export class CadastroComponent implements OnInit {
         public catadorDataService: CatadorDataService,
         public userDataService: UserDataService,
         public utilDataService: UtilDataService,
-        public http: Http, public gMaps: GoogleMapsAPIWrapper,
+        public http: HttpClient, public gMaps: GoogleMapsAPIWrapper,
         private route: ActivatedRoute, 
         protected localStorage: LocalStorage) {
 
@@ -130,7 +130,7 @@ export class CadastroComponent implements OnInit {
     
     getStateCityList() {
         this.utilDataService.getStateAndCityList().subscribe((res) => {
-            this.stateCityList = res.json();
+            this.stateCityList = res;
         })
     }
 
@@ -182,10 +182,8 @@ export class CadastroComponent implements OnInit {
     fillData(catadorId) {
         this.loading = true;
         this.isEditing = true;
-        this.catadorDataService.getCatador(catadorId).subscribe((res: Response) => {
-            var data = res.json();
+        this.catadorDataService.getCatador(catadorId).subscribe((data: Response) => {
             this.catador = Object.assign(new Catador, data);
-            // this.catador = <Catador>res.json();
 
             this.catador.phones.forEach((phone) => {
                 if (phone['has_whatsapp']) {
@@ -310,7 +308,7 @@ export class CadastroComponent implements OnInit {
                 this.localStorage.removeItem('cataki-catador').subscribe(() => {});
 
                 // Apresentar ficha do catador após o cadastro
-                var data = res.json();
+                var data = res;
                 this.showCatadorModal(data['catador_pk']);
             }, error => {
                 this.showError(error);
@@ -337,8 +335,7 @@ export class CadastroComponent implements OnInit {
     showCatadorModal(catadorId) {
         alert('Cadastro realizado com sucesso!');
 
-        this.catadorDataService.getCatador(catadorId).subscribe((res: Response) => {
-            var data = res.json();
+        this.catadorDataService.getCatador(catadorId).subscribe((data: Response) => {
             this.catadorFicha = Object.assign(new Catador, data);
             $("#modalFichaCadastro").modal();
         });
@@ -431,11 +428,12 @@ export class CadastroComponent implements OnInit {
     }
 
     updateAddress() {
-        let url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.markLat + ',' + this.markLng;
+        let url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + 
+                this.markLat + ',' + this.markLng + 
+                '&key=' + this.utilDataService.MAP_API_KEY;
 
         this.http.get(url).subscribe(data => {
-            var res = JSON.parse(data['_body']);
-            var results = res.results;
+            var results = data['results'];
 
             if (!results || !results[0])
                 return;
@@ -478,9 +476,10 @@ export class CadastroComponent implements OnInit {
 
         if (!address) return;
         
-        this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
-            var res = JSON.parse(data['_body']);
-            var results = res.results;
+        this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + this.utilDataService.MAP_API_KEY)
+                .subscribe(data => {
+            var res = data;
+            var results = res['results'];
             if (!results) return;
 
             if (results[0] && results[0]['geometry'] && results[0]['geometry']['location']) {

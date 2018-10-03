@@ -1,7 +1,7 @@
 import { ApiProvider } from './../providers/ApiProvider';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Cooperativa } from '../models/cooperativa';
 import { User } from '../models/user';
 import { CooperativaDataService } from '../services/cooperativa-data.service';
@@ -13,8 +13,9 @@ import * as _ from 'underscore';
 import { Observable } from "rxjs/Rx";
 import { Response } from '@angular/http/src/static_response';
 import { Phone } from '../models/phone';
+import { UtilDataService } from '../services/util-data.service';
 
-declare var jQuery: any;
+declare var $: any;
 declare var document: any;
 
 
@@ -47,12 +48,13 @@ export class CooperativaComponent implements OnInit {
         image: ''
     }
 
-    constructor(public http: Http, 
+    constructor(public http: HttpClient, 
             public gMaps: GoogleMapsAPIWrapper,
             private router: Router, 
             public cooperativaDataService: CooperativaDataService,
             public userDataService: UserDataService,
-            private route: ActivatedRoute) {
+            private route: ActivatedRoute,
+            private utilDataService: UtilDataService) {
                 
         this.cooperativa = new Cooperativa();
         this.user = new User();
@@ -116,8 +118,7 @@ export class CooperativaComponent implements OnInit {
     fillData(catadorId) {
         this.loading = true;
         this.isEditing = true;
-        this.cooperativaDataService.get(catadorId).subscribe((res: Response) => {
-            var data = res.json();
+        this.cooperativaDataService.get(catadorId).subscribe((data: Response) => {
             this.cooperativa = Object.assign(new Cooperativa, data);
 
             console.log(this.cooperativa);
@@ -334,11 +335,14 @@ export class CooperativaComponent implements OnInit {
     }
 
     updateAddress() {
-        let url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + this.markLat + ',' + this.markLng;
+        let url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' + 
+                this.markLat + ',' + this.markLng + 
+                '&key=' + this.utilDataService.MAP_API_KEY;;
 
         this.http.get(url).subscribe(data => {
-            var res = JSON.parse(data['_body']);
-            var results = res.results;
+            // var res = JSON.parse(data['_body']);
+            var res = data;
+            var results = res['results'];
 
             if (!results || !results[0])
                 return;
@@ -385,9 +389,10 @@ export class CooperativaComponent implements OnInit {
         if (!address) return;
         
         // Falta add api key
-        this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address).subscribe(data => {
-            var res = JSON.parse(data['_body']);
-            var results = res.results;
+        this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + + '&key=' + this.utilDataService.MAP_API_KEY)
+                .subscribe(data => {
+            var res = data;
+            var results = res['results'];
             if (!results) return;
 
             if (results[0] && results[0]['geometry'] && results[0]['geometry']['location']) {
