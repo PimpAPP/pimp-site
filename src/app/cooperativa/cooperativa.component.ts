@@ -391,6 +391,8 @@ export class CooperativaComponent implements OnInit {
         // Falta add api key
         this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + + '&key=' + this.utilDataService.MAP_API_KEY)
                 .subscribe(data => {
+            console.log('ok');
+            console.log(data);
             var res = data;
             var results = res['results'];
             if (!results) return;
